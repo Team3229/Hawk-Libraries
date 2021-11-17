@@ -1,9 +1,11 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2020 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
+// Author: Team 3229 Programming Subteam
 
 #include "Robot.h"
 
@@ -11,63 +13,89 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-void Robot::RobotInit() {
-  m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-  m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+void Robot::RobotInit() 
+{
+  /*
+  m_chooser.SetDefaultOption("With Gyro (Field Oriented)", kDriveNameDefault);
+  m_chooser.AddOption("Without Gyro (Robot Oriented)", kDriveNameCustom);
+  */
+  frc::SmartDashboard::PutString("Drive Mode", "Without Gyro");
+  frc::SmartDashboard::PutString("Current Template", m_template);
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic() {}
 
-/**
- * This autonomous (along with the chooser code above) shows how to select
- * between different autonomous modes using the dashboard. The sendable chooser
- * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
- * remove all of the chooser code and uncomment the GetString line to get the
- * auto name from the text box below the Gyro.
- *
- * You can add additional auto modes by adding additional comparisons to the
- * if-else structure below with additional strings. If using the SendableChooser
- * make sure to add them to the chooser code above as well.
- */
-void Robot::AutonomousInit() {
-  m_autoSelected = m_chooser.GetSelected();
-  // m_autoSelected = SmartDashboard::GetString("Auto Selector",
-  //     kAutoNameDefault);
-  std::cout << "Auto selected: " << m_autoSelected << std::endl;
-
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+void Robot::AutonomousInit() 
+{
+  chassis.ResetGyro();
+  m_lastUsedSpeed = 3;
+  chassis.ChangeSpeed(3); // turbo speed
+  debug("Sandstorm starting...\n");
 }
 
-void Robot::AutonomousPeriodic() {
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+void Robot::AutonomousPeriodic() 
+{
+  TeleopPeriodic(); // run teleop during sandstorm period
 }
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() 
+{
+  //Needs to be removed before comp:
+  //chassis.ResetGyro();
+  debug("TeleOp starting...\n");
+}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic()
+{    
+  //Update controller axis values
+  d1_leftY = xbox1.GetY(frc::GenericHID::kLeftHand);
+  d1_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
+  d1_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
+  
+  d2_leftY = xbox2.GetY(frc::GenericHID::kLeftHand);
+  d2_rightY = xbox2.GetY(frc::GenericHID::kRightHand);
 
-void Robot::DisabledInit() {}
+  // DRIVE
+  debug("Gyro angle: " << chassis.TestGyro() << "\n");
+  if(abs(d1_leftX) > DEAD_BAND || abs(d1_leftY) > DEAD_BAND || abs(d1_rightX) > DEAD_BAND )
+	{
+    if (m_driveWithGyro == true)
+      chassis.Drive(d1_leftY, d1_leftX, d1_rightX); // drives robot with mecanum chassis + gyro
+    else
+      chassis.DriveWithoutGyro(d1_leftY, d1_leftX, d1_rightX); // drives mecanum without gyro
+	}
+	else
+  {
+    if (m_usingVision == false)
+      chassis.Stop(); // stops driving
+  }
+  
+  // swap robot and field orient with button
+  //if (xbox1.GetTriggerAxis(frc::GenericHID::kRightHand) > DEAD_BAND)
+    //SwitchDriveMode();
 
-void Robot::DisabledPeriodic() {}
+  // speed changer 
+  // BOTH CONTROLLERS NOW HAVE ACCESS TO THESE
+  if (xbox1.GetAButton())
+  {
+    chassis.ChangeSpeed(2); // normal speed
+    m_lastUsedSpeed = 2;
+  }
 
-void Robot::TestInit() {}
+  if (xbox1.GetBButton())
+  {
+    chassis.ChangeSpeed(1); // slow speed
+    m_lastUsedSpeed = 1;
+  }
+
+  if (xbox1.GetXButton())
+  {
+    chassis.ChangeSpeed(3); // fast
+    m_lastUsedSpeed = 3;
+  }
+
+  
+}
 
 void Robot::TestPeriodic() {}
 
