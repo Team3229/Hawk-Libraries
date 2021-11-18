@@ -1,15 +1,10 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2020 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+
 
 #include "Robot.h"
 
 #include <iostream>
 
-#include <frc/smartdashboard/SmartDashboard.h>
+
 
 void Robot::RobotInit() 
 {
@@ -20,7 +15,7 @@ void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() 
 {
-  chassis.ResetGyro();
+  
   chassis.ChangeSpeed(3); // turbo speed
 }
 
@@ -69,11 +64,17 @@ void Robot::TeleopPeriodic()
     m_lastUsedSpeed = 3;
   }
 
+  }
 }
 
-void Robot::TestInit() {}
+void Robot::TestInit() 
+{
+  
+}
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic() {
+    TeleopPeriodic();
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

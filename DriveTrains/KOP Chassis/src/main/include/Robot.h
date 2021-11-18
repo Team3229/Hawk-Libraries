@@ -10,7 +10,7 @@
 #include <string>
 
 #include <frc/TimedRobot.h>
-#include <frc/smartdashboard/SendableChooser.h>
+
 
 // Our needed includes
 #include <frc/XboxController.h>
@@ -31,7 +31,6 @@ class Robot : public frc::TimedRobot {
 
   void TestInit() override;
   void TestPeriodic() override;
-  void DisabledInit() override;
 
  private:
   // SmartDashboard setup
