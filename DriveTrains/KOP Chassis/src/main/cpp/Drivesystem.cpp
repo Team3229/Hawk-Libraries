@@ -1,3 +1,6 @@
+//Author: Sebastian Roman (Programming Lead)
+//Co Author: 3229 Programming
+
 #include "DriveSystem.h"
 
 DriveSystem::DriveSystem()
@@ -19,7 +22,7 @@ DriveSystem::DriveSystem()
 	leftLead->Set(ControlMode::PercentOutput, 0);
 	rightLead->Set(ControlMode::PercentOutput, 0);
 	leftFollower->Set(ControlMode::PercentOutput, 0);
-	leftFollower->Set(ControlMode::PercentOutput, 0);
+	rightFollower->Set(ControlMode::PercentOutput, 0);
 
     //Clears sticky faults
 	leftLead->ClearStickyFaults(0);
@@ -78,6 +81,6 @@ void DriveSystem::ChangeSpeed(int choice)
     else if (choice == 3)
 	{
         driveTrain->SetMaxOutput(HIGH_OUTPUT);
-    	debug("Fast speed\n");
+    	debug("Fast speed\n"); 
 	}
 }

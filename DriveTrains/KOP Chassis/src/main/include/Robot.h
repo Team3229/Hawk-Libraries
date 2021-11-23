@@ -15,10 +15,14 @@
 // Our needed includes
 #include <frc/XboxController.h>
 #include <Math.h>
+#include "ControllerInputs.h"
 
 // Subsystem includes
 #include "DriveSystem.h"
+#include "Auto.h"
 #include "Debug.h"
+
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -29,13 +33,19 @@ class Robot : public frc::TimedRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
 
+
+  void DisabledInit() override;
   void TestInit() override;
   void TestPeriodic() override;
+
+  void ExecuteControls();
 
  private:
   // SmartDashboard setup
   frc::SendableChooser<std::string> m_chooser;
   std::string m_driveSelected;
+
+   cmd * m_controllerInputs = new cmd;
 
   // Constants
   const int XBOX_USB_DRIVER_1 = 0;
@@ -49,7 +59,8 @@ class Robot : public frc::TimedRobot {
   // Objects of subsystems
   DriveSystem chassis{};
 
-
+  Auto m_auto{&chassis};
+  const bool m_recordMode = true; // use this to force disable recording, useful at competitions
   
   frc::XboxController xbox1 {XBOX_USB_DRIVER_1}; //Chassis driver
 

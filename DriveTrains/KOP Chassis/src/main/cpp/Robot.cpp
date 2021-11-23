@@ -1,42 +1,61 @@
 
-
 #include "Robot.h"
-
 #include <iostream>
 
-
-
-void Robot::RobotInit() 
-{
- 
-}
+void Robot::RobotInit(){}
 
 void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() 
 {
-  
-  chassis.ChangeSpeed(3); // turbo speed
+  m_auto.SetupPlayback();
 }
 
 void Robot::AutonomousPeriodic() 
 {
-  TeleopPeriodic();
+  m_auto.ReadFile(m_controllerInputs);
+  ExecuteControls();
 }
 
 void Robot::TeleopInit() 
 {
-
+  m_auto.CloseFile();
 }
 
 void Robot::TeleopPeriodic()
 {    
+  
   //Update controller axis values
   d1_leftY = xbox1.GetY(frc::GenericHID::kLeftHand);
   d1_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
   d1_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
+  
+    ExecuteControls();
+}
 
-		if(abs(d1_leftX) > DEAD_BAND || abs(d1_leftY) > DEAD_BAND)
+void Robot::TestInit() 
+{
+  m_auto.SetupRecording();
+}
+
+void Robot::TestPeriodic() 
+{
+  if (m_recordMode) { // recording
+    // Run TeleOp as normal
+    TeleopPeriodic();
+    // Write current struct to file
+    m_auto.Record(m_controllerInputs);
+  }
+}
+
+void Robot::DisabledInit() 
+{
+  m_auto.CloseFile();
+}
+
+void Robot::ExecuteControls()
+{
+if(abs(d1_leftX) > DEAD_BAND || abs(d1_leftY) > DEAD_BAND)
 		{
 			  chassis.Drive(d1_leftY, d1_leftX, d1_rightX);
 		}
@@ -67,16 +86,9 @@ void Robot::TeleopPeriodic()
   }
 }
 
-void Robot::TestInit() 
-{
-  
-}
-
-void Robot::TestPeriodic() {
-    TeleopPeriodic();
-}
 
 #ifndef RUNNING_FRC_TESTS
+
 int main() { return frc::StartRobot<Robot>(); }
 #endif 
 
