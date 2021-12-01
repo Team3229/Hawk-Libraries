@@ -57,7 +57,7 @@ class Robot : public frc::TimedRobot {
   
 
   // Objects of subsystems
-  DriveSystem chassis{};
+  DriveSystem chassis;
 
   Auto m_auto{&chassis};
   const bool m_recordMode = true; // use this to force disable recording, useful at competitions

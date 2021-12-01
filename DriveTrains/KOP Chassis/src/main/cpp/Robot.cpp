@@ -9,11 +9,13 @@ void Robot::RobotPeriodic() {}
 void Robot::AutonomousInit() 
 {
   m_auto.SetupPlayback();
+   
 }
 
 void Robot::AutonomousPeriodic() 
 {
   m_auto.ReadFile(m_controllerInputs);
+  debugCons("Running Auto");
   ExecuteControls();
 }
 

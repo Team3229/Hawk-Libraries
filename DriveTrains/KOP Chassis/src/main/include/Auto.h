@@ -10,7 +10,7 @@
 #include <Math.h>
 #include "frc/Timer.h"
 
-#include "Drivesystem.h"
+#include "DriveSystem.h"
 #include "CaptureFile.h"
 #include "Debug.h"
 #include "ControllerInputs.h"
@@ -36,14 +36,14 @@ private:
   CaptureFile cmdFile {};
 
 public:
-  Auto(DriveSystem*c);
+  Auto(DriveSystem *c);
   ~Auto();
   void SetupPlayback();
   void ReadFile(cmd * inputs);
   void SetupRecording();
   void Record(cmd * inputs);
   void CloseFile();
-  // void AutoPeriodic(cmd * inputs);
+ 
 
 };
 

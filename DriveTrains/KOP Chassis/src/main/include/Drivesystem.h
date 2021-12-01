@@ -42,8 +42,8 @@ private:
     //Constants for ports and unique id
 	const int LEFT_LEAD_ID = 1;
 	const int LEFT_FOLLOWER_ID = 2;
-	const int RIGHT_LEAD_ID = 3;
-	const int RIGHT_FOLLOWER_ID = 4;
+	const int RIGHT_LEAD_ID = 4;
+	const int RIGHT_FOLLOWER_ID = 3;
 
     //Changable powers
 	const float MAX_OUTPUT = 0.7;
