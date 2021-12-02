@@ -11,6 +11,24 @@ DriveSystem::DriveSystem()
 	leftFollower = new WPI_TalonSRX(LEFT_FOLLOWER_ID);
 	rightFollower = new WPI_TalonSRX(RIGHT_FOLLOWER_ID);
 
+	 //Reset the controllers
+	leftLead->Set(ControlMode::PercentOutput, 0);
+	rightLead->Set(ControlMode::PercentOutput, 0);
+	leftFollower->Set(ControlMode::PercentOutput, 0);
+	rightFollower->Set(ControlMode::PercentOutput, 0);
+
+		//Sets smoothing curve to talons
+	leftLead->ConfigOpenloopRamp(SMOOTH_TIME, 0); //passes in seconds from neutral to full and timeout in miliseconds
+	rightLead->ConfigOpenloopRamp(SMOOTH_TIME, 0);
+	leftFollower->ConfigOpenloopRamp(SMOOTH_TIME, 0);
+	rightFollower->ConfigOpenloopRamp(SMOOTH_TIME, 0);
+
+	//Clears sticky faults
+	leftLead->ClearStickyFaults(0);
+	rightLead->ClearStickyFaults(0);
+	leftFollower->ClearStickyFaults(0);
+	rightFollower->ClearStickyFaults(0);
+
     //Set followers
 	leftFollower->Follow(*leftLead);
 	rightFollower->Follow(*rightLead);
@@ -18,23 +36,7 @@ DriveSystem::DriveSystem()
 	//Instantiate DriveTrain
 	driveTrain = new frc::DifferentialDrive(*leftLead, *rightLead);
 
-    //Reset the controllers
-	leftLead->Set(ControlMode::PercentOutput, 0);
-	rightLead->Set(ControlMode::PercentOutput, 0);
-	leftFollower->Set(ControlMode::PercentOutput, 0);
-	rightFollower->Set(ControlMode::PercentOutput, 0);
-
-    //Clears sticky faults
-	leftLead->ClearStickyFaults(0);
-	rightLead->ClearStickyFaults(0);
-	leftFollower->ClearStickyFaults(0);
-	rightFollower->ClearStickyFaults(0);
-
-	//Sets smoothing curve to talons
-	leftLead->ConfigOpenloopRamp(SMOOTH_TIME, 0); //passes in seconds from neutral to full and timeout in miliseconds
-	rightLead->ConfigOpenloopRamp(SMOOTH_TIME, 0);
-	leftFollower->ConfigOpenloopRamp(SMOOTH_TIME, 0);
-	rightFollower->ConfigOpenloopRamp(SMOOTH_TIME, 0);
+    
 
 	//Sets max initial speed and turn off safety
 	driveTrain->SetMaxOutput(MAX_OUTPUT);

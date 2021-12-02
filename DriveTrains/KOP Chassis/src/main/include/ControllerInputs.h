@@ -7,6 +7,10 @@ struct cmd {
   double driver_rightY;
   double driver_rightX;
   double driver_leftX;
+  bool drive_AButton;
+  bool drive_BButton;
+  bool drive_XButton;
+  bool drive_YButton;
 };
 
 #endif // CONTROLLER_INPUTS_H

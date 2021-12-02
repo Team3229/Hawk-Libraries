@@ -30,6 +30,10 @@ void Robot::TeleopPeriodic()
   m_controllerInputs->driver_rightY = xbox1.GetY(frc::GenericHID::kRightHand);
   m_controllerInputs->driver_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
   m_controllerInputs->driver_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
+  m_controllerInputs->drive_AButton = xbox1.GetAButton();
+  m_controllerInputs->drive_BButton = xbox1.GetBButton();
+  m_controllerInputs->drive_XButton = xbox1.GetXButton();
+  m_controllerInputs->drive_YButton = xbox1.GetYButton();
 
     ExecuteControls();
 }
