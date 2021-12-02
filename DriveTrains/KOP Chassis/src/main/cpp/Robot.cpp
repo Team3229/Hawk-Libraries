@@ -31,11 +31,6 @@ void Robot::TeleopPeriodic()
   m_controllerInputs->driver_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
   m_controllerInputs->driver_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
 
-  //Update controller axis values
-  //d1_leftY = xbox1.GetY(frc::GenericHID::kLeftHand);
- // d1_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
-  //d1_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
-  
     ExecuteControls();
 }
 
@@ -61,13 +56,15 @@ void Robot::DisabledInit()
 
 void Robot::ExecuteControls()
 {
-if(abs(d1_leftX) > DEAD_BAND || abs(d1_leftY) > DEAD_BAND)
+if(abs(DEAD_BAND > std::abs(m_controllerInputs->driver_rightY) && 
+      DEAD_BAND > std::abs(m_controllerInputs->driver_leftX)))
 		{
-			  chassis.Drive(d1_leftY, d1_leftX, d1_rightX);
+        chassis.Stop();
 		}
 		else
 		{
-			  chassis.Stop();
+			 chassis.Drive(m_controllerInputs->driver_rightY, m_controllerInputs->driver_rightX, m_controllerInputs->driver_leftX);
+    }
   
   // speed changer 
   // BOTH CONTROLLERS NOW HAVE ACCESS TO THESE
@@ -87,8 +84,6 @@ if(abs(d1_leftX) > DEAD_BAND || abs(d1_leftY) > DEAD_BAND)
   {
     chassis.ChangeSpeed(3); // fast
     m_lastUsedSpeed = 3;
-  }
-
   }
 }
 

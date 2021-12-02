@@ -52,7 +52,6 @@ class Robot : public frc::TimedRobot {
   const float DEAD_BAND = 0.1;
 
   // Controller variables
-  double d1_leftY, d1_leftX, d1_rightX, d2_leftY, d2_rightY;
   int m_lastUsedSpeed = 2;
   
 

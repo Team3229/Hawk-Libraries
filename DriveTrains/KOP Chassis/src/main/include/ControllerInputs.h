@@ -4,9 +4,9 @@
 // Method of storing and replaying drivers inputs
 struct cmd {
   // Driver 1
-  float driver_rightY;
-  float driver_rightX;
-  float driver_leftX;
+  double driver_rightY;
+  double driver_rightX;
+  double driver_leftX;
 };
 
 #endif // CONTROLLER_INPUTS_H
