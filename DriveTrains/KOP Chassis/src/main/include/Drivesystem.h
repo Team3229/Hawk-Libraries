@@ -29,6 +29,11 @@ public:
     void Stop();
     void ChangeSpeed(int choice);
 
+	/*frc::SpeedControllerGroup m_left{leftLead, leftFollower};
+	frc::SpeedControllerGroup m_right{rightLead, rightFollower};
+
+	frc::DifferentialDrive m_drive{m_right, m_left}; */
+
 private:
     //TalonSRX's
 	WPI_TalonSRX * leftLead; //Front left, leader

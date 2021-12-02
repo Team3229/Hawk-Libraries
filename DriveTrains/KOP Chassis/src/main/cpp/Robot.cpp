@@ -26,11 +26,15 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic()
 {    
-  
+  // Populate controller struct
+  m_controllerInputs->driver_rightY = xbox1.GetY(frc::GenericHID::kRightHand);
+  m_controllerInputs->driver_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
+  m_controllerInputs->driver_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
+
   //Update controller axis values
-  d1_leftY = xbox1.GetY(frc::GenericHID::kLeftHand);
-  d1_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
-  d1_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
+  //d1_leftY = xbox1.GetY(frc::GenericHID::kLeftHand);
+ // d1_leftX = xbox1.GetX(frc::GenericHID::kLeftHand);
+  //d1_rightX = xbox1.GetX(frc::GenericHID::kRightHand);
   
     ExecuteControls();
 }
