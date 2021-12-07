@@ -45,10 +45,11 @@ class Robot : public frc::TimedRobot {
   frc::SendableChooser<std::string> m_chooser;
   std::string m_driveSelected;
 
-   cmd * m_controllerInputs = new cmd;
+   cmd * m_controllerInputs = new cmd; // universal controler variables 
 
   // Constants
   const int XBOX_USB_DRIVER_1 = 0;
+  const int  XBOX_USB_DRIVER_2 = 1;
   const float DEAD_BAND = 0.1;
 
   // Controller variables
@@ -62,5 +63,6 @@ class Robot : public frc::TimedRobot {
   const bool m_recordMode = true; // use this to force disable recording, useful at competitions
   
   frc::XboxController xbox1 {XBOX_USB_DRIVER_1}; //Chassis driver
+  frc::XboxController xbox2 {XBOX_USB_DRIVER_2}; //Manipulation driver
 
 };

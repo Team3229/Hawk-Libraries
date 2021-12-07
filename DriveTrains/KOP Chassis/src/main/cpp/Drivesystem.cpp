@@ -36,8 +36,6 @@ DriveSystem::DriveSystem()
 	//Instantiate DriveTrain
 	driveTrain = new frc::DifferentialDrive(*leftLead, *rightLead);
 
-    
-
 	//Sets max initial speed and turn off safety
 	driveTrain->SetMaxOutput(MAX_OUTPUT);
 	driveTrain->SetSafetyEnabled(false); 
