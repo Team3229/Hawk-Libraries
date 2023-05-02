@@ -27,6 +27,8 @@ Because of many differences between controllers used for FRC, the full implement
 >For the featured robot relative mode, you will need to set **SwerveKinematics.realtiveMode** to true and false according to  controller input.
 # Additional Configuration
 Coming Soon!
+If you are simply using a different SDS gear ratio, then here is a table with the values you should insert into the variables in SwerveModule.java:
+
 # Credits
 This project was created by the Software Subteam of FRC Team 3229 Hawktimus Prime, using libraries provided by Worcester Polytechnic Institute, Cross The Road Electronics, and REV Robotics.
 
