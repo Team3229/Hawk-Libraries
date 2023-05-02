@@ -3,7 +3,7 @@ This WPILIB project includes a **fully-featured** swerve drivetrain base complet
 
 # Getting Started
 In order to prepare this project for your next FRC robot, there are a couple of things you will need to configure yourself. 
->This program was modeled on the [SwerveDriveSpecialties MK4 Swerve Module](https://www.swervedrivespecialties.com/products/mk4-swerve-module) with REV Robotics NEO Pinions and the L1 gear ratio. If these are not the modules you are using, you may have to change additional things in order to make this project work for you. Skip to [name_of_section](#1) below to see more details.
+>This program was modeled on the [SwerveDriveSpecialties MK4 Swerve Module](https://www.swervedrivespecialties.com/products/mk4-swerve-module) with REV Robotics NEO Pinions and the L1 gear ratio. If these are not the modules you are using, you may have to change additional things in order to make this project work for you. Skip to [Additional Configuration](#additional-configuration) below to see more details.
 
 >This program is also only configured for a square chassis, although it would not be in any way difficult to change it to work for another shape.
 
@@ -25,6 +25,8 @@ Below is a list of constants and their locations in the project that will most l
 ## Finishing Up
 Because of many differences between controllers used for FRC, the full implementation in Robot.java is not complete. You will need to configure your own controller interface and integrate it with the SwerveKinematics.drive() method. It is already stated in teleopPeriodic, but you will need to give input for X, Y, and Z movement. These should be values between -1 and 1.
 >For the featured robot relative mode, you will need to set **SwerveKinematics.realtiveMode** to true and false according to  controller input.
+# Additional Configuration
+M
 # Credits
 This project was created by the Software Subteam of FRC Team 3229 Hawktimus Prime, using libraries provided by Worcester Polytechnic Institute, Cross The Road Electronics, and REV Robotics.
 
