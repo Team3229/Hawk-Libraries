@@ -26,8 +26,12 @@ Below is a list of constants and their locations in the project that will most l
 Because of many differences between controllers used for FRC, the full implementation in Robot.java is not complete. You will need to configure your own controller interface and integrate it with the SwerveKinematics.drive() method. It is already stated in teleopPeriodic, but you will need to give input for X, Y, and Z movement. These should be values between -1 and 1.
 >For the featured robot relative mode, you will need to set **SwerveKinematics.realtiveMode** to true and false according to  controller input.
 # Additional Configuration
-Coming Soon!
 If you are simply using a different SDS gear ratio, then here is a table with the values you should insert into the variables in SwerveModule.java:
+
+| SDS Ratio Table | L1   | L2   | L3   | L4   |
+| --------------- | ---- | ---- | ---- | ---- |
+| angleGearRatio  | 12.8 | 12.8 | 12.8 | 12.8 |
+| driveGearRatio  | 8.14 | 6.75 | 6.12 | 5.14 |
 
 # Credits
 This project was created by the Software Subteam of FRC Team 3229 Hawktimus Prime, using libraries provided by Worcester Polytechnic Institute, Cross The Road Electronics, and REV Robotics.
