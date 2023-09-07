@@ -12,10 +12,11 @@ import edu.wpi.first.wpilibj.SPI;
 public class SwerveKinematics {
 
     // Swerve Modules
-    private static SwerveModule frontLeftModule;
-    private static SwerveModule frontRightModule;
-    private static SwerveModule backLeftModule;
-    private static SwerveModule backRightModule;
+    public static SwerveModule frontLeftModule;
+    public static SwerveModule frontRightModule;
+    public static SwerveModule backLeftModule;
+    public static SwerveModule backRightModule;
+    public static ModuleOffsets offsets;
 
     /**Array of the angle offsets for each swerve module. (Edit the values here to your needs)*/
     private static final Rotation2d[] moduleOffsets = {Rotation2d.fromDegrees(0), Rotation2d.fromDegrees(0), Rotation2d.fromDegrees(0), Rotation2d.fromDegrees(0)};
@@ -64,6 +65,9 @@ public class SwerveKinematics {
         backLeftModule = new SwerveModule(4, 3, 11, new Translation2d(-(robotWidth/2), -(robotWidth/2)));
         backRightModule = new SwerveModule(8, 7, 12, new Translation2d((robotWidth/2), -(robotWidth/2)));
 
+        offsets = new ModuleOffsets();
+        configOffsets(offsets.read());
+
         navxGyro = new AHRS(SPI.Port.kMXP);
 
         kinematics = new SwerveDriveKinematics(frontLeftModule.location, frontRightModule.location, backLeftModule.location, backRightModule.location);
@@ -74,6 +78,20 @@ public class SwerveKinematics {
         navxGyro.calibrate();
     }
 
+    public static void configOffsets(){
+        Rotation2d[] offset = offsets.read();
+        frontLeftModule.configureEncoders(offset[0]);
+        frontRightModule.configureEncoders(offset[1]);
+        backLeftModule.configureEncoders(offset[2]);
+        backRightModule.configureEncoders(offset[3]);
+    }
+
+    public static void configOffsets(Rotation2d[] offset){
+        frontLeftModule.configureEncoders(offset[0]);
+        frontRightModule.configureEncoders(offset[1]);
+        backLeftModule.configureEncoders(offset[2]);
+        backRightModule.configureEncoders(offset[3]);
+    }
     /**
      * Drives the chassis given an x, y, and rotational movement speed.
      * @param X X axis speed (left/right relative to driverstation)

@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -50,7 +51,19 @@ public class Robot extends TimedRobot {
 		SwerveKinematics.configureEncoders();
 		SwerveKinematics.configureMotors();
 		SwerveKinematics.configurePID();
+		if (SmartDashboard.getBoolean("resetAngleOffsets", false)) {
+			SwerveKinematics.configOffsets(SwerveKinematics.offsets
+			.calculateOffsets(
+				SwerveKinematics.frontLeftModule.getAbsolutePosition(), 
+				SwerveKinematics.frontRightModule.getAbsolutePosition(), 
+				SwerveKinematics.backLeftModule.getAbsolutePosition(), 
+				SwerveKinematics.backRightModule.getAbsolutePosition()
+			));			
+			System.out.println("Reset Offsets");
+			SmartDashboard.putBoolean("resetAngleOffsets", false);
+		}
 
+		SwerveKinematics.configOffsets();
 	}
 
 	/** This function is called periodically during operator control. */
