@@ -6,6 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.DriveSystem.Inputs.Inputs;
+import frc.robot.DriveSystem.Swerve.SwerveKinematics;
+import frc.robot.DriveSystem.Inputs.Controller;
+import frc.robot.DriveSystem.Inputs.Controller.ControllerType;
+import frc.robot.DriveSystem.Inputs.Controller.Controls;
 	
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -14,6 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+	Inputs inputs = new Inputs(7);
+
+	Controller flightStick;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -21,6 +29,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+
+		flightStick = new Controller(ControllerType.FlightStick, 0);
 
 		SwerveKinematics.initialize();
 
@@ -34,7 +44,13 @@ public class Robot extends TimedRobot {
 	 * SmartDashboard integrated updating.
 	 */
 	@Override
-	public void robotPeriodic() {}
+	public void robotPeriodic() {
+
+		flightStick.update();
+
+		System.out.println(flightStick.get(Controls.FlightStick.AxisX));
+
+	}
 
 	/** This function is called once when autonomous is enabled. */
 	@Override
@@ -47,7 +63,6 @@ public class Robot extends TimedRobot {
 	/** This function is called once when teleop is enabled. */
 	@Override
 	public void teleopInit() {
-
 		SwerveKinematics.configureEncoders();
 		SwerveKinematics.configureMotors();
 		SwerveKinematics.configurePID();

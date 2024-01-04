@@ -1,0 +1,19 @@
+Inputs.setupControls(stuff)
+Inputs.nullControls()
+Inputs.getControls()
+
+Inputs.XboxControllers?
+
+
+
+
+
+
+
+
+
+Controller flightStick = new Controller(ControllerType.FlightStick);
+
+flightStick.get(Controls.FlightStick.xAxis)
+
+Controller[] XboxControllers = []
