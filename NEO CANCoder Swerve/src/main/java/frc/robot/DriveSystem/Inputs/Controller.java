@@ -1,5 +1,6 @@
 package frc.robot.DriveSystem.Inputs;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -14,6 +15,7 @@ public class Controller {
     public Controller(ControllerType type, int id) {
         this.controllerType = type;
         this.controller = new GenericHID(id);
+        inputs = new HashMap<>();
     }
 
     public void update() {

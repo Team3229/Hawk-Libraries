@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.DriveSystem.Inputs.Inputs;
+// import frc.robot.DriveSystem.Inputs.Inputs;
 import frc.robot.DriveSystem.Swerve.SwerveKinematics;
 import frc.robot.DriveSystem.Inputs.Controller;
 import frc.robot.DriveSystem.Inputs.Controller.ControllerType;
@@ -19,7 +19,7 @@ import frc.robot.DriveSystem.Inputs.Controller.Controls;
  * project.
  */
 public class Robot extends TimedRobot {
-	Inputs inputs = new Inputs(7);
+	// Inputs inputs = new Inputs(7);
 
 	Controller flightStick;
 
