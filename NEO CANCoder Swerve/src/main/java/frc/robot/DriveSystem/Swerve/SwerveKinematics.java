@@ -117,6 +117,11 @@ public class SwerveKinematics {
         frontRightModule.setModuleState(moduleStates[1]);
         backLeftModule.setModuleState(moduleStates[2]);
         backRightModule.setModuleState(moduleStates[3]);
+
+        frontLeftModule.updateModuleState();
+        frontRightModule.updateModuleState();
+        backLeftModule.updateModuleState();
+        backRightModule.updateModuleState();
     }
 
     public static void zeroGyro() {
