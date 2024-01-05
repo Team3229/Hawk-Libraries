@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import frc.robot.DriveSystem.Inputs.Inputs;
 import frc.robot.DriveSystem.Swerve.SwerveKinematics;
 import frc.robot.DriveSystem.Inputs.Controller;
 import frc.robot.DriveSystem.Inputs.Controller.ControllerType;
@@ -19,9 +18,9 @@ import frc.robot.DriveSystem.Inputs.Controller.Controls;
  * project.
  */
 public class Robot extends TimedRobot {
-	// Inputs inputs = new Inputs(7);
 
 	Controller flightStick;
+	Controller xboxController;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -31,6 +30,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 
 		flightStick = new Controller(ControllerType.FlightStick, 0);
+		xboxController = new Controller(ControllerType.XboxController, 1);
 
 		SwerveKinematics.initialize();
 
@@ -44,13 +44,7 @@ public class Robot extends TimedRobot {
 	 * SmartDashboard integrated updating.
 	 */
 	@Override
-	public void robotPeriodic() {
-
-		flightStick.update();
-
-		System.out.println(flightStick.get(Controls.FlightStick.AxisX));
-
-	}
+	public void robotPeriodic() {}
 
 	/** This function is called once when autonomous is enabled. */
 	@Override
@@ -63,6 +57,10 @@ public class Robot extends TimedRobot {
 	/** This function is called once when teleop is enabled. */
 	@Override
 	public void teleopInit() {
+
+		flightStick.nullControls();
+		xboxController.nullControls();
+
 		SwerveKinematics.configureEncoders();
 		SwerveKinematics.configureMotors();
 		SwerveKinematics.configurePID();
@@ -85,8 +83,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 
+		flightStick.update();
+		xboxController.update();
+
 		// Replace the 0 placeholders with your controller input.
-		SwerveKinematics.drive(0, 0, 0);
+		SwerveKinematics.drive((double) flightStick.get(Controls.FlightStick.AxisX), (double) flightStick.get(Controls.FlightStick.AxisY), (double) flightStick.get(Controls.FlightStick.AxisZ));
 
 	}
 

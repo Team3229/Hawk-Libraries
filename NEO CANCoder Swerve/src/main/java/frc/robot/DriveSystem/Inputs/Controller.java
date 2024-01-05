@@ -16,6 +16,7 @@ public class Controller {
         this.controllerType = type;
         this.controller = new GenericHID(id);
         inputs = new HashMap<>();
+        nullControls();
     }
 
     public void update() {
@@ -26,57 +27,57 @@ public class Controller {
                 inputs.put(Controls.FlightStick.AxisZ, controller.getRawAxis(2));
                 inputs.put(Controls.FlightStick.Throttle, controller.getRawAxis(3));
                 
-                inputs.put(Controls.FlightStick.Trigger, controller.getRawButton(0));
-                inputs.put(Controls.FlightStick.Button2, controller.getRawButton(1));
-                inputs.put(Controls.FlightStick.Button3, controller.getRawButton(2));
-                inputs.put(Controls.FlightStick.Button4, controller.getRawButton(3));
-                inputs.put(Controls.FlightStick.Button5, controller.getRawButton(4));
-                inputs.put(Controls.FlightStick.Button6, controller.getRawButton(5));
-                inputs.put(Controls.FlightStick.Button7, controller.getRawButton(6));
-                inputs.put(Controls.FlightStick.Button8, controller.getRawButton(7));
-                inputs.put(Controls.FlightStick.Button9, controller.getRawButton(8));
-                inputs.put(Controls.FlightStick.Button10, controller.getRawButton(9));
-                inputs.put(Controls.FlightStick.Button11, controller.getRawButton(10));
-                inputs.put(Controls.FlightStick.Button12, controller.getRawButton(11));
+                inputs.put(Controls.FlightStick.Trigger, controller.getRawButton(1));
+                inputs.put(Controls.FlightStick.Button2, controller.getRawButton(2));
+                inputs.put(Controls.FlightStick.Button3, controller.getRawButton(3));
+                inputs.put(Controls.FlightStick.Button4, controller.getRawButton(4));
+                inputs.put(Controls.FlightStick.Button5, controller.getRawButton(5));
+                inputs.put(Controls.FlightStick.Button6, controller.getRawButton(6));
+                inputs.put(Controls.FlightStick.Button7, controller.getRawButton(7));
+                inputs.put(Controls.FlightStick.Button8, controller.getRawButton(8));
+                inputs.put(Controls.FlightStick.Button9, controller.getRawButton(9));
+                inputs.put(Controls.FlightStick.Button10, controller.getRawButton(10));
+                inputs.put(Controls.FlightStick.Button11, controller.getRawButton(11));
+                inputs.put(Controls.FlightStick.Button12, controller.getRawButton(12));
 
-                inputs.put(Controls.FlightStick.TriggerToggle, controller.getRawButtonPressed(0));
-                inputs.put(Controls.FlightStick.Button2Toggle, controller.getRawButtonPressed(1));
-                inputs.put(Controls.FlightStick.Button3Toggle, controller.getRawButtonPressed(2));
-                inputs.put(Controls.FlightStick.Button4Toggle, controller.getRawButtonPressed(3));
-                inputs.put(Controls.FlightStick.Button5Toggle, controller.getRawButtonPressed(4));
-                inputs.put(Controls.FlightStick.Button6Toggle, controller.getRawButtonPressed(5));
-                inputs.put(Controls.FlightStick.Button7Toggle, controller.getRawButtonPressed(6));
-                inputs.put(Controls.FlightStick.Button8Toggle, controller.getRawButtonPressed(7));
-                inputs.put(Controls.FlightStick.Button9Toggle, controller.getRawButtonPressed(8));
-                inputs.put(Controls.FlightStick.Button10Toggle, controller.getRawButtonPressed(9));
-                inputs.put(Controls.FlightStick.Button11Toggle, controller.getRawButtonPressed(10));
-                inputs.put(Controls.FlightStick.Button12Toggle, controller.getRawButtonPressed(11));
+                inputs.put(Controls.FlightStick.TriggerToggle, controller.getRawButtonPressed(1));
+                inputs.put(Controls.FlightStick.Button2Toggle, controller.getRawButtonPressed(2));
+                inputs.put(Controls.FlightStick.Button3Toggle, controller.getRawButtonPressed(3));
+                inputs.put(Controls.FlightStick.Button4Toggle, controller.getRawButtonPressed(4));
+                inputs.put(Controls.FlightStick.Button5Toggle, controller.getRawButtonPressed(5));
+                inputs.put(Controls.FlightStick.Button6Toggle, controller.getRawButtonPressed(6));
+                inputs.put(Controls.FlightStick.Button7Toggle, controller.getRawButtonPressed(7));
+                inputs.put(Controls.FlightStick.Button8Toggle, controller.getRawButtonPressed(8));
+                inputs.put(Controls.FlightStick.Button9Toggle, controller.getRawButtonPressed(9));
+                inputs.put(Controls.FlightStick.Button10Toggle, controller.getRawButtonPressed(10));
+                inputs.put(Controls.FlightStick.Button11Toggle, controller.getRawButtonPressed(11));
+                inputs.put(Controls.FlightStick.Button12Toggle, controller.getRawButtonPressed(12));
 
                 inputs.put(Controls.FlightStick.DPad, controller.getPOV());
                 
                 break;
             case XboxController:
-                inputs.put(Controls.XboxController.AButton, controller.getRawButton(0));
-                inputs.put(Controls.XboxController.BButton, controller.getRawButton(1));
-                inputs.put(Controls.XboxController.XButton, controller.getRawButton(2));
-                inputs.put(Controls.XboxController.YButton, controller.getRawButton(3));
-                inputs.put(Controls.XboxController.RightStickButton, controller.getRawButton(9));
-                inputs.put(Controls.XboxController.LeftStickButton, controller.getRawButton(8));
-                inputs.put(Controls.XboxController.StartButton, controller.getRawButton(7));
-                inputs.put(Controls.XboxController.SelectButton, controller.getRawButton(6));
-                inputs.put(Controls.XboxController.RightBumper, controller.getRawButton(5));
-                inputs.put(Controls.XboxController.LeftBumper, controller.getRawButton(4));
+                inputs.put(Controls.XboxController.AButton, controller.getRawButton(1));
+                inputs.put(Controls.XboxController.BButton, controller.getRawButton(2));
+                inputs.put(Controls.XboxController.XButton, controller.getRawButton(3));
+                inputs.put(Controls.XboxController.YButton, controller.getRawButton(4));
+                inputs.put(Controls.XboxController.RightStickButton, controller.getRawButton(10));
+                inputs.put(Controls.XboxController.LeftStickButton, controller.getRawButton(9));
+                inputs.put(Controls.XboxController.StartButton, controller.getRawButton(8));
+                inputs.put(Controls.XboxController.SelectButton, controller.getRawButton(7));
+                inputs.put(Controls.XboxController.RightBumper, controller.getRawButton(6));
+                inputs.put(Controls.XboxController.LeftBumper, controller.getRawButton(5));
 
-                inputs.put(Controls.XboxController.AButtonToggle, controller.getRawButtonPressed(0));
-                inputs.put(Controls.XboxController.BButtonToggle, controller.getRawButtonPressed(1));
-                inputs.put(Controls.XboxController.XButtonToggle, controller.getRawButtonPressed(2));
-                inputs.put(Controls.XboxController.YButtonToggle, controller.getRawButtonPressed(3));
-                inputs.put(Controls.XboxController.SelectButtonToggle, controller.getRawButtonPressed(6));
-                inputs.put(Controls.XboxController.StartButtonToggle, controller.getRawButtonPressed(7));
-                inputs.put(Controls.XboxController.RightBumperToggle, controller.getRawButtonPressed(5));
-                inputs.put(Controls.XboxController.LeftBumperToggle, controller.getRawButtonPressed(4));
-                inputs.put(Controls.XboxController.RightStickToggle, controller.getRawButtonPressed(9));
-                inputs.put(Controls.XboxController.LeftStickToggle, controller.getRawButtonPressed(8));
+                inputs.put(Controls.XboxController.AButtonToggle, controller.getRawButtonPressed(1));
+                inputs.put(Controls.XboxController.BButtonToggle, controller.getRawButtonPressed(2));
+                inputs.put(Controls.XboxController.XButtonToggle, controller.getRawButtonPressed(3));
+                inputs.put(Controls.XboxController.YButtonToggle, controller.getRawButtonPressed(4));
+                inputs.put(Controls.XboxController.SelectButtonToggle, controller.getRawButtonPressed(7));
+                inputs.put(Controls.XboxController.StartButtonToggle, controller.getRawButtonPressed(8));
+                inputs.put(Controls.XboxController.RightBumperToggle, controller.getRawButtonPressed(6));
+                inputs.put(Controls.XboxController.LeftBumperToggle, controller.getRawButtonPressed(5));
+                inputs.put(Controls.XboxController.RightStickToggle, controller.getRawButtonPressed(10));
+                inputs.put(Controls.XboxController.LeftStickToggle, controller.getRawButtonPressed(9));
 
                 inputs.put(Controls.XboxController.LeftTriggerAxis, controller.getRawAxis(2));
                 inputs.put(Controls.XboxController.RightTriggerAxis, controller.getRawAxis(3));
@@ -93,6 +94,83 @@ public class Controller {
                 System.out.println("You suck");
                 break;
             
+        }
+    }
+
+    public void nullControls() {
+        switch(controllerType) {
+            case FlightStick:
+                inputs.put(Controls.FlightStick.AxisX, 0.0);
+                inputs.put(Controls.FlightStick.AxisY, 0.0);
+                inputs.put(Controls.FlightStick.AxisZ, 0.0);
+                inputs.put(Controls.FlightStick.Throttle, 0.0);
+                
+                inputs.put(Controls.FlightStick.Trigger, false);
+                inputs.put(Controls.FlightStick.Button2, false);
+                inputs.put(Controls.FlightStick.Button3, false);
+                inputs.put(Controls.FlightStick.Button4, false);
+                inputs.put(Controls.FlightStick.Button5, false);
+                inputs.put(Controls.FlightStick.Button6, false);
+                inputs.put(Controls.FlightStick.Button7, false);
+                inputs.put(Controls.FlightStick.Button8, false);
+                inputs.put(Controls.FlightStick.Button9, false);
+                inputs.put(Controls.FlightStick.Button10, false);
+                inputs.put(Controls.FlightStick.Button11, false);
+                inputs.put(Controls.FlightStick.Button12, false);
+
+                inputs.put(Controls.FlightStick.TriggerToggle, false);
+                inputs.put(Controls.FlightStick.Button2Toggle, false);
+                inputs.put(Controls.FlightStick.Button3Toggle, false);
+                inputs.put(Controls.FlightStick.Button4Toggle, false);
+                inputs.put(Controls.FlightStick.Button5Toggle, false);
+                inputs.put(Controls.FlightStick.Button6Toggle, false);
+                inputs.put(Controls.FlightStick.Button7Toggle, false);
+                inputs.put(Controls.FlightStick.Button8Toggle, false);
+                inputs.put(Controls.FlightStick.Button9Toggle, false);
+                inputs.put(Controls.FlightStick.Button10Toggle, false);
+                inputs.put(Controls.FlightStick.Button11Toggle, false);
+                inputs.put(Controls.FlightStick.Button12Toggle, false);
+
+                inputs.put(Controls.FlightStick.DPad, -1);
+                
+                break;
+            case XboxController:
+                inputs.put(Controls.XboxController.AButton, false);
+                inputs.put(Controls.XboxController.BButton, false);
+                inputs.put(Controls.XboxController.XButton, false);
+                inputs.put(Controls.XboxController.YButton, false);
+                inputs.put(Controls.XboxController.RightStickButton, false);
+                inputs.put(Controls.XboxController.LeftStickButton, false);
+                inputs.put(Controls.XboxController.StartButton, false);
+                inputs.put(Controls.XboxController.SelectButton, false);
+                inputs.put(Controls.XboxController.RightBumper, false);
+                inputs.put(Controls.XboxController.LeftBumper, false);
+
+                inputs.put(Controls.XboxController.AButtonToggle, false);
+                inputs.put(Controls.XboxController.BButtonToggle, false);
+                inputs.put(Controls.XboxController.XButtonToggle, false);
+                inputs.put(Controls.XboxController.YButtonToggle, false);
+                inputs.put(Controls.XboxController.SelectButtonToggle, false);
+                inputs.put(Controls.XboxController.StartButtonToggle, false);
+                inputs.put(Controls.XboxController.RightBumperToggle, false);
+                inputs.put(Controls.XboxController.LeftBumperToggle, false);
+                inputs.put(Controls.XboxController.RightStickToggle, false);
+                inputs.put(Controls.XboxController.LeftStickToggle, false);
+
+                inputs.put(Controls.XboxController.LeftTriggerAxis, 0.0);
+                inputs.put(Controls.XboxController.RightTriggerAxis, 0.0);
+                inputs.put(Controls.XboxController.LeftX, 0.0);
+                inputs.put(Controls.XboxController.LeftY, 0.0);
+                inputs.put(Controls.XboxController.RightX, 0.0);
+                inputs.put(Controls.XboxController.RightY, 0.0);
+
+                inputs.put(Controls.XboxController.DPad, -1);
+
+                break;
+            default:
+                //YOU SUCK, how the heck did this happen mate. Do better.
+                System.out.println("You suck");
+                break;
         }
     }
     
