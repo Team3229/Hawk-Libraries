@@ -87,7 +87,15 @@ public class Robot extends TimedRobot {
 		xboxController.update();
 
 		// Replace the 0 placeholders with your controller input.
-		SwerveKinematics.drive((double) flightStick.get(Controls.FlightStick.AxisX), (double) flightStick.get(Controls.FlightStick.AxisY), (double) flightStick.get(Controls.FlightStick.AxisZ));
+		SwerveKinematics.drive(
+						(double) flightStick.get(Controls.FlightStick.AxisX),
+						(double) flightStick.get(Controls.FlightStick.AxisY),
+						(double) flightStick.get(Controls.FlightStick.AxisZ)
+					);
+		SmartDashboard.putNumber("setAngle", SwerveKinematics.backLeftModule.currentState.angle.getDegrees());
+		SmartDashboard.putNumber("measuredAngle", SwerveKinematics.backLeftModule.getPosition().getDegrees());
+		SmartDashboard.putNumber("setSpeed", SwerveKinematics.backLeftModule.getVelocity());
+		SmartDashboard.putNumber("measuredSpeed", SwerveKinematics.backLeftModule.currentState.speedMetersPerSecond);
 
 	}
 

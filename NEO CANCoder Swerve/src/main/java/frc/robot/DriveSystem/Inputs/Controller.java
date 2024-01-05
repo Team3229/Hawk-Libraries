@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 public class Controller {
     
     private ControllerType controllerType;
-    private GenericHID controller;
+    public GenericHID controller;
     Map<Object, Object> inputs;
 
     public Controller(ControllerType type, int id) {
         this.controllerType = type;
         this.controller = new GenericHID(id);
         inputs = new HashMap<>();
+        
         nullControls();
     }
 
@@ -184,37 +185,68 @@ public class Controller {
     
     public static class Controls {
         public enum FlightStick {
+          //Axes
+          /** double */
           AxisX,
+          /** double */
           AxisY,
+          /** double */
           AxisZ,
+          /** double */
           Throttle,
 
+          //Buttons
+          /** boolean */
           Trigger,
+          /** boolean */
           Button2,
+          /** boolean */
           Button3,
+          /** boolean */
           Button4,
+          /** boolean */
           Button5,
+          /** boolean */
           Button6,
+          /** boolean */
           Button7,
+          /** boolean */
           Button8,
+          /** boolean */
           Button9,
+          /** boolean */
           Button10,
+          /** boolean */
           Button11,
+          /** boolean */
           Button12,
 
+          /** boolean */
           TriggerToggle,
+          /** boolean */
           Button2Toggle,
+          /** boolean */
           Button3Toggle,
+          /** boolean */
           Button4Toggle,
+          /** boolean */
           Button5Toggle,
+          /** boolean */
           Button6Toggle,
+          /** boolean */
           Button7Toggle,
+          /** boolean */
           Button8Toggle,
+          /** boolean */
           Button9Toggle,
+          /** boolean */
           Button10Toggle,
+          /** boolean */
           Button11Toggle,
+          /** boolean */
           Button12Toggle,
 
+          /** int */
           DPad
         }
         public enum XboxController {

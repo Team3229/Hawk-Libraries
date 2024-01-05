@@ -44,7 +44,7 @@ public class SwerveKinematics {
     private static SwerveModuleState[] moduleStates;
 
     /**The width of the robot chassis in meters. */
-    private static final double robotWidth = 0.762;
+    private static final double robotWidth = 0.6858;
     /**The maximum speed (in meters/sec) that a singular swerve module can reach. */
     private static final double maxModuleSpeed = 12;
     /**The maximum linear speed (in meters/sec) the chassis should move at. (Automatically set for SDS MK4 L1 modules) */
