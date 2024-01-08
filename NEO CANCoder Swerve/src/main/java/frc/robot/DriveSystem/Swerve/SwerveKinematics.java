@@ -63,7 +63,7 @@ public class SwerveKinematics {
     /**The maximum angular speed (in radians/sec) that the chassis can rotate at. */
     private static final double maxChassisRotationSpeed = 0.75;
     /**Whether or not to run the drive motors in brake mode. */
-    private static final boolean brakeMode = true;
+    private static final boolean brakeMode = false;
     
     public SwerveKinematics() {}
 
@@ -71,10 +71,10 @@ public class SwerveKinematics {
     public static void initialize() {
 
         // Replace the CAN IDs to suit your needs.
-        frontLeftModule = new SwerveModule(1, 2, 9, new Translation2d(-(robotWidth/2) + moduleEdgeOffset, (robotWidth/2) - moduleEdgeOffset));
+        frontLeftModule = new SwerveModule(2, 3, 1, new Translation2d(-(robotWidth/2) + moduleEdgeOffset, (robotWidth/2) - moduleEdgeOffset));
         frontRightModule = new SwerveModule(6, 5, 10, new Translation2d((robotWidth/2) - moduleEdgeOffset, (robotWidth/2) - moduleEdgeOffset));
-        backLeftModule = new SwerveModule(4, 3, 11, new Translation2d(-(robotWidth/2) + moduleEdgeOffset, -(robotWidth/2) + moduleEdgeOffset));
-        backRightModule = new SwerveModule(8, 7, 12, new Translation2d((robotWidth/2) - moduleEdgeOffset, -(robotWidth/2) + moduleEdgeOffset));
+        backLeftModule = new SwerveModule(6, 7, 8, new Translation2d(-(robotWidth/2) + moduleEdgeOffset, -(robotWidth/2) + moduleEdgeOffset));
+        backRightModule = new SwerveModule(10, 11, 9, new Translation2d((robotWidth/2) - moduleEdgeOffset, -(robotWidth/2) + moduleEdgeOffset));
 
         offsets = new ModuleOffsets();
         configOffsets(offsets.read());

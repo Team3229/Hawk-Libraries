@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ModuleOffsets {
 
     /** The base path into the RIO */
-    private final String path = "/home/lvuser/";
+    private final String path = "/home/lvuser/offsets/";
     /** The filenames we will be storing the offsets in */
     private final String[] fileNames = {"frontLeft.txt", "frontRight.txt", "backLeft.txt", "backRight.txt"};
 
@@ -56,7 +56,7 @@ public class ModuleOffsets {
         try {
             for (int i = 0; i < fileNames.length; i++) {
                 FileWriter writer = new FileWriter(path + fileNames[i]);
-                writer.write(String.valueOf(newAngles[i]));
+                writer.write(String.valueOf(newAngles[i].getDegrees()));
                 writer.close();
             }
         } catch(IOException e){
