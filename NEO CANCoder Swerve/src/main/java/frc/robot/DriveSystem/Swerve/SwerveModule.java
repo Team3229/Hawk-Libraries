@@ -3,6 +3,7 @@ package frc.robot.DriveSystem.Swerve;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -14,6 +15,7 @@ import com.revrobotics.SparkMaxPIDController.AccelStrategy;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 /**
@@ -44,6 +46,8 @@ public class SwerveModule {
     public SwerveModuleState currentState;
     /**An object used to represent the desired state of the module. */
     private SwerveModuleState desiredState;
+
+    public SwerveModulePosition currentPosition;
 
     /**The location of the swerve module relative to robot center. (in meters) */
     public Translation2d location;
@@ -124,6 +128,10 @@ public class SwerveModule {
         this.currentState = new SwerveModuleState(getVelocity(), getAbsolutePosition());
     }
 
+    public void updateModulePosition() {
+        this.currentPosition = new SwerveModulePosition(driveEncoder.getPosition(), getPosition());
+    }
+
     /**
      * Configures the module's driving motor.
      * @param brakeMode (boolean) Whether or not to enable brake mode on the module.
@@ -167,13 +175,13 @@ public class SwerveModule {
 
     /**
      * Configures all of the module's PID controllers.
-     * @param anglePID (double[ ]) Angular PID values.
-     * @param drivePID (double[ ]) Drive PID values.
+     * @param anglePID (PIDConstants) Angular PID values.
+     * @param drivePID (PIDConstants) Drive PID values.
      */
-    public void configurePID(double[] anglePID, double[] drivePID) {
-        this.anglePIDController.setP(anglePID[0]);
-        this.anglePIDController.setI(anglePID[1]);
-        this.anglePIDController.setD(anglePID[2]);
+    public void configurePID(PIDConstants anglePID, PIDConstants drivePID) {
+        this.anglePIDController.setP(anglePID.kP);
+        this.anglePIDController.setI(anglePID.kI);
+        this.anglePIDController.setD(anglePID.kD);
         this.anglePIDController.setPositionPIDWrappingMinInput(0);
         this.anglePIDController.setPositionPIDWrappingMaxInput(360);
         this.anglePIDController.setPositionPIDWrappingEnabled(true);
@@ -181,9 +189,9 @@ public class SwerveModule {
         this.anglePIDController.setSmartMotionMaxAccel(angleMaxAccel, 0);
         this.anglePIDController.setSmartMotionMaxVelocity(angleMaxVel, 0);
 
-        this.drivePIDController.setP(drivePID[0]);
-        this.drivePIDController.setI(drivePID[1]);
-        this.drivePIDController.setD(drivePID[2]);
+        this.drivePIDController.setP(drivePID.kP);
+        this.drivePIDController.setI(drivePID.kI);
+        this.drivePIDController.setD(drivePID.kD);
     }
 
     /**Stops the module's motors. (should not be called during driving; the motors should continue to their setpoints) */

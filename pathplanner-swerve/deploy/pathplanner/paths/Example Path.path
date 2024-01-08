@@ -1,0 +1,92 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.278076567565403,
+        "y": 4.457897794818897
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.5359769435658692,
+        "y": 4.505570437674399
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.777326704439428,
+        "y": 4.905811466401819
+      },
+      "prevControl": {
+        "x": 4.828183693457259,
+        "y": 5.294617037165603
+      },
+      "nextControl": {
+        "x": 7.0859964611035835,
+        "y": 4.369729879334574
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.595564520658286,
+        "y": 2.287091592728121
+      },
+      "prevControl": {
+        "x": 6.93230795876713,
+        "y": 3.6822174642922754
+      },
+      "nextControl": {
+        "x": 8.258821082549442,
+        "y": 0.8919657211639667
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.681933027204142,
+        "y": 5.980744514984036
+      },
+      "prevControl": {
+        "x": 10.929000517059523,
+        "y": 4.888658279456358
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "doshoot",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -66.64443514071405,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

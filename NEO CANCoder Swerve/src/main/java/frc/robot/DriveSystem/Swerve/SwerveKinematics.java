@@ -1,11 +1,13 @@
 package frc.robot.DriveSystem.Swerve;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.util.PIDConstants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -22,9 +24,11 @@ public class SwerveKinematics {
     private static final Rotation2d[] moduleOffsets = {Rotation2d.fromDegrees(0), Rotation2d.fromDegrees(0), Rotation2d.fromDegrees(0), Rotation2d.fromDegrees(0)};
 
     /**PID values for the swerve modules' angular motion. (Automatically populated with our constants we used for the 22-23 season) */
-    private static final double[] anglePID = {0.01, 0.0001, 0};
+    private static final PIDConstants anglePID = new PIDConstants(0.01, 0.0001, 0);
+    // private static final double[] anglePID = {0.01, 0.0001, 0};
     /**PID values for the swerve modules' driving motion. (Automatically populated with our constants we used for the 22-23 season) */
-    private static final double[] drivePID = {0.1, 0, 0};
+    private static final PIDConstants drivePID = new PIDConstants(0.1, 0, 0);
+    // private static final double[] drivePID = {0.1, 0, 0};
 
     /**Kauai Labs NavX Gyro. */
     public static AHRS navxGyro;
@@ -37,14 +41,21 @@ public class SwerveKinematics {
     private static boolean relativeMode;
 
     /**An object used to calculate module velocities from overall chassis movement. */
-    private static SwerveDriveKinematics kinematics;
+    public static SwerveDriveKinematics kinematics;
     /**The current state of chassis velocity. */
     private static ChassisSpeeds chassisState;
+    /**The current state of chassis velocity. relative to bot */
+    private static ChassisSpeeds chassisRelativeState;
     /**The current set module states. */
     private static SwerveModuleState[] moduleStates;
+    /**The current set module positions. */
+    public static SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), new SwerveModulePosition(), new SwerveModulePosition(), new SwerveModulePosition()};
 
     /**The width of the robot chassis in meters. */
-    private static final double robotWidth = 0.6858;
+    public static final double robotWidth = 0.6858;
+    //TODO: Measure and set this constant
+    //**The distance between the edge of the chassis to the center of a wheel in meters. */
+    public static final double moduleEdgeOffset = 0.0508;
     /**The maximum speed (in meters/sec) that a singular swerve module can reach. */
     private static final double maxModuleSpeed = 12;
     /**The maximum linear speed (in meters/sec) the chassis should move at. (Automatically set for SDS MK4 L1 modules) */
@@ -60,10 +71,10 @@ public class SwerveKinematics {
     public static void initialize() {
 
         // Replace the CAN IDs to suit your needs.
-        frontLeftModule = new SwerveModule(1, 2, 9, new Translation2d(-(robotWidth/2), (robotWidth/2)));
-        frontRightModule = new SwerveModule(6, 5, 10, new Translation2d((robotWidth/2), (robotWidth/2)));
-        backLeftModule = new SwerveModule(4, 3, 11, new Translation2d(-(robotWidth/2), -(robotWidth/2)));
-        backRightModule = new SwerveModule(8, 7, 12, new Translation2d((robotWidth/2), -(robotWidth/2)));
+        frontLeftModule = new SwerveModule(1, 2, 9, new Translation2d(-(robotWidth/2) + moduleEdgeOffset, (robotWidth/2) - moduleEdgeOffset));
+        frontRightModule = new SwerveModule(6, 5, 10, new Translation2d((robotWidth/2) - moduleEdgeOffset, (robotWidth/2) - moduleEdgeOffset));
+        backLeftModule = new SwerveModule(4, 3, 11, new Translation2d(-(robotWidth/2) + moduleEdgeOffset, -(robotWidth/2) + moduleEdgeOffset));
+        backRightModule = new SwerveModule(8, 7, 12, new Translation2d((robotWidth/2) - moduleEdgeOffset, -(robotWidth/2) + moduleEdgeOffset));
 
         offsets = new ModuleOffsets();
         configOffsets(offsets.read());
@@ -76,6 +87,11 @@ public class SwerveKinematics {
         configureMotors();
         configurePID();
         navxGyro.calibrate();
+
+        modulePositions[0] = new SwerveModulePosition();
+        modulePositions[1] = new SwerveModulePosition();
+        modulePositions[2] = new SwerveModulePosition();
+        modulePositions[3] = new SwerveModulePosition();
     }
 
     public static void configOffsets(){
@@ -109,6 +125,8 @@ public class SwerveKinematics {
 
         // Calculate reverse kinematics
         chassisState = ChassisSpeeds.fromFieldRelativeSpeeds(Y*chassisSpeed, X*chassisSpeed, Z*maxChassisRotationSpeed, robotRotation);
+        chassisRelativeState = ChassisSpeeds.fromFieldRelativeSpeeds(Y*chassisSpeed, X*chassisSpeed, Z*maxChassisRotationSpeed, Rotation2d.fromDegrees(180));
+        
         moduleStates = kinematics.toSwerveModuleStates(chassisState);
         SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, maxModuleSpeed);
 
@@ -122,6 +140,55 @@ public class SwerveKinematics {
         frontRightModule.updateModuleState();
         backLeftModule.updateModuleState();
         backRightModule.updateModuleState();
+
+        frontLeftModule.updateModulePosition();
+        frontRightModule.updateModulePosition();
+        backLeftModule.updateModulePosition();
+        backRightModule.updateModulePosition();
+
+        modulePositions[0] = frontLeftModule.currentPosition;
+        modulePositions[1] = frontRightModule.currentPosition;
+        modulePositions[2] = backLeftModule.currentPosition;
+        modulePositions[3] = backRightModule.currentPosition;
+    }
+
+    /**
+     * Drives the chassis given a chassis relative speed
+     * @param speeds (ChassisSpeeds)
+     */
+    public static void drive(ChassisSpeeds speeds) {
+
+        // Calculate reverse kinematics
+        chassisState = ChassisSpeeds.fromFieldRelativeSpeeds(speeds, robotRotation);
+        chassisRelativeState = speeds;
+        
+        moduleStates = kinematics.toSwerveModuleStates(chassisState);
+        SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, maxModuleSpeed);
+
+        // Set each module state
+        frontLeftModule.setModuleState(moduleStates[0]);
+        frontRightModule.setModuleState(moduleStates[1]);
+        backLeftModule.setModuleState(moduleStates[2]);
+        backRightModule.setModuleState(moduleStates[3]);
+
+        frontLeftModule.updateModuleState();
+        frontRightModule.updateModuleState();
+        backLeftModule.updateModuleState();
+        backRightModule.updateModuleState();
+
+        frontLeftModule.updateModulePosition();
+        frontRightModule.updateModulePosition();
+        backLeftModule.updateModulePosition();
+        backRightModule.updateModulePosition();
+
+        modulePositions[0] = frontLeftModule.currentPosition;
+        modulePositions[1] = frontRightModule.currentPosition;
+        modulePositions[2] = backLeftModule.currentPosition;
+        modulePositions[3] = backRightModule.currentPosition;
+    }
+
+    public static ChassisSpeeds getSpeeds() {
+        return chassisRelativeState;
     }
 
     public static void zeroGyro() {

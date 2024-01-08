@@ -4,9 +4,14 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DriveSystem.Swerve.SwerveKinematics;
+import frc.robot.DriveSystem.Swerve.SwerveOdometry;
 import frc.robot.DriveSystem.Inputs.Controller;
 import frc.robot.DriveSystem.Inputs.Controller.ControllerType;
 import frc.robot.DriveSystem.Inputs.Controller.Controls;
@@ -22,6 +27,11 @@ public class Robot extends TimedRobot {
 	Controller flightStick;
 	Controller xboxController;
 
+	Command autoCommand;
+	PathPlanner autoManager;
+
+	Limelight limelight;
+
 	double[] desiredSwerveState = {0,0,0,0,0,0,0,0};
 	double[] measuredSwerveState = {0,0,0,0,0,0,0,0};
 
@@ -34,6 +44,10 @@ public class Robot extends TimedRobot {
 
 		flightStick = new Controller(ControllerType.FlightStick, 0);
 		xboxController = new Controller(ControllerType.XboxController, 1);
+
+		autoManager = new PathPlanner();
+
+		limelight = new Limelight();
 
 		SwerveKinematics.initialize();
 
@@ -51,11 +65,22 @@ public class Robot extends TimedRobot {
 
 	/** This function is called once when autonomous is enabled. */
 	@Override
-	public void autonomousInit() {}
+	public void autonomousInit() {
+
+		NamedCommands.registerCommand("doshoot", new CommandBase() {});
+		
+		autoCommand = autoManager.getCommand("Example Auto");
+		
+	}
 
 	/** This function is called periodically during autonomous. */
 	@Override
-	public void autonomousPeriodic() {}
+	public void autonomousPeriodic() {
+
+		SwerveOdometry.addSensorData(limelight.getPose().toPose2d());
+
+		autoCommand.execute();
+	}
 
 	/** This function is called once when teleop is enabled. */
 	@Override
