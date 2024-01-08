@@ -8,6 +8,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DriveSystem.Swerve.SwerveKinematics;
@@ -15,6 +16,8 @@ import frc.robot.DriveSystem.Swerve.SwerveOdometry;
 import frc.robot.DriveSystem.Inputs.Controller;
 import frc.robot.DriveSystem.Inputs.Controller.ControllerType;
 import frc.robot.DriveSystem.Inputs.Controller.Controls;
+=======
+>>>>>>> parent of 83aa3a1 (we did a thing)
 	
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,6 +26,7 @@ import frc.robot.DriveSystem.Inputs.Controller.Controls;
  * project.
  */
 public class Robot extends TimedRobot {
+<<<<<<< HEAD
 
 	Controller flightStick;
 	Controller xboxController;
@@ -34,6 +38,8 @@ public class Robot extends TimedRobot {
 
 	double[] desiredSwerveState = {0,0,0,0,0,0,0,0};
 	double[] measuredSwerveState = {0,0,0,0,0,0,0,0};
+=======
+>>>>>>> parent of 83aa3a1 (we did a thing)
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -42,6 +48,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 
+<<<<<<< HEAD
 		flightStick = new Controller(ControllerType.FlightStick, 0);
 		xboxController = new Controller(ControllerType.XboxController, 1);
 
@@ -49,6 +56,8 @@ public class Robot extends TimedRobot {
 
 		limelight = new Limelight();
 
+=======
+>>>>>>> parent of 83aa3a1 (we did a thing)
 		SwerveKinematics.initialize();
 
 	}
@@ -86,9 +95,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 
+<<<<<<< HEAD
 		flightStick.nullControls();
 		xboxController.nullControls();
 
+=======
+>>>>>>> parent of 83aa3a1 (we did a thing)
 		SwerveKinematics.configureEncoders();
 		SwerveKinematics.configureMotors();
 		SwerveKinematics.configurePID();
