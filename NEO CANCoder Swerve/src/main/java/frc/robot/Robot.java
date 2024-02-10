@@ -4,20 +4,20 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.NamedCommands;
-
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.DriveSystem.Swerve.SwerveKinematics;
-import frc.robot.DriveSystem.Swerve.SwerveOdometry;
-import frc.robot.DriveSystem.Inputs.Controller;
-import frc.robot.DriveSystem.Inputs.Controller.ControllerType;
-import frc.robot.DriveSystem.Inputs.Controller.Controls;
-=======
->>>>>>> parent of 83aa3a1 (we did a thing)
+import frc.robot.Inputs.Controller;
+import frc.robot.Inputs.Controller.ControllerType;
+import frc.robot.Inputs.Controller.Controls;
+import frc.robot.Vision.Vision;
+import frc.robot.Autonomous.PathPlanner;
+import frc.robot.Drivetrain.ModuleOffsets;
+import frc.robot.Drivetrain.SwerveKinematics;
+import frc.robot.Drivetrain.SwerveOdometry;
 	
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,20 +26,15 @@ import frc.robot.DriveSystem.Inputs.Controller.Controls;
  * project.
  */
 public class Robot extends TimedRobot {
-<<<<<<< HEAD
 
 	Controller flightStick;
-	Controller xboxController;
 
 	Command autoCommand;
 	PathPlanner autoManager;
-
-	Limelight limelight;
+	SendableChooser<Command> autoChooser;
 
 	double[] desiredSwerveState = {0,0,0,0,0,0,0,0};
 	double[] measuredSwerveState = {0,0,0,0,0,0,0,0};
-=======
->>>>>>> parent of 83aa3a1 (we did a thing)
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -48,17 +43,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 
-<<<<<<< HEAD
+		ModuleOffsets.initialize();
+
 		flightStick = new Controller(ControllerType.FlightStick, 0);
-		xboxController = new Controller(ControllerType.XboxController, 1);
 
 		autoManager = new PathPlanner();
 
-		limelight = new Limelight();
+		Vision.initialize();
 
-=======
->>>>>>> parent of 83aa3a1 (we did a thing)
 		SwerveKinematics.initialize();
+		SwerveOdometry.initialize(new Pose2d(1, 3.5, SwerveKinematics.robotRotation));
 
 	}
 
@@ -70,15 +64,23 @@ public class Robot extends TimedRobot {
 	 * SmartDashboard integrated updating.
 	 */
 	@Override
-	public void robotPeriodic() {}
+	public void robotPeriodic() {
+		logging();
+	}
 
 	/** This function is called once when autonomous is enabled. */
 	@Override
 	public void autonomousInit() {
 
-		NamedCommands.registerCommand("doshoot", new CommandBase() {});
-		
-		autoCommand = autoManager.getCommand("Example Auto");
+		SwerveKinematics.zeroGyro();
+
+		SwerveKinematics.configureDrivetrain();
+		SwerveKinematics.configOffsets(ModuleOffsets.read());
+        SwerveKinematics.chassisState = new ChassisSpeeds();
+
+		autoCommand = autoChooser.getSelected();
+
+		autoCommand.initialize();
 		
 	}
 
@@ -86,37 +88,46 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 
-		SwerveOdometry.addSensorData(limelight.getPose().toPose2d());
+		SwerveOdometry.addSensorData(Vision.getPose(), Vision.getLatency(), false);
 
-		autoCommand.execute();
+		SwerveOdometry.update(SwerveKinematics.robotRotation, SwerveKinematics.modulePositions);
+
+		if (!autoCommand.isFinished()) {
+			autoCommand.execute();
+		} else {
+			SwerveKinematics.stop();
+		}
+
+		SmartDashboard.putNumberArray("odometry", new double[] {
+			SwerveOdometry.getPose().getX(),
+			SwerveOdometry.getPose().getY(),
+			SwerveOdometry.getPose().getRotation().getDegrees()
+		});
+
 	}
 
 	/** This function is called once when teleop is enabled. */
 	@Override
 	public void teleopInit() {
 
-<<<<<<< HEAD
-		flightStick.nullControls();
-		xboxController.nullControls();
+		// Remove for Comp
+		SwerveKinematics.zeroGyro();
 
-=======
->>>>>>> parent of 83aa3a1 (we did a thing)
-		SwerveKinematics.configureEncoders();
-		SwerveKinematics.configureMotors();
-		SwerveKinematics.configurePID();
-		if (SmartDashboard.getBoolean("resetAngleOffsets", false)) {
-			SwerveKinematics.configOffsets(SwerveKinematics.offsets
-			.calculateOffsets(
-				SwerveKinematics.frontLeftModule.getAbsolutePosition(), 
-				SwerveKinematics.frontRightModule.getAbsolutePosition(), 
-				SwerveKinematics.backLeftModule.getAbsolutePosition(), 
-				SwerveKinematics.backRightModule.getAbsolutePosition()
-			));			
-			System.out.println("Reset Offsets");
+		SwerveOdometry.initialize(new Pose2d(Vision.getPose().getX(), Vision.getPose().getY(), SwerveKinematics.robotRotation));
+
+		flightStick.nullControls();
+
+		SwerveKinematics.configureDrivetrain();
+
+		if(SmartDashboard.getBoolean("resetAngleOffsets", false)){
+			SwerveKinematics.configOffsets(ModuleOffsets.calculateOffsets(SwerveKinematics.frontLeftModule.getAbsolutePosition(), SwerveKinematics.frontRightModule.getAbsolutePosition(), SwerveKinematics.backLeftModule.getAbsolutePosition(), SwerveKinematics.backRightModule.getAbsolutePosition()));
 			SmartDashboard.putBoolean("resetAngleOffsets", false);
+		} else {
+			SwerveKinematics.configOffsets(ModuleOffsets.read());
 		}
 
-		SwerveKinematics.configOffsets();
+        SwerveKinematics.chassisState = new ChassisSpeeds();
+
 	}
 
 	/** This function is called periodically during operator control. */
@@ -124,7 +135,8 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 
 		flightStick.update();
-		xboxController.update();
+
+		SwerveKinematics.maxChassisRotationSpeed = 10 * 0.5 * ((-(double) flightStick.get(Controls.FlightStick.Throttle)) + 1);
 
 		SwerveKinematics.drive(
 						(double) flightStick.get(Controls.FlightStick.AxisX),
@@ -132,39 +144,29 @@ public class Robot extends TimedRobot {
 						(double) flightStick.get(Controls.FlightStick.AxisZ)
 					);
 
-		//logging (move to seperate method once confirmed works)
+		if((boolean) flightStick.get(Controls.FlightStick.Button10)){
+			SwerveKinematics.navxGyro.zeroYaw();
+		}
 
-		SmartDashboard.putNumber("setAngle", SwerveKinematics.backLeftModule.currentState.angle.getDegrees());
-		SmartDashboard.putNumber("measuredAngle", SwerveKinematics.backLeftModule.getPosition().getDegrees());
-		SmartDashboard.putNumber("setSpeed", SwerveKinematics.backLeftModule.getVelocity());
-		SmartDashboard.putNumber("measuredSpeed", SwerveKinematics.backLeftModule.currentState.speedMetersPerSecond);
+		// Uncomment when limelight added
+		// SwerveOdometry.addSensorData(limelight.getPose());
+		SwerveOdometry.update(SwerveKinematics.robotRotation, SwerveKinematics.modulePositions);
+	
+		SmartDashboard.putNumberArray("odometry", new double[] {
+			SwerveOdometry.getPose().getX(),
+			SwerveOdometry.getPose().getY(),
+			SwerveOdometry.getPose().getRotation().getDegrees()
+		});
 
-		desiredSwerveState[0] = SwerveKinematics.frontLeftModule.currentState.angle.getDegrees();
-		desiredSwerveState[1] = SwerveKinematics.frontLeftModule.currentState.speedMetersPerSecond;
-		desiredSwerveState[2] = SwerveKinematics.frontRightModule.currentState.angle.getDegrees();
-		desiredSwerveState[3] = SwerveKinematics.frontRightModule.currentState.speedMetersPerSecond;
-		desiredSwerveState[4] = SwerveKinematics.backLeftModule.currentState.angle.getDegrees();
-		desiredSwerveState[5] = SwerveKinematics.backLeftModule.currentState.speedMetersPerSecond;
-		desiredSwerveState[6] = SwerveKinematics.backRightModule.currentState.angle.getDegrees();
-		desiredSwerveState[7] = SwerveKinematics.backRightModule.currentState.speedMetersPerSecond;
-
-		measuredSwerveState[0] = SwerveKinematics.frontLeftModule.getPosition().getDegrees();
-		measuredSwerveState[1] = SwerveKinematics.frontLeftModule.getVelocity();
-		measuredSwerveState[2] = SwerveKinematics.frontRightModule.getPosition().getDegrees();
-		measuredSwerveState[3] = SwerveKinematics.frontRightModule.getVelocity();
-		measuredSwerveState[4] = SwerveKinematics.backLeftModule.getPosition().getDegrees();
-		measuredSwerveState[5] = SwerveKinematics.backLeftModule.getVelocity();
-		measuredSwerveState[6] = SwerveKinematics.backRightModule.getPosition().getDegrees();
-		measuredSwerveState[7] = SwerveKinematics.backRightModule.getVelocity();
-
-		SmartDashboard.putNumberArray("desiredSwerveState", desiredSwerveState);
-		SmartDashboard.putNumberArray("measuredSwerveState", measuredSwerveState);
+		// logging();
 
 	}
 
 	/** This function is called once when the robot is disabled. */
 	@Override
-	public void disabledInit() {}
+	public void disabledInit() {
+		SwerveKinematics.stop();
+	}
 
 	/** This function is called periodically when disabled. */
 	@Override
@@ -185,4 +187,30 @@ public class Robot extends TimedRobot {
 	/** This function is called periodically whilst in simulation. */
 	@Override
 	public void simulationPeriodic() {}
+
+	public void logging() {
+
+		measuredSwerveState[0] = SwerveKinematics.frontLeftModule.getPosition().getDegrees();
+		measuredSwerveState[1] = -SwerveKinematics.frontLeftModule.getVelocity();
+		measuredSwerveState[2] = SwerveKinematics.frontRightModule.getPosition().getDegrees();
+		measuredSwerveState[3] = -SwerveKinematics.frontRightModule.getVelocity();
+		measuredSwerveState[4] = SwerveKinematics.backLeftModule.getPosition().getDegrees();
+		measuredSwerveState[5] = -SwerveKinematics.backLeftModule.getVelocity();
+		measuredSwerveState[6] = SwerveKinematics.backRightModule.getPosition().getDegrees();
+		measuredSwerveState[7] = -SwerveKinematics.backRightModule.getVelocity();
+		
+		SmartDashboard.putNumberArray("measuredSwerveState", measuredSwerveState);
+
+		SmartDashboard.putNumber("navX", SwerveKinematics.robotRotation.getDegrees());
+
+		SmartDashboard.putNumber("frontLeft", SwerveKinematics.frontLeftModule.getAbsolutePosition().getDegrees());
+		SmartDashboard.putNumber("frontRight", SwerveKinematics.frontRightModule.getAbsolutePosition().getDegrees());
+		SmartDashboard.putNumber("backLeft", SwerveKinematics.backLeftModule.getAbsolutePosition().getDegrees());
+		SmartDashboard.putNumber("backRight", SwerveKinematics.backRightModule.getAbsolutePosition().getDegrees());
+		SmartDashboard.putNumber("frontLefte", SwerveKinematics.frontLeftModule.getPosition().getDegrees());
+		SmartDashboard.putNumber("frontRighte", SwerveKinematics.frontRightModule.getPosition().getDegrees());
+		SmartDashboard.putNumber("backLefte", SwerveKinematics.backLeftModule.getPosition().getDegrees());
+		SmartDashboard.putNumber("backRighte", SwerveKinematics.backRightModule.getPosition().getDegrees());
+
+	}
 }
