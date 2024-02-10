@@ -29,10 +29,6 @@ public class Robot extends TimedRobot {
 
 	Controller flightStick;
 
-	Command autoCommand;
-	PathPlanner autoManager;
-	SendableChooser<Command> autoChooser;
-
 	double[] desiredSwerveState = {0,0,0,0,0,0,0,0};
 	double[] measuredSwerveState = {0,0,0,0,0,0,0,0};
 
@@ -47,7 +43,6 @@ public class Robot extends TimedRobot {
 
 		flightStick = new Controller(ControllerType.FlightStick, 0);
 
-		autoManager = new PathPlanner();
 
 		Vision.initialize();
 
@@ -71,38 +66,12 @@ public class Robot extends TimedRobot {
 	/** This function is called once when autonomous is enabled. */
 	@Override
 	public void autonomousInit() {
-
-		SwerveKinematics.zeroGyro();
-
-		SwerveKinematics.configureDrivetrain();
-		SwerveKinematics.configOffsets(ModuleOffsets.read());
-        SwerveKinematics.chassisState = new ChassisSpeeds();
-
-		autoCommand = autoChooser.getSelected();
-
-		autoCommand.initialize();
-		
+	
 	}
 
 	/** This function is called periodically during autonomous. */
 	@Override
 	public void autonomousPeriodic() {
-
-		SwerveOdometry.addSensorData(Vision.getPose(), Vision.getLatency(), false);
-
-		SwerveOdometry.update(SwerveKinematics.robotRotation, SwerveKinematics.modulePositions);
-
-		if (!autoCommand.isFinished()) {
-			autoCommand.execute();
-		} else {
-			SwerveKinematics.stop();
-		}
-
-		SmartDashboard.putNumberArray("odometry", new double[] {
-			SwerveOdometry.getPose().getX(),
-			SwerveOdometry.getPose().getY(),
-			SwerveOdometry.getPose().getRotation().getDegrees()
-		});
 
 	}
 
