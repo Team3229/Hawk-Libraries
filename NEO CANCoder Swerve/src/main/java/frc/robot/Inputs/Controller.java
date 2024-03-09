@@ -82,10 +82,10 @@ public class Controller {
 
                 inputs.put(Controls.XboxController.LeftTriggerAxis, controller.getRawAxis(2));
                 inputs.put(Controls.XboxController.RightTriggerAxis, controller.getRawAxis(3));
-                inputs.put(Controls.XboxController.LeftX, controller.getRawAxis(0));
-                inputs.put(Controls.XboxController.LeftY, controller.getRawAxis(1));
-                inputs.put(Controls.XboxController.RightX, controller.getRawAxis(4));
-                inputs.put(Controls.XboxController.RightY, controller.getRawAxis(5));
+                inputs.put(Controls.XboxController.LeftX, (Math.abs(controller.getRawAxis(0)) < STICK_DEADBAND ? 0 : controller.getRawAxis(0)));
+                inputs.put(Controls.XboxController.LeftY, (Math.abs(controller.getRawAxis(1)) < STICK_DEADBAND ? 0 : controller.getRawAxis(1)));
+                inputs.put(Controls.XboxController.RightX,  (Math.abs(controller.getRawAxis(4)) < STICK_DEADBAND ? 0 : controller.getRawAxis(4)));
+                inputs.put(Controls.XboxController.RightY, (Math.abs(controller.getRawAxis(5)) < STICK_DEADBAND ? 0 : controller.getRawAxis(5)));
 
                 inputs.put(Controls.XboxController.DPad, controller.getPOV());
 
