@@ -17,8 +17,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Team3229/Hawk-Libraries")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv(Xolverr)
-                password = project.findProperty("gpr.key") ?: System.getenv(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)
+                username = project.findProperty("gpr.user") ?: Xolverr
+                password = project.findProperty("gpr.key") ?: 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
             }
         }
     }
