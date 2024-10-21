@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 ext.licenseFile = files("$rootDir/LICENSE.txt")
 
-def pubVersion = '0.0.1'
+def pubVersion = '0.0.0'
 
 def outputsFolder = file("$buildDir/outputs")
 
@@ -44,9 +44,9 @@ ext.addTaskToCopyAllOutputs = { task ->
 
 def artifactGroupId = 'com.hawktimusprime'
 def baseArtifactId = 'Hawk-Libraries'
-def driverZipBaseName = "_Hawk3229_com_hawktimusprime_ID_${baseArtifactId}-driver_CLS"
-def zipBaseName = "_Hawk3229_com_hawktimusprime_ID_${baseArtifactId}-cpp_CLS"
-def javaBaseName = "_Hawk3229_com_hawktimusprime_ID_${baseArtifactId}-java_CLS"
+def driverZipBaseName = "_GROUP_com_hawktimusprime_ID_${baseArtifactId}-driver_CLS"
+def zipBaseName = "_GROUP_com_hawktimusprime_ID_${baseArtifactId}-cpp_CLS"
+def javaBaseName = "_GROUP_com_hawktimusprime_ID_${baseArtifactId}-java_CLS"
 
 task cppHeadersZip(type: Zip) {
     destinationDirectory = outputsFolder

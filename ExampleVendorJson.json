@@ -1,23 +1,23 @@
 {
-    "fileName": "Hawk-Libraries.json",
-    "name": "Hawk-Libraries",
-    "version": "0.0.0",
+    "fileName": "ExampleVendorJson.json",
+    "name": "ExampleVendorDep",
+    "version": "0.0.1",
     "frcYear": "2025",
-    "uuid": "18a68476-fe82-441d-88f7-c778f0c3414c",
+    "uuid": "Generate A Unique GUID https://guidgenerator.com/online-guid-generator.aspx and insert it here", This line is to purposely make this fail to parse
     "mavenUrls": [
-        "https://team3229.github.io/Hawk-Libraries/deb"
+        "ThisNeedsToBeTheRootMavenUrl"
     ],
-    "jsonUrl": "https://team3229.github.io/Hawk-Libraries/Hawk-Libraries.json",
+    "jsonUrl": "InsertSomeUrlHere",
     "javaDependencies": [
         {
-            "groupId": "com.hawktimusprime",
-            "artifactId": "Hawk-Libraries-java",
-            "version": "0.0.0"
+            "groupId": "com.vendor.frc",
+            "artifactId": "Vendor-java",
+            "version": "0.0.1"
         }
     ],
     "jniDependencies": [
         {
-            "groupId": "com.hawktimusprime",
+            "groupId": "com.vendor.frc",
             "artifactId": "Vendor-driver",
             "version": "0.0.1",
             "skipInvalidPlatforms": true,
@@ -35,7 +35,7 @@
     ],
     "cppDependencies": [
         {
-            "groupId": "com.hawktimusprime",
+            "groupId": "com.vendor.frc",
             "artifactId": "Vendor-cpp",
             "version": "0.0.1",
             "libName": "Vendor",
@@ -53,7 +53,7 @@
             ]
         },
         {
-            "groupId": "com.hawktimusprime",
+            "groupId": "com.vendor.frc",
             "artifactId": "Vendor-driver",
             "version": "0.0.1",
             "libName": "VendorDriver",
