@@ -91,7 +91,7 @@ jobs:
       - name: Combine
         # if: |
         #   !startsWith(github.ref, 'refs/tags/v')
-        run: ./gradlew publish
+        run: ./gradlew publish -Pthirdparty
         working-directory: combiner
         env:
           USERNAME: ${{ github.actor }}
