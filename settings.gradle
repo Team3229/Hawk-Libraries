@@ -12,3 +12,6 @@ plugins {
 
 rootProject.name = 'Hawk-Libraries'
 include('lib')
+
+username = 'Xolverr'
+password = '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'

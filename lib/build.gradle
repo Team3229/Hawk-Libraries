@@ -11,14 +11,19 @@ plugins {
     id 'maven-publish'
 }
 
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
 publishing {
     repositories {
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/team3229/Hawk-Libraries")
             credentials {
-                username Xolverr
-                password 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
+                username = 'Xolverr'
+                password = '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'
             }
         }
     }
@@ -27,11 +32,6 @@ publishing {
             from(components.java)
         }
     }
-}
-
-repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
 }
 
 dependencies {
