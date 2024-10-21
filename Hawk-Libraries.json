@@ -2,7 +2,7 @@
     "fileName": "Hawk-Libraries.json",
     "name": "Hawk-Libraries",
     "version": "0.0.0",
-    "frcYear": "2025",
+    "frcYear": "2024",
     "uuid": "18a68476-fe82-441d-88f7-c778f0c3414c",
     "mavenUrls": [
         "https://team3229.github.io/Hawk-Libraries/deb"
@@ -19,7 +19,7 @@
         {
             "groupId": "com.hawktimusprime",
             "artifactId": "Vendor-driver",
-            "version": "0.0.1",
+            "version": "0.0.0",
             "skipInvalidPlatforms": true,
             "isJar": false,
             "validPlatforms": [
@@ -37,7 +37,7 @@
         {
             "groupId": "com.hawktimusprime",
             "artifactId": "Vendor-cpp",
-            "version": "0.0.1",
+            "version": "0.0.0",
             "libName": "Vendor",
             "headerClassifier": "headers",
             "sharedLibrary": false,
@@ -55,7 +55,7 @@
         {
             "groupId": "com.hawktimusprime",
             "artifactId": "Vendor-driver",
-            "version": "0.0.1",
+            "version": "0.0.0",
             "libName": "VendorDriver",
             "headerClassifier": "headers",
             "sharedLibrary": false,
