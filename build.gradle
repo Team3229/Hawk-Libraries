@@ -52,17 +52,23 @@ java {
 }
 
 publishing {
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = "https://maven.pkg.github.com/team3229/Hawk-Libraries"
-      credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
-      }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
     }
-  }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/team3229/Hawk-Libraries")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
+        }
+    }
 }
+
     
 group = 'com.github.team3229'
-version = 'v0.0.0'
+version = 'v0.0.1'
