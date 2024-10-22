@@ -65,4 +65,4 @@ publishing {
 }
     
 group = 'com.github.team3229'
-version = 'v0.0.0-SNAPSHOT'
+version = 'v0.0.0'
