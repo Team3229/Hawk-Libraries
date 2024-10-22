@@ -1,7 +1,7 @@
 plugins {
-  id 'maven-publish'
   id 'java'
   id 'google-test'
+  id 'maven-publish'
   id 'edu.wpi.first.wpilib.repositories.WPILibRepositoriesPlugin' version '2020.2'
   id 'edu.wpi.first.NativeUtils' version '2025.3.0'
   id 'edu.wpi.first.GradleJni' version '1.1.0'
@@ -34,10 +34,35 @@ dependencies {
     implementation 'edu.wpi.first.thirdparty.frc2024.opencv:opencv-java:4.8.0-4'
 }
 
-apply from: 'publish.gradle'
-
 wrapper {
   gradleVersion '8.10.2'
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/hawk3229/Hawk-Libraries"
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
+}
     
 group = 'com.github.team3229'
+version = 'v0.0.0-SNAPSHOT'
