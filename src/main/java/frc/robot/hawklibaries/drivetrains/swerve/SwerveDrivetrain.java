@@ -50,6 +50,11 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         this.config = config;
 
+        this.m_frontLeft = new SwerveModule(this.config.getFrontLeftConfig());
+        this.m_frontRight = new SwerveModule(this.config.getFrontRightConfig());
+        this.m_backLeft = new SwerveModule(this.config.getBackLeftConfig());
+        this.m_backRight = new SwerveModule(this.config.getBackRightConfig());
+
         this.m_kinematics = new SwerveDriveKinematics(
             new Translation2d(
                 this.config.getModuleDistance(),
@@ -72,7 +77,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         this.m_odometry = new SwerveDrivePoseEstimator(
             m_kinematics,
             m_gyro.getRotation2d(),
-            new SwerveModulePosition[] {},
+            new SwerveModulePosition[] {
+                this.m_frontLeft.getModulePosition(),
+                this.m_frontRight.getModulePosition(),
+                this.m_backLeft.getModulePosition(),
+                this.m_backRight.getModulePosition()
+            },
             new Pose2d(),
             VecBuilder.fill(0.1, 0.1, 0.1),
             VecBuilder.fill(0.7, 0.7, 9999999)
