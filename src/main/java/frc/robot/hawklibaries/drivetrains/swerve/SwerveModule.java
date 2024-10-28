@@ -44,7 +44,6 @@ public class SwerveModule {
         m_turningMotor.setInverted(true);
 
         m_turningPIDController.enableContinuousInput(-Math.PI, Math.PI);
-        m_turningPIDController.setOutputRange(this.config.getTurningOutputMin(), this.config.getTurningOutputMax());
 
         m_drivePIDController.applyToSparkMax(m_driveMotor, SetpointType.kVelocity);
         m_turningPIDController.applyToSparkMax(m_turningMotor, SetpointType.kPosition);

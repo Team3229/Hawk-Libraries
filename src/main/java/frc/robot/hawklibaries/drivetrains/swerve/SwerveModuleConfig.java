@@ -15,8 +15,6 @@ public class SwerveModuleConfig {
     private Rotation2d encoderOffset;
     private PIDConstants drivePID;
     private PIDConstants turningPID;
-    private double turningOutputMin;
-    private double turningOutputMax;
 
     private SwerveModuleConfig(Builder builder) {
         
@@ -30,8 +28,6 @@ public class SwerveModuleConfig {
         this.encoderOffset = builder.encoderOffset;
         this.drivePID = builder.drivePID;
         this.turningPID = builder.turningPID;
-        this.turningOutputMin = builder.turningOutputMin;
-        this.turningOutputMax = builder.turningOutputMax;
 
     }
 
@@ -45,8 +41,6 @@ public class SwerveModuleConfig {
     public Rotation2d getEncoderOffset() {return this.encoderOffset;}
     public PIDConstants getDrivePID() {return this.drivePID;}
     public PIDConstants getTurningPID() {return this.turningPID;}
-    public double getTurningOutputMin() {return this.turningOutputMin;}
-    public double getTurningOutputMax() {return this.turningOutputMax;}
 
     public static class Builder {
         
@@ -60,8 +54,6 @@ public class SwerveModuleConfig {
         private Rotation2d encoderOffset;
         private PIDConstants drivePID;
         private PIDConstants turningPID;
-        private double turningOutputMin;
-        private double turningOutputMax;
 
         public Builder wheelDiameter(double wheelDiameter) {
             this.wheelDiameter = wheelDiameter;
@@ -110,16 +102,6 @@ public class SwerveModuleConfig {
 
         public Builder turningPID(PIDConstants turningPID) {
             this.turningPID = turningPID;
-            return this;
-        }
-
-        public Builder turningOutputMin(double turningOutputMin) {
-            this.turningOutputMin = turningOutputMin;
-            return this;
-        }
-
-        public Builder turningOutputMax(double turningOutputMax) {
-            this.turningOutputMax = turningOutputMax;
             return this;
         }
 

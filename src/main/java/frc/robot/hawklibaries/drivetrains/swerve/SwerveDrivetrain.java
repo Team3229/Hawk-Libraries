@@ -139,6 +139,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         autoDropdown = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Autonomous Selector", autoDropdown);
 
+        this.setName("Swerve Drivetrain");
+
     }
 
     public void drive(ChassisSpeeds speeds, boolean fieldRelative) {
