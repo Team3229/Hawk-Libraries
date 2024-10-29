@@ -217,6 +217,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
     }
 
+    public void addVisionMeasurement(Pose2d position, double timestampSeconds) {
+        this.m_odometry.addVisionMeasurement(position, timestampSeconds);
+    }
+
     public Command getAutonomousCommand() {
         return autoDropdown.getSelected();
     }
