@@ -1,0 +1,24 @@
+task sourceJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact tasks.sourceJar
+        }
+    }
+
+    repositories {
+        maven {
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/team3229/hawk-libraries"
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+        }
+    }
+}
