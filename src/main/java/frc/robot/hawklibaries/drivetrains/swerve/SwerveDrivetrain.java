@@ -29,17 +29,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     
     private SwerveDrivetrainConfig config;
 
-    private SwerveDriveKinematics m_kinematics;
-    private SwerveDrivePoseEstimator m_odometry;
-    private AHRS m_gyro;
+    private SwerveDriveKinematics kinematics;
+    private SwerveDrivePoseEstimator odometry;
+    private AHRS gyro;
 
-    private SwerveModule m_frontLeft;
-    private SwerveModule m_frontRight;
-    private SwerveModule m_backLeft;
-    private SwerveModule m_backRight;
+    private SwerveModule frontLeft;
+    private SwerveModule frontRight;
+    private SwerveModule backLeft;
+    private SwerveModule backRight;
 
-    private Field2d m_odometryField;
-    private ChassisSpeeds m_robotCurrentSpeeds;
+    private Field2d odometryField;
+    private ChassisSpeeds robotCurrentSpeeds;
 
     private SendableChooser<Command> autoDropdown;
 
@@ -50,12 +50,12 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         this.config = config;
 
-        this.m_frontLeft = new SwerveModule(this.config.getFrontLeftConfig());
-        this.m_frontRight = new SwerveModule(this.config.getFrontRightConfig());
-        this.m_backLeft = new SwerveModule(this.config.getBackLeftConfig());
-        this.m_backRight = new SwerveModule(this.config.getBackRightConfig());
+        this.frontLeft = new SwerveModule(this.config.getFrontLeftConfig());
+        this.frontRight = new SwerveModule(this.config.getFrontRightConfig());
+        this.backLeft = new SwerveModule(this.config.getBackLeftConfig());
+        this.backRight = new SwerveModule(this.config.getBackRightConfig());
 
-        this.m_kinematics = new SwerveDriveKinematics(
+        this.kinematics = new SwerveDriveKinematics(
             new Translation2d(
                 this.config.getModuleDistance(),
                 this.config.getModuleDistance()
@@ -74,25 +74,25 @@ public class SwerveDrivetrain extends SubsystemBase {
             )
         );
 
-        this.m_odometry = new SwerveDrivePoseEstimator(
-            m_kinematics,
-            m_gyro.getRotation2d(),
+        this.odometry = new SwerveDrivePoseEstimator(
+            kinematics,
+            gyro.getRotation2d(),
             new SwerveModulePosition[] {
-                this.m_frontLeft.getModulePosition(),
-                this.m_frontRight.getModulePosition(),
-                this.m_backLeft.getModulePosition(),
-                this.m_backRight.getModulePosition()
+                this.frontLeft.getModulePosition(),
+                this.frontRight.getModulePosition(),
+                this.backLeft.getModulePosition(),
+                this.backRight.getModulePosition()
             },
             new Pose2d(),
             VecBuilder.fill(0.1, 0.1, 0.1),
             VecBuilder.fill(0.7, 0.7, 9999999)
         );
 
-        this.m_gyro = new AHRS();
+        this.gyro = new AHRS();
         new Command() {
             @Override public void execute() {
                 DriverStation.getAlliance().ifPresent((Alliance a) -> {
-                    m_gyro.setAngleAdjustment(
+                    gyro.setAngleAdjustment(
                         (a == Alliance.Red)
                             ? 180
                             : 0
@@ -106,13 +106,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         setDefaultCommand(driveCommand(defaultDrivingSpeeds, true));
 
-        m_robotCurrentSpeeds = new ChassisSpeeds();
+        robotCurrentSpeeds = new ChassisSpeeds();
 
         AutoBuilder.configureHolonomic(
-            m_odometry::getEstimatedPosition,
+            odometry::getEstimatedPosition,
             this::setOdometryPosition,
             () -> {
-                return this.m_robotCurrentSpeeds;
+                return this.robotCurrentSpeeds;
             },
             (ChassisSpeeds speeds) -> {
                 this.drive(speeds, false);
@@ -143,27 +143,27 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public void drive(ChassisSpeeds speeds, boolean fieldRelative) {
 
-        this.m_robotCurrentSpeeds = 
+        this.robotCurrentSpeeds = 
             fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
                     speeds,
-                    m_gyro.getRotation2d()
+                    gyro.getRotation2d()
                 )
                 : speeds;
 
-        var swerveModuleStates = m_kinematics.toSwerveModuleStates(
+        var swerveModuleStates = kinematics.toSwerveModuleStates(
             ChassisSpeeds.discretize(
-                this.m_robotCurrentSpeeds,
+                this.robotCurrentSpeeds,
                 0.02
             )
         );
 
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, config.getMaxSpeed());
 
-        m_frontLeft.setDesiredState(swerveModuleStates[0]);
-        m_frontRight.setDesiredState(swerveModuleStates[1]);
-        m_backLeft.setDesiredState(swerveModuleStates[2]);
-        m_backRight.setDesiredState(swerveModuleStates[3]);
+        frontLeft.setDesiredState(swerveModuleStates[0]);
+        frontRight.setDesiredState(swerveModuleStates[1]);
+        backLeft.setDesiredState(swerveModuleStates[2]);
+        backRight.setDesiredState(swerveModuleStates[3]);
     }
 
     public Command driveCommand(Supplier<ChassisSpeeds> speeds, boolean fieldRelative) {
@@ -178,18 +178,18 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_odometry.update(
-            this.m_gyro.getRotation2d(),
+        odometry.update(
+            this.gyro.getRotation2d(),
             new SwerveModulePosition[] {
-                this.m_frontLeft.getModulePosition(),
-                this.m_frontRight.getModulePosition(),
-                this.m_backLeft.getModulePosition(),
-                this.m_backRight.getModulePosition()
+                this.frontLeft.getModulePosition(),
+                this.frontRight.getModulePosition(),
+                this.backLeft.getModulePosition(),
+                this.backRight.getModulePosition()
             }
         );
 
-        m_odometryField.setRobotPose(m_odometry.getEstimatedPosition());
-        SmartDashboard.putData(m_gyro);
+        odometryField.setRobotPose(odometry.getEstimatedPosition());
+        SmartDashboard.putData(gyro);
     }
 
     @Override
@@ -199,17 +199,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public Field2d getOdometryField() {
-        return this.m_odometryField;
+        return this.odometryField;
     }
 
     public void setOdometryPosition(Pose2d position) {
-        this.m_odometry.resetPosition(
-            m_gyro.getRotation2d(),
+        this.odometry.resetPosition(
+            gyro.getRotation2d(),
             new SwerveModulePosition[] {
-                this.m_frontLeft.getModulePosition(),
-                this.m_frontRight.getModulePosition(),
-                this.m_backLeft.getModulePosition(),
-                this.m_backRight.getModulePosition()
+                this.frontLeft.getModulePosition(),
+                this.frontRight.getModulePosition(),
+                this.backLeft.getModulePosition(),
+                this.backRight.getModulePosition()
             },
             position
         );
