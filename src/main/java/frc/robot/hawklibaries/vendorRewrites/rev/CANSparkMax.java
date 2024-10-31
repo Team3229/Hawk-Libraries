@@ -106,4 +106,8 @@ public class CANSparkMax {
         this.m_pidController.setOutputRange(min, max);
     }
 
+    public void follow(CANSparkMax leader) {
+        this.m_sparkMax.follow(leader.m_sparkMax);
+    }
+
 }
