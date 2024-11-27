@@ -99,7 +99,12 @@ def releasesRepoUrl = "$buildDir/repos/releases"
 publishing {
     repositories {
         maven {
-            url = System.getenv("ORG_GRADLE_PROJECT_githubRepo")
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/team3229/Hawk-Libraries")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
         }
     }
 }
