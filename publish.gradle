@@ -42,9 +42,9 @@ ext.addTaskToCopyAllOutputs = { task ->
     copyAllOutputs.from task.archiveFile
 }
 
-def artifactGroupId = 'com.hawklibraries.frc'
+def artifactGroupId = 'com.hawklibraries'
 def baseArtifactId = 'HawkLibraries'
-def javaBaseName = "com_hawklibraries_frc_ID_${baseArtifactId}-java_CLS"
+def javaBaseName = "com_hawklibraries_${baseArtifactId}-java_CLS"
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier = 'sources'
@@ -102,8 +102,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/team3229/Hawk-Libraries")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
