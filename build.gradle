@@ -10,16 +10,6 @@ plugins {
 
 repositories {
   mavenCentral()
-
-  maven {
-      name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/team3229/Hawk-Libraries")
-      credentials {
-          username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-          password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
-      }
-  }
-
 }
 if (project.hasProperty('releaseMode')) {
   wpilibRepositories.addAllReleaseRepositories(project)
