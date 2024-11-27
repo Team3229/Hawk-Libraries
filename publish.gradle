@@ -42,9 +42,9 @@ ext.addTaskToCopyAllOutputs = { task ->
     copyAllOutputs.from task.archiveFile
 }
 
-def artifactGroupId = 'com.hawklibraries.frc'
+def artifactGroupId = 'com.hawktimusprime.hawklibraries.frc'
 def baseArtifactId = 'HawkLibraries'
-def javaBaseName = "com_hawklibraries_frc_ID_${baseArtifactId}-java_CLS"
+def javaBaseName = "com_hawktimusprime_hawklibraries_frc_ID_${baseArtifactId}-java_CLS"
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier = 'sources'

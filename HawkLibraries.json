@@ -10,65 +10,9 @@
     "jsonUrl": "https://team3229.github.io/Hawk-Libraries/HawkLibraries.json",
     "javaDependencies": [
         {
-            "groupId": "com.hawklibraries.frc",
+            "groupId": "com.hawktimusprime.hawklibraries.frc",
             "artifactId": "HawkLibraries-java",
             "version": "0.0.1"
-        }
-    ],
-    "jniDependencies": [
-        {
-            "groupId": "com.hawklibraries.frc",
-            "artifactId": "HawkLibraries-driver",
-            "version": "0.0.1",
-            "skipInvalidPlatforms": true,
-            "isJar": false,
-            "validPlatforms": [
-                "windowsx86-64",
-                "windowsx86",
-                "linuxarm64",
-                "linuxx86-64",
-                "linuxathena",
-                "linuxarm32",
-                "osxuniversal"
-            ]
-        }
-    ],
-    "cppDependencies": [
-        {
-            "groupId": "com.hawklibraries.frc",
-            "artifactId": "HawkLibraries-cpp",
-            "version": "0.0.1",
-            "libName": "Vendor",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "windowsx86",
-                "linuxarm64",
-                "linuxx86-64",
-                "linuxathena",
-                "linuxarm32",
-                "osxuniversal"
-            ]
-        },
-        {
-            "groupId": "com.hawklibraries.frc",
-            "artifactId": "HawkLibraries-driver",
-            "version": "0.0.1",
-            "libName": "HawkLibraries",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "windowsx86",
-                "linuxarm64",
-                "linuxx86-64",
-                "linuxathena",
-                "linuxarm32",
-                "osxuniversal"
-            ]
         }
     ]
 }
