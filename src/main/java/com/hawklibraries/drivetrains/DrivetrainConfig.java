@@ -1,4 +1,4 @@
-package com.hawktimusprime.hawklibraries.drivetrains;
+package com.hawklibraries.drivetrains;
 
 import lombok.Builder;
 import lombok.Getter;

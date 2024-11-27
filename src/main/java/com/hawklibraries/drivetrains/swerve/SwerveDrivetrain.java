@@ -1,4 +1,4 @@
-package com.hawktimusprime.hawklibraries.drivetrains.swerve;
+package com.hawklibraries.drivetrains.swerve;
 
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;

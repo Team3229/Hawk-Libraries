@@ -1,4 +1,4 @@
-package com.hawktimusprime.hawklibraries.vendorRewrites.rev;
+package com.hawklibraries.vendorRewrites.rev;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -8,8 +8,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.hawktimusprime.hawklibraries.utilities.PIDConstants;
-import com.hawktimusprime.hawklibraries.vendorRewrites.wpilib.PIDController;
+import com.hawklibraries.utilities.PIDConstants;
+import com.hawklibraries.vendorRewrites.wpilib.PIDController;
 
 public class CANSparkMax extends SubsystemBase {
 

@@ -1,7 +1,7 @@
-package com.hawktimusprime.hawklibraries.drivetrains.swerve;
+package com.hawklibraries.drivetrains.swerve;
 
-import com.hawktimusprime.hawklibraries.drivetrains.DrivetrainConfig;
-import com.hawktimusprime.hawklibraries.utilities.PIDConstants;
+import com.hawklibraries.drivetrains.DrivetrainConfig;
+import com.hawklibraries.utilities.PIDConstants;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

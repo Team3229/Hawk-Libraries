@@ -1,4 +1,4 @@
-package com.hawktimusprime.hawklibraries.drivetrains.swerve;
+package com.hawklibraries.drivetrains.swerve;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -6,10 +6,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import com.hawktimusprime.hawklibraries.vendorRewrites.ctre.CANcoder;
-import com.hawktimusprime.hawklibraries.vendorRewrites.rev.CANSparkMax;
-import com.hawktimusprime.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
-import com.hawktimusprime.hawklibraries.vendorRewrites.wpilib.PIDController;
+import com.hawklibraries.vendorRewrites.ctre.CANcoder;
+import com.hawklibraries.vendorRewrites.rev.CANSparkMax;
+import com.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
+import com.hawklibraries.vendorRewrites.wpilib.PIDController;
 
 public class SwerveModule {
 
