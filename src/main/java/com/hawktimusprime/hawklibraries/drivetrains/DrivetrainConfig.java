@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.drivetrains;
+package com.hawktimusprime.hawklibraries.drivetrains;
 
 import lombok.Builder;
 import lombok.Getter;
