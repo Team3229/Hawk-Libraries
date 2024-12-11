@@ -1,10 +1,10 @@
 package frc.robot.hawklibaries.drivetrains.swerve;
 
-import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -12,18 +12,20 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.hawklibaries.utilities.Alliance;
+import frc.robot.hawklibaries.utilities.Alliance.AllianceColor;
+import frc.robot.hawklibaries.vendorRewrites.wpilib.ChassisSpeeds;
 
 public class SwerveDrivetrain extends SubsystemBase {
     
@@ -42,6 +44,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     private ChassisSpeeds m_robotCurrentSpeeds;
 
     private SendableChooser<Command> autoDropdown;
+
+    private ChassisSpeeds autoOverrides;
+    private Supplier<ChassisSpeeds> inputSpeeds;
 
     public SwerveDrivetrain(
         SwerveDrivetrainConfig config,
@@ -89,33 +94,33 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
 
         this.m_gyro = new AHRS();
-        new Command() {
-            @Override public void execute() {
-                DriverStation.getAlliance().ifPresent((Alliance a) -> {
-                    m_gyro.setAngleAdjustment(
-                        (a == Alliance.Red)
-                            ? 180
-                            : 0
+        
+        Alliance.alliancePresentTrigger().onTrue(
+            Commands.runOnce(
+                () -> {
+                        m_gyro.setAngleAdjustment(
+                            (Alliance.getAlliance() == AllianceColor.Red)
+                                ? 180
+                                : 0
                         );
                     }
-                );
-            }
+                )  
+        );
 
-            @Override public boolean isFinished() {return DriverStation.getAlliance().isPresent();}
-        }.schedule();
+        this.inputSpeeds = defaultDrivingSpeeds;
 
-        setDefaultCommand(driveCommand(defaultDrivingSpeeds, true));
+        setDefaultCommand(driveCommand(inputSpeeds, true));
 
-        m_robotCurrentSpeeds = new ChassisSpeeds();
+        m_robotCurrentSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
         AutoBuilder.configureHolonomic(
             m_odometry::getEstimatedPosition,
             this::setOdometryPosition,
             () -> {
-                return this.m_robotCurrentSpeeds;
+                return this.m_robotCurrentSpeeds.getChassisSpeeds();
             },
-            (ChassisSpeeds speeds) -> {
-                this.drive(speeds, false);
+            (edu.wpi.first.math.kinematics.ChassisSpeeds speeds) -> {
+                this.drive(new ChassisSpeeds(speeds), false, true);
             },
             new HolonomicPathFollowerConfig(
                 new PIDConstants(
@@ -132,7 +137,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 this.config.getModuleDistance() * 2,
                 new ReplanningConfig()
             ),
-            () -> this.getAlliance() == Alliance.Red,
+            () -> Alliance.getAlliance() == AllianceColor.Red,
             this
         );
 
@@ -143,12 +148,15 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     }
 
-    public void drive(ChassisSpeeds speeds, boolean fieldRelative) {
+    public void drive(ChassisSpeeds speeds, boolean fieldRelative, boolean useOverrides) {
 
         this.m_robotCurrentSpeeds = 
             fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                    speeds,
+                    useOverrides
+                        ? (applyOverrides(speeds))
+                        : (speeds)
+                    ,
                     m_gyro.getRotation2d()
                 )
                 : speeds;
@@ -157,7 +165,7 @@ public class SwerveDrivetrain extends SubsystemBase {
             ChassisSpeeds.discretize(
                 this.m_robotCurrentSpeeds,
                 0.02
-            )
+            ).getChassisSpeeds()
         );
 
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, config.getMaxSpeed());
@@ -171,11 +179,61 @@ public class SwerveDrivetrain extends SubsystemBase {
     public Command driveCommand(Supplier<ChassisSpeeds> speeds, boolean fieldRelative) {
         Command out = new Command() {
             @Override public void execute() {
-                drive(speeds.get(), fieldRelative);
+                drive(speeds.get(), fieldRelative, false);
             }
         };
         out.addRequirements(this);
         return out;
+    }
+
+    public Command driveToPose(Double xPoseMeters, Double yPoseMeters, Rotation2d theta, PathConstraints constraints) {
+        return AutoBuilder.pathfindToPoseFlipped(
+            new Pose2d(
+                xPoseMeters == null
+                    ? m_odometry.getEstimatedPosition().getX()
+                    : xPoseMeters,
+                yPoseMeters == null
+                    ? m_odometry.getEstimatedPosition().getY()
+                    : yPoseMeters,
+                theta == null
+                    ? m_odometry.getEstimatedPosition().getRotation()
+                    : theta
+            ),
+            constraints
+        ).raceWith(
+            Commands.runEnd(
+                () -> {
+                    autoOverrides = new ChassisSpeeds(
+                        xPoseMeters == null
+                            ? inputSpeeds.get().vxMetersPerSecond
+                            : null,
+                        yPoseMeters == null
+                            ? inputSpeeds.get().vyMetersPerSecond
+                            : null,
+                        theta == null
+                            ? inputSpeeds.get().omegaRadiansPerSecond
+                            : null
+                    );
+                },
+                () -> {
+                    autoOverrides = new ChassisSpeeds();
+                }
+            )
+        );
+    }
+    
+    private ChassisSpeeds applyOverrides(ChassisSpeeds speeds) {
+        return new ChassisSpeeds(
+            autoOverrides.vxMetersPerSecond == 0
+                ? speeds.vxMetersPerSecond
+                : autoOverrides.vxMetersPerSecond,
+            autoOverrides.vyMetersPerSecond == 0
+                ? speeds.vyMetersPerSecond
+                : autoOverrides.vyMetersPerSecond,
+            autoOverrides.omegaRadiansPerSecond == 0
+                ? speeds.omegaRadiansPerSecond
+                : autoOverrides.omegaRadiansPerSecond
+        );
     }
 
     @Override
@@ -223,16 +281,6 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public Command getAutonomousCommand() {
         return autoDropdown.getSelected();
-    }
-
-    private Alliance getAlliance() {
-
-        try {
-            return DriverStation.getAlliance().get();   
-        } catch (NoSuchElementException e) {
-            return Alliance.Blue;
-        }
-
     }
 
 }
