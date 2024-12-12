@@ -10,8 +10,8 @@
     "jsonUrl": "https://team3229.github.io/Hawk-Libraries/Hawk-Libraries.json",
     "javaDependencies": [
         {
-            "groupId": "frc.hawklibraries",
-            "artifactId": "hawklibraries",
+            "groupId": "com.hawklibraries",
+            "artifactId": "Hawk-Libraries",
             "version": "0.0.1"
         }
     ]
