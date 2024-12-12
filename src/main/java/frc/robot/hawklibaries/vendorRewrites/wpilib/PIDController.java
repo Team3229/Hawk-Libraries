@@ -1,9 +1,9 @@
-package frc.hawklibraries.vendorRewrites.wpilib;
+package frc.robot.hawklibaries.vendorRewrites.wpilib;
 
 import edu.wpi.first.math.MathUtil;
-import frc.hawklibraries.utilities.PIDConstants;
-import frc.hawklibraries.vendorRewrites.rev.CANSparkMax;
-import frc.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
+import frc.robot.hawklibaries.utilities.PIDConstants;
+import frc.robot.hawklibaries.vendorRewrites.rev.CANSparkMax;
+import frc.robot.hawklibaries.vendorRewrites.rev.CANSparkMax.SetpointType;
 
 public class PIDController extends edu.wpi.first.math.controller.PIDController {
 
@@ -38,7 +38,12 @@ public class PIDController extends edu.wpi.first.math.controller.PIDController {
         } else {
             this.sparkMax.disablePositionWrapping();
         }
-        this.sparkMax.setOutputRange(this.pid.getkOutputMin(), this.pid.getkOutputMax());
+        this.sparkMax.setOutputRange(this.outputMin, this.outputMax);
+    }
+
+    public void setOutputRange(double min, double max) {
+        this.outputMin = min;
+        this.outputMax = max;
     }
 
     @Override
