@@ -38,12 +38,7 @@ public class PIDController extends edu.wpi.first.math.controller.PIDController {
         } else {
             this.sparkMax.disablePositionWrapping();
         }
-        this.sparkMax.setOutputRange(this.outputMin, this.outputMax);
-    }
-
-    public void setOutputRange(double min, double max) {
-        this.outputMin = min;
-        this.outputMax = max;
+        this.sparkMax.setOutputRange(this.pid.getkOutputMin(), this.pid.getkOutputMax());
     }
 
     @Override
