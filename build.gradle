@@ -1,5 +1,6 @@
 plugins {
-    id "java"
+    id "java-library"
+    id 'maven-publish'
     id "edu.wpi.first.GradleRIO" version "2024.3.2"
 }
 
@@ -96,6 +97,11 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
 // Configure jar and deploy tasks
 deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
@@ -104,4 +110,25 @@ wpi.java.configureTestTasks(test)
 // Configure string concat to always inline compile
 tasks.withType(JavaCompile) {
     options.compilerArgs.add '-XDstringConcat=inline'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = 'frc.hawklibraries'
+            artifactId = 'hawklibraries'
+            version = '0.0.1'
+
+            // Add other artifacts like sources or javadocs if needed
+            artifact sourcesJar
+            // artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            url = uri("$projectDir/maven")
+        }
+    }
 }
