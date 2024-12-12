@@ -1,4 +1,4 @@
-package com.hawklibraries.vendorRewrites.ctre;
+package frc.hawklibraries.vendorRewrites.ctre;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 

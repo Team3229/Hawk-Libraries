@@ -1,9 +1,9 @@
-package com.hawklibraries.vendorRewrites.wpilib;
+package frc.hawklibraries.vendorRewrites.wpilib;
 
 import edu.wpi.first.math.MathUtil;
-import com.hawklibraries.utilities.PIDConstants;
-import com.hawklibraries.vendorRewrites.rev.CANSparkMax;
-import com.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
+import frc.hawklibraries.utilities.PIDConstants;
+import frc.hawklibraries.vendorRewrites.rev.CANSparkMax;
+import frc.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
 
 public class PIDController extends edu.wpi.first.math.controller.PIDController {
 

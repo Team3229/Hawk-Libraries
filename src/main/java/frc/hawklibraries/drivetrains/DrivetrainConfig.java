@@ -1,4 +1,4 @@
-package com.hawklibraries.drivetrains;
+package frc.hawklibraries.drivetrains;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.hawklibraries.drivetrains.swerve;
+package frc.hawklibraries.drivetrains.swerve;
 
-import com.hawklibraries.drivetrains.DrivetrainConfig;
-import com.hawklibraries.utilities.PIDConstants;
+import frc.hawklibraries.drivetrains.DrivetrainConfig;
+import frc.hawklibraries.utilities.PIDConstants;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
