@@ -12,7 +12,7 @@
         {
             "groupId": "frc.hawklibraries",
             "artifactId": "hawklibraries",
-            "version": "$0.0.1"
+            "version": "0.0.1"
         }
     ]
 }
