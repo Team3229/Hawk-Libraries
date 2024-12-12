@@ -3,6 +3,8 @@
 *.probe
 *.lock
 
+cache.properties
+
 ### C++ ###
 # Prerequisites
 *.d
