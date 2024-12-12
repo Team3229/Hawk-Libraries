@@ -28,10 +28,10 @@
           "name": "hawklibraries-0.0.1.jar",
           "url": "hawklibraries-0.0.1.jar",
           "size": 6712613,
-          "sha512": "fce903213d711814cb5c9eb0487776cc7e0712e2868dce5859d95f110de10c78265bb9958c3c00e8a6346e6cdad10b867094e0caac671d3cadc9d46c61ffddd8",
-          "sha256": "7f896d018b4835a72e2743345afd6e69e3212b0ca80c20abbca3cb73e97232d3",
-          "sha1": "5972a36c5c141e576a59f1627fada5d46d2444be",
-          "md5": "2ff6902afb45aa25b10819e10f3c47c3"
+          "sha512": "e266a62ba3bd7088bc7413a4e3579d0f29ebb94725d0d2672e097526d9007025d13a52a777130e7d7d18d61440737a538fd41e51d7813783359de9dbde68664d",
+          "sha256": "f5a8a6aad9e6b038f792d770ace7b76b4b8ef19f781b6806d6445dc26d65526c",
+          "sha1": "5874dae8df667c10dc0daaa1ae1871459b3e4315",
+          "md5": "c277bff482ec4755a1ef46aa8985e8ba"
         }
       ]
     },
@@ -198,10 +198,10 @@
           "name": "hawklibraries-0.0.1.jar",
           "url": "hawklibraries-0.0.1.jar",
           "size": 6712613,
-          "sha512": "fce903213d711814cb5c9eb0487776cc7e0712e2868dce5859d95f110de10c78265bb9958c3c00e8a6346e6cdad10b867094e0caac671d3cadc9d46c61ffddd8",
-          "sha256": "7f896d018b4835a72e2743345afd6e69e3212b0ca80c20abbca3cb73e97232d3",
-          "sha1": "5972a36c5c141e576a59f1627fada5d46d2444be",
-          "md5": "2ff6902afb45aa25b10819e10f3c47c3"
+          "sha512": "e266a62ba3bd7088bc7413a4e3579d0f29ebb94725d0d2672e097526d9007025d13a52a777130e7d7d18d61440737a538fd41e51d7813783359de9dbde68664d",
+          "sha256": "f5a8a6aad9e6b038f792d770ace7b76b4b8ef19f781b6806d6445dc26d65526c",
+          "sha1": "5874dae8df667c10dc0daaa1ae1871459b3e4315",
+          "md5": "c277bff482ec4755a1ef46aa8985e8ba"
         }
       ]
     }
