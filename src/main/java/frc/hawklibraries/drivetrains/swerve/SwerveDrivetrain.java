@@ -60,6 +60,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         this.backLeft = new SwerveModule(this.config.getBackLeftConfig());
         this.backRight = new SwerveModule(this.config.getBackRightConfig());
 
+        this.gyro = new AHRS();
+        
         this.kinematics = new SwerveDriveKinematics(
             new Translation2d(
                 this.config.getModuleDistance(),
@@ -92,8 +94,6 @@ public class SwerveDrivetrain extends SubsystemBase {
             VecBuilder.fill(0.1, 0.1, 0.1),
             VecBuilder.fill(0.7, 0.7, 9999999)
         );
-
-        this.gyro = new AHRS();
         
         Alliance.alliancePresentTrigger().onTrue(
             Commands.runOnce(
@@ -116,9 +116,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         AutoBuilder.configureHolonomic(
             odometry::getEstimatedPosition,
             this::setOdometryPosition,
-            () -> {
-                return this.robotCurrentSpeeds.getChassisSpeeds();
-            },
+            this.robotCurrentSpeeds::getChassisSpeeds,
             (edu.wpi.first.math.kinematics.ChassisSpeeds speeds) -> {
                 this.drive(new ChassisSpeeds(speeds), false, true);
             },
