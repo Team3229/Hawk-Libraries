@@ -11,7 +11,7 @@
     "javaDependencies": [
         {
             "groupId": "frc.hawklibraries",
-            "artifactId": "hawklibraries-java",
+            "artifactId": "hawklibraries",
             "version": "$0.0.1"
         }
     ]
