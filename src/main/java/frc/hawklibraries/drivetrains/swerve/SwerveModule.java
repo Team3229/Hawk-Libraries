@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.drivetrains.swerve;
+package frc.hawklibraries.drivetrains.swerve;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -6,10 +6,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import frc.robot.hawklibaries.vendorRewrites.ctre.CANcoder;
-import frc.robot.hawklibaries.vendorRewrites.rev.CANSparkMax;
-import frc.robot.hawklibaries.vendorRewrites.rev.CANSparkMax.SetpointType;
-import frc.robot.hawklibaries.vendorRewrites.wpilib.PIDController;
+import frc.hawklibraries.vendorRewrites.ctre.CANcoder;
+import frc.hawklibraries.vendorRewrites.rev.CANSparkMax;
+import frc.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
+import frc.hawklibraries.vendorRewrites.wpilib.PIDController;
 
 public class SwerveModule {
 
@@ -44,7 +44,6 @@ public class SwerveModule {
         m_turningMotor.setInverted(true);
 
         m_turningPIDController.enableContinuousInput(-Math.PI, Math.PI);
-        m_turningPIDController.setOutputRange(this.config.getTurningOutputMin(), this.config.getTurningOutputMax());
 
         m_drivePIDController.applyToSparkMax(m_driveMotor, SetpointType.kVelocity);
         m_turningPIDController.applyToSparkMax(m_turningMotor, SetpointType.kPosition);

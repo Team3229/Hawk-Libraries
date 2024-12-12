@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.vendorRewrites.rev;
+package frc.hawklibraries.vendorRewrites.rev;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.hawklibaries.utilities.PIDConstants;
+import frc.hawklibraries.utilities.PIDConstants;
 
 public class CANSparkMax {
 
@@ -104,6 +104,14 @@ public class CANSparkMax {
 
     public void setOutputRange(double min, double max) {
         this.m_pidController.setOutputRange(min, max);
+    }
+
+    public void follow(CANSparkMax leader) {
+        follow(leader, false);
+    }
+
+    public void follow(CANSparkMax leader, boolean invert) {
+        m_sparkMax.follow(leader.m_sparkMax, invert);
     }
 
 }
