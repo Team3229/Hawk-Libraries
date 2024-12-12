@@ -1,4 +1,4 @@
-package frc.robot.hawklibraries.vendorRewrites.wpilib;
+package frc.hawklibraries.vendorRewrites.wpilib;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
