@@ -93,12 +93,12 @@ public class SwerveDrivetrain extends SubsystemBase {
             VecBuilder.fill(0.7, 0.7, 9999999)
         );
 
-        this.m_gyro = new AHRS();
+        this.gyro = new AHRS();
         
         Alliance.alliancePresentTrigger().onTrue(
             Commands.runOnce(
                 () -> {
-                        m_gyro.setAngleAdjustment(
+                        gyro.setAngleAdjustment(
                             (Alliance.getAlliance() == AllianceColor.Red)
                                 ? 180
                                 : 0
@@ -111,13 +111,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         setDefaultCommand(driveCommand(inputSpeeds, true));
 
-        m_robotCurrentSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
+        robotCurrentSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
         AutoBuilder.configureHolonomic(
             odometry::getEstimatedPosition,
             this::setOdometryPosition,
             () -> {
-                return this.m_robotCurrentSpeeds.getChassisSpeeds();
+                return this.robotCurrentSpeeds.getChassisSpeeds();
             },
             (edu.wpi.first.math.kinematics.ChassisSpeeds speeds) -> {
                 this.drive(new ChassisSpeeds(speeds), false, true);
@@ -157,7 +157,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                         ? (applyOverrides(speeds))
                         : (speeds)
                     ,
-                    m_gyro.getRotation2d()
+                    gyro.getRotation2d()
                 )
                 : speeds;
 
@@ -190,13 +190,13 @@ public class SwerveDrivetrain extends SubsystemBase {
         return AutoBuilder.pathfindToPoseFlipped(
             new Pose2d(
                 xPoseMeters == null
-                    ? m_odometry.getEstimatedPosition().getX()
+                    ? odometry.getEstimatedPosition().getX()
                     : xPoseMeters,
                 yPoseMeters == null
-                    ? m_odometry.getEstimatedPosition().getY()
+                    ? odometry.getEstimatedPosition().getY()
                     : yPoseMeters,
                 theta == null
-                    ? m_odometry.getEstimatedPosition().getRotation()
+                    ? odometry.getEstimatedPosition().getRotation()
                     : theta
             ),
             constraints
@@ -276,7 +276,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void addVisionMeasurement(Pose2d position, double timestampSeconds) {
-        this.m_odometry.addVisionMeasurement(position, timestampSeconds);
+        this.odometry.addVisionMeasurement(position, timestampSeconds);
     }
 
     public Command getAutonomousCommand() {
