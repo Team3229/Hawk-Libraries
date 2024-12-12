@@ -65,10 +65,10 @@
           "name": "Hawk-Libraries-0.0.1.jar",
           "url": "Hawk-Libraries-0.0.1.jar",
           "size": 43268,
-          "sha512": "4f7958468bd9532beaff3808cbd28c1ccb6c8822d5f68e383baace5c77f642134abbd3294530d5bb07e9bc42b7dafca2aad5fea65d523062b968a8ecaa9169ae",
-          "sha256": "2c2fa2d1159695b6e4af58f14eba28db3e3cb4c3f597bd867a31411ced91e307",
-          "sha1": "c1b67a0267cadc731d1ec1ceef11498a542bad7b",
-          "md5": "bf9a1cc37fa3055cee180e731cc38bf2"
+          "sha512": "afbc9c2bd399ef179e641eee8847e52ecfb411c27945dafe65cc8d56aa9588e1451d44591968ac31fdfbc5f95da2e72dea0bcb36bf9f35ecc34e0ecef6cb653b",
+          "sha256": "68e1d699508ba7e22cb38ecd8c512cecab3e6d415e1027407707eeea81a7b9a7",
+          "sha1": "e63e0ceabbfdfd5b5df88fe6fb5ed497874cb313",
+          "md5": "5c3f0a158fd0231aaa893464f1bbfaa4"
         }
       ]
     },
@@ -214,10 +214,10 @@
           "name": "Hawk-Libraries-0.0.1.jar",
           "url": "Hawk-Libraries-0.0.1.jar",
           "size": 43268,
-          "sha512": "4f7958468bd9532beaff3808cbd28c1ccb6c8822d5f68e383baace5c77f642134abbd3294530d5bb07e9bc42b7dafca2aad5fea65d523062b968a8ecaa9169ae",
-          "sha256": "2c2fa2d1159695b6e4af58f14eba28db3e3cb4c3f597bd867a31411ced91e307",
-          "sha1": "c1b67a0267cadc731d1ec1ceef11498a542bad7b",
-          "md5": "bf9a1cc37fa3055cee180e731cc38bf2"
+          "sha512": "afbc9c2bd399ef179e641eee8847e52ecfb411c27945dafe65cc8d56aa9588e1451d44591968ac31fdfbc5f95da2e72dea0bcb36bf9f35ecc34e0ecef6cb653b",
+          "sha256": "68e1d699508ba7e22cb38ecd8c512cecab3e6d415e1027407707eeea81a7b9a7",
+          "sha1": "e63e0ceabbfdfd5b5df88fe6fb5ed497874cb313",
+          "md5": "5c3f0a158fd0231aaa893464f1bbfaa4"
         }
       ]
     },
@@ -234,10 +234,10 @@
           "name": "Hawk-Libraries-0.0.1-sources.jar",
           "url": "Hawk-Libraries-0.0.1-sources.jar",
           "size": 13543,
-          "sha512": "5f43a12861b983a5a6ecd929e50df00fabb8604de28b0fbccba5a03de291e2692a72abf3c7c038860207c3f4463946b36947823a79a55749d28a0e449fb29b80",
-          "sha256": "a4136cd360bf852ce377764795176d011924185fb4d396f0d8719a141c7f4711",
-          "sha1": "15f8a61a4fb486bdceef72d2a83c079e28a1b454",
-          "md5": "362f06082b53943b39fdacbd0cdc388a"
+          "sha512": "b782429eba681db6393a14eebc94e610e28dfda5fce89d9e529ddbfaeb410e506a87f490f0b046796209e26e0a1609eef2862c4ca0bb14a33a8b85d0cf28f5cf",
+          "sha256": "edf01e26504a080cd58293839c59055f52431b019bc5f0d020771f7dc800bc68",
+          "sha1": "3c1b7643ac618a8aa255a1913c87e4c6f60d0d94",
+          "md5": "c049c048a8189fe72b19ac63531f26ad"
         }
       ]
     }

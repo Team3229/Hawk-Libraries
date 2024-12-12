@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish' // Optional, for publishing the library
     id 'edu.wpi.first.wpilib.repositories.WPILibRepositoriesPlugin' version '2020.2'
+    id 'edu.wpi.first.GradleVsCode' version '2.1.0'
 }
 
 group = 'com.hawklibraries'
