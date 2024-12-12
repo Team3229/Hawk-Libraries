@@ -65,10 +65,10 @@
           "name": "Hawk-Libraries-0.0.1.jar",
           "url": "Hawk-Libraries-0.0.1.jar",
           "size": 43268,
-          "sha512": "afbc9c2bd399ef179e641eee8847e52ecfb411c27945dafe65cc8d56aa9588e1451d44591968ac31fdfbc5f95da2e72dea0bcb36bf9f35ecc34e0ecef6cb653b",
-          "sha256": "68e1d699508ba7e22cb38ecd8c512cecab3e6d415e1027407707eeea81a7b9a7",
-          "sha1": "e63e0ceabbfdfd5b5df88fe6fb5ed497874cb313",
-          "md5": "5c3f0a158fd0231aaa893464f1bbfaa4"
+          "sha512": "1e20863d7ec19d924b3723f85dfc8de8d66743314dd8d8159058bf157039e89462153ec99fc21142168a427867f9aab39ec38ffdcea05491c4e2a20b85e7efc0",
+          "sha256": "53af5910d77aaa6cccc50f25620912ad5ee28c0220ca84659d95b8f5533df710",
+          "sha1": "ae33cc4552c1ad05c94e32c1e8e146ecb751f618",
+          "md5": "6bcc00ae75651597a0a3cb7f24547d7a"
         }
       ]
     },
@@ -214,10 +214,10 @@
           "name": "Hawk-Libraries-0.0.1.jar",
           "url": "Hawk-Libraries-0.0.1.jar",
           "size": 43268,
-          "sha512": "afbc9c2bd399ef179e641eee8847e52ecfb411c27945dafe65cc8d56aa9588e1451d44591968ac31fdfbc5f95da2e72dea0bcb36bf9f35ecc34e0ecef6cb653b",
-          "sha256": "68e1d699508ba7e22cb38ecd8c512cecab3e6d415e1027407707eeea81a7b9a7",
-          "sha1": "e63e0ceabbfdfd5b5df88fe6fb5ed497874cb313",
-          "md5": "5c3f0a158fd0231aaa893464f1bbfaa4"
+          "sha512": "1e20863d7ec19d924b3723f85dfc8de8d66743314dd8d8159058bf157039e89462153ec99fc21142168a427867f9aab39ec38ffdcea05491c4e2a20b85e7efc0",
+          "sha256": "53af5910d77aaa6cccc50f25620912ad5ee28c0220ca84659d95b8f5533df710",
+          "sha1": "ae33cc4552c1ad05c94e32c1e8e146ecb751f618",
+          "md5": "6bcc00ae75651597a0a3cb7f24547d7a"
         }
       ]
     },
@@ -234,10 +234,30 @@
           "name": "Hawk-Libraries-0.0.1-sources.jar",
           "url": "Hawk-Libraries-0.0.1-sources.jar",
           "size": 13543,
-          "sha512": "b782429eba681db6393a14eebc94e610e28dfda5fce89d9e529ddbfaeb410e506a87f490f0b046796209e26e0a1609eef2862c4ca0bb14a33a8b85d0cf28f5cf",
-          "sha256": "edf01e26504a080cd58293839c59055f52431b019bc5f0d020771f7dc800bc68",
-          "sha1": "3c1b7643ac618a8aa255a1913c87e4c6f60d0d94",
-          "md5": "c049c048a8189fe72b19ac63531f26ad"
+          "sha512": "8dba010f58c5bd9517ed21ed6d0c924fc4833af23244fa1a8121c7d70a14a67678bd90840e0c9485856f163390c1a181e658c5748f40f9963e7502e94755c356",
+          "sha256": "8f1c928dd489857d6b44f0a5db3f4f9e90e6e70dc1e0e1b28bb3634ff1eac92b",
+          "sha1": "c3329f8f2ee7c6d6b6fee0f86e253675090bdcac",
+          "md5": "7c6cc3a267414453dfff3f6e76538bbf"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "Hawk-Libraries-0.0.1-javadoc.jar",
+          "url": "Hawk-Libraries-0.0.1-javadoc.jar",
+          "size": 140719,
+          "sha512": "03e2da2b42471c3732f0cafca3afb6920930265624cb870faecdc51c71f0a58538eec67801634e1deb6f185c00fa66f7dc2f49e7ef933f94933a6d40d60555f2",
+          "sha256": "c5806c0f01f79dfa2ca093fc241dfc4dde3011f1b79ddacbe4556cc17996eab7",
+          "sha1": "b7cf0544ec6bac63edd355616f36bdfbf1791b59",
+          "md5": "e2a2c2e391571c5482dde0261e770277"
         }
       ]
     }
