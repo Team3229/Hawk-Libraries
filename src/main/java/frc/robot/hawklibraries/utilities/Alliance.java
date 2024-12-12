@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.utilities;
+package frc.robot.hawklibraries.utilities;
 
 import java.util.NoSuchElementException;
 

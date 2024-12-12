@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.vendorRewrites.rev;
+package frc.robot.hawklibraries.vendorRewrites.rev;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.hawklibaries.utilities.PIDConstants;
+import frc.robot.hawklibraries.utilities.PIDConstants;
 
 public class CANSparkMax {
 

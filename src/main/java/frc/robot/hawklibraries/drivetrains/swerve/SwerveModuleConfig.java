@@ -1,7 +1,7 @@
-package frc.robot.hawklibaries.drivetrains.swerve;
+package frc.robot.hawklibraries.drivetrains.swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.hawklibaries.utilities.PIDConstants;
+import frc.robot.hawklibraries.utilities.PIDConstants;
 
 public class SwerveModuleConfig {
     

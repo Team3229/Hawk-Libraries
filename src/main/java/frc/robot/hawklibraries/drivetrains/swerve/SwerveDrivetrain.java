@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.drivetrains.swerve;
+package frc.robot.hawklibraries.drivetrains.swerve;
 
 import java.util.function.Supplier;
 
@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.hawklibaries.utilities.Alliance;
-import frc.robot.hawklibaries.utilities.Alliance.AllianceColor;
-import frc.robot.hawklibaries.vendorRewrites.wpilib.ChassisSpeeds;
+import frc.robot.hawklibraries.utilities.Alliance;
+import frc.robot.hawklibraries.utilities.Alliance.AllianceColor;
+import frc.robot.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds;
 
 public class SwerveDrivetrain extends SubsystemBase {
     

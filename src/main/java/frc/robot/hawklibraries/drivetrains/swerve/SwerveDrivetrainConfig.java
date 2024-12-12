@@ -1,7 +1,7 @@
-package frc.robot.hawklibaries.drivetrains.swerve;
+package frc.robot.hawklibraries.drivetrains.swerve;
 
-import frc.robot.hawklibaries.drivetrains.DrivetrainConfig;
-import frc.robot.hawklibaries.utilities.PIDConstants;
+import frc.robot.hawklibraries.drivetrains.DrivetrainConfig;
+import frc.robot.hawklibraries.utilities.PIDConstants;
 
 public class SwerveDrivetrainConfig extends DrivetrainConfig {
 

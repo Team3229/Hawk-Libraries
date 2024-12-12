@@ -1,4 +1,4 @@
-package frc.robot.hawklibaries.drivetrains;
+package frc.robot.hawklibraries.drivetrains;
 
 public abstract class DrivetrainConfig {
     
