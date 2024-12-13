@@ -1,3 +1,9 @@
+/**
+ * SwerveDrivetrain.java
+ *
+ * Represents a swerve drive drivetrain subsystem in an FRC robot. This class integrates swerve modules, odometry,
+ * kinematics, and autonomous capabilities to provide high-level control and functionality.
+ */
 package frc.hawklibraries.drivetrains.swerve;
 
 import java.util.function.Supplier;
@@ -28,59 +34,62 @@ import frc.hawklibraries.utilities.Alliance.AllianceColor;
 import frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds;
 
 public class SwerveDrivetrain extends SubsystemBase {
-    
+
+    // Configuration object holding drivetrain-specific settings
     private SwerveDrivetrainConfig config;
 
+    // Essential drivetrain components
     private SwerveDriveKinematics kinematics;
     private SwerveDrivePoseEstimator odometry;
     private AHRS gyro;
 
+    // Individual swerve modules
     private SwerveModule frontLeft;
     private SwerveModule frontRight;
     private SwerveModule backLeft;
     private SwerveModule backRight;
 
+    // Field visualization and odometry
     private Field2d odometryField;
     private ChassisSpeeds robotCurrentSpeeds;
 
+    // Autonomous command chooser
     private SendableChooser<Command> autoDropdown;
 
+    // Driving overrides and speed input source
     private ChassisSpeeds autoOverrides;
     private Supplier<ChassisSpeeds> inputSpeeds;
 
+    /**
+     * Constructs a SwerveDrivetrain subsystem.
+     * 
+     * @param config               Configuration object containing drivetrain settings.
+     * @param defaultDrivingSpeeds Supplier for default chassis speeds during teleoperation.
+     */
     public SwerveDrivetrain(
         SwerveDrivetrainConfig config,
         Supplier<ChassisSpeeds> defaultDrivingSpeeds
     ) {
-
         this.config = config;
 
+        // Initialize swerve modules
         this.frontLeft = new SwerveModule(this.config.getFrontLeftConfig());
         this.frontRight = new SwerveModule(this.config.getFrontRightConfig());
         this.backLeft = new SwerveModule(this.config.getBackLeftConfig());
         this.backRight = new SwerveModule(this.config.getBackRightConfig());
 
+        // Initialize gyro for orientation tracking
         this.gyro = new AHRS();
-        
+
+        // Configure drivetrain kinematics
         this.kinematics = new SwerveDriveKinematics(
-            new Translation2d(
-                this.config.getModuleDistance(),
-                this.config.getModuleDistance()
-            ),
-            new Translation2d(
-                this.config.getModuleDistance(),
-                -this.config.getModuleDistance()
-            ),
-            new Translation2d(
-                -this.config.getModuleDistance(),
-                this.config.getModuleDistance()
-            ),
-            new Translation2d(
-                -this.config.getModuleDistance(),
-                -this.config.getModuleDistance()
-            )
+            new Translation2d(this.config.getModuleDistance(), this.config.getModuleDistance()),
+            new Translation2d(this.config.getModuleDistance(), -this.config.getModuleDistance()),
+            new Translation2d(-this.config.getModuleDistance(), this.config.getModuleDistance()),
+            new Translation2d(-this.config.getModuleDistance(), -this.config.getModuleDistance())
         );
 
+        // Set up odometry for position tracking
         this.odometry = new SwerveDrivePoseEstimator(
             kinematics,
             gyro.getRotation2d(),
@@ -94,32 +103,26 @@ public class SwerveDrivetrain extends SubsystemBase {
             VecBuilder.fill(0.1, 0.1, 0.1),
             VecBuilder.fill(0.7, 0.7, 9999999)
         );
-        
+
+        // Adjust gyro alignment based on alliance color
         Alliance.alliancePresentTrigger().onTrue(
             Commands.runOnce(
-                () -> {
-                        gyro.setAngleAdjustment(
-                            (Alliance.getAlliance() == AllianceColor.Red)
-                                ? 180
-                                : 0
-                        );
-                    }
-                )  
+                () -> gyro.setAngleAdjustment(
+                    (Alliance.getAlliance() == AllianceColor.Red) ? 180 : 0
+                )
+            )
         );
 
         this.inputSpeeds = defaultDrivingSpeeds;
-
         setDefaultCommand(driveCommand(inputSpeeds, true));
 
+        // Initialize robot speed tracking and autonomous commands
         robotCurrentSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
-
         AutoBuilder.configureHolonomic(
             odometry::getEstimatedPosition,
             this::setOdometryPosition,
             this.robotCurrentSpeeds::getChassisSpeeds,
-            (edu.wpi.first.math.kinematics.ChassisSpeeds speeds) -> {
-                this.drive(new ChassisSpeeds(speeds), false, true);
-            },
+            (edu.wpi.first.math.kinematics.ChassisSpeeds speeds) -> this.drive(new ChassisSpeeds(speeds), false, true),
             new HolonomicPathFollowerConfig(
                 new PIDConstants(
                     this.config.getTranslationPID().getkP(),
@@ -143,18 +146,20 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putData("Autonomous Selector", autoDropdown);
 
         this.setName("Swerve Drivetrain");
-
     }
 
+    /**
+     * Drives the robot with specified chassis speeds.
+     * 
+     * @param speeds       Desired chassis speeds.
+     * @param fieldRelative Whether to interpret speeds relative to the field.
+     * @param useOverrides Whether to apply driving overrides.
+     */
     public void drive(ChassisSpeeds speeds, boolean fieldRelative, boolean useOverrides) {
-
         this.robotCurrentSpeeds = 
             fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                    useOverrides
-                        ? (applyOverrides(speeds))
-                        : (speeds)
-                    ,
+                    useOverrides ? (applyOverrides(speeds)) : (speeds),
                     gyro.getRotation2d()
                 )
                 : speeds;
@@ -174,6 +179,13 @@ public class SwerveDrivetrain extends SubsystemBase {
         backRight.setDesiredState(swerveModuleStates[3]);
     }
 
+    /**
+     * Creates a command for driving the robot using specified chassis speeds.
+     * 
+     * @param speeds       Supplier of chassis speeds.
+     * @param fieldRelative Whether to interpret speeds relative to the field.
+     * @return Command for driving the robot.
+     */
     public Command driveCommand(Supplier<ChassisSpeeds> speeds, boolean fieldRelative) {
         Command out = new Command() {
             @Override public void execute() {

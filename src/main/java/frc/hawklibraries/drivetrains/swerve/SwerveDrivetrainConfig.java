@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class SwerveDrivetrainConfig extends DrivetrainConfig {
 
-    private double[] moduleOffsets;
     private double moduleDistance;
     private PIDConstants translationPID;
     private PIDConstants rotationPID;
