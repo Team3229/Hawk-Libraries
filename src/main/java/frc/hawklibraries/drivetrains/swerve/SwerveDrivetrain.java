@@ -15,10 +15,14 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -59,6 +63,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     // Driving overrides and speed input source
     private ChassisSpeeds autoOverrides;
     private Supplier<ChassisSpeeds> inputSpeeds;
+
+    public AprilTagFieldLayout fieldLayout;
 
     /**
      * Constructs a SwerveDrivetrain subsystem.
@@ -146,6 +152,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putData("Autonomous Selector", autoDropdown);
 
         this.setName("Swerve Drivetrain");
+
+        fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+
     }
 
     /**
@@ -231,6 +240,33 @@ public class SwerveDrivetrain extends SubsystemBase {
             )
         );
     }
+
+    public Command driveToTag(int tagId, Transform2d offset, PathConstraints constraints) {
+        try {
+            Pose2d tagPose = getTagPose(tagId).toPose2d().transformBy(offset);
+            return driveToPose(
+                tagPose.getX(),
+                tagPose.getY(),
+                tagPose.getRotation(),
+                constraints
+            );
+        } catch (Exception e) {
+            return driveToPose(
+                null,
+                null,
+                null,
+                constraints
+            );
+        }
+    }
+
+    public Pose3d getTagPose(int tagId) {
+        try {
+            return fieldLayout.getTagPose(tagId).get();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     
     private ChassisSpeeds applyOverrides(ChassisSpeeds speeds) {
         return new ChassisSpeeds(
@@ -290,6 +326,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public Command getAutonomousCommand() {
+
         return autoDropdown.getSelected();
     }
 

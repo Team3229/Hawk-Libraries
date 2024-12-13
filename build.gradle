@@ -34,6 +34,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.36'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
 
+    implementation 'edu.wpi.first.apriltag:apriltag-java:2024.3.2'
     implementation 'edu.wpi.first.cscore:cscore-java:2024.3.2'
     implementation 'edu.wpi.first.cameraserver:cameraserver-java:2024.3.2'
     implementation 'edu.wpi.first.ntcore:ntcore-java:2024.3.2'
