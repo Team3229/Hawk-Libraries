@@ -64,11 +64,11 @@
         {
           "name": "Hawk-Libraries-0.0.1.jar",
           "url": "Hawk-Libraries-0.0.1.jar",
-          "size": 43268,
-          "sha512": "1e20863d7ec19d924b3723f85dfc8de8d66743314dd8d8159058bf157039e89462153ec99fc21142168a427867f9aab39ec38ffdcea05491c4e2a20b85e7efc0",
-          "sha256": "53af5910d77aaa6cccc50f25620912ad5ee28c0220ca84659d95b8f5533df710",
-          "sha1": "ae33cc4552c1ad05c94e32c1e8e146ecb751f618",
-          "md5": "6bcc00ae75651597a0a3cb7f24547d7a"
+          "size": 43544,
+          "sha512": "363262d281b9019f0feb93b3f5ef455a3f2f5d0a8e26e20b687c17817f9fd262c63087fbe89f25584d36a0ebe8ff8023ba1c5eff81035243f787661a1ccaa7a1",
+          "sha256": "fdf6c598e51906ee459b2133ae7be38025f83b8248a8171f32be324b11960eca",
+          "sha1": "e98c06e23b6d7ba785bd97e91e8188a659745144",
+          "md5": "70ce4de6361081bf4335755564863a67"
         }
       ]
     },
@@ -82,6 +82,13 @@
         "org.gradle.usage": "java-runtime"
       },
       "dependencies": [
+        {
+          "group": "edu.wpi.first.apriltag",
+          "module": "apriltag-java",
+          "version": {
+            "requires": "2024.3.2"
+          }
+        },
         {
           "group": "edu.wpi.first.cscore",
           "module": "cscore-java",
@@ -213,11 +220,11 @@
         {
           "name": "Hawk-Libraries-0.0.1.jar",
           "url": "Hawk-Libraries-0.0.1.jar",
-          "size": 43268,
-          "sha512": "1e20863d7ec19d924b3723f85dfc8de8d66743314dd8d8159058bf157039e89462153ec99fc21142168a427867f9aab39ec38ffdcea05491c4e2a20b85e7efc0",
-          "sha256": "53af5910d77aaa6cccc50f25620912ad5ee28c0220ca84659d95b8f5533df710",
-          "sha1": "ae33cc4552c1ad05c94e32c1e8e146ecb751f618",
-          "md5": "6bcc00ae75651597a0a3cb7f24547d7a"
+          "size": 43544,
+          "sha512": "363262d281b9019f0feb93b3f5ef455a3f2f5d0a8e26e20b687c17817f9fd262c63087fbe89f25584d36a0ebe8ff8023ba1c5eff81035243f787661a1ccaa7a1",
+          "sha256": "fdf6c598e51906ee459b2133ae7be38025f83b8248a8171f32be324b11960eca",
+          "sha1": "e98c06e23b6d7ba785bd97e91e8188a659745144",
+          "md5": "70ce4de6361081bf4335755564863a67"
         }
       ]
     },
@@ -233,11 +240,11 @@
         {
           "name": "Hawk-Libraries-0.0.1-sources.jar",
           "url": "Hawk-Libraries-0.0.1-sources.jar",
-          "size": 13543,
-          "sha512": "8dba010f58c5bd9517ed21ed6d0c924fc4833af23244fa1a8121c7d70a14a67678bd90840e0c9485856f163390c1a181e658c5748f40f9963e7502e94755c356",
-          "sha256": "8f1c928dd489857d6b44f0a5db3f4f9e90e6e70dc1e0e1b28bb3634ff1eac92b",
-          "sha1": "c3329f8f2ee7c6d6b6fee0f86e253675090bdcac",
-          "md5": "7c6cc3a267414453dfff3f6e76538bbf"
+          "size": 15657,
+          "sha512": "a2fb352dff267bd4f2fcb960d74b336d6c5ce7164eb14ba2c5033b8587132d48718cf401de64ddd466e54de7ed80ff0ff194a17f966cc33751b31dfbbc6f8343",
+          "sha256": "4d980b0b7f35edc1441a5cf5a1a1065fcd6675d38cc9707457a31e3345d1e44b",
+          "sha1": "4f028cb214ba5f3fefe631b2b2baa1a0be0b05b4",
+          "md5": "633d5e7a1fdb2db70ae0d7c818398df0"
         }
       ]
     },
@@ -253,11 +260,11 @@
         {
           "name": "Hawk-Libraries-0.0.1-javadoc.jar",
           "url": "Hawk-Libraries-0.0.1-javadoc.jar",
-          "size": 140719,
-          "sha512": "03e2da2b42471c3732f0cafca3afb6920930265624cb870faecdc51c71f0a58538eec67801634e1deb6f185c00fa66f7dc2f49e7ef933f94933a6d40d60555f2",
-          "sha256": "c5806c0f01f79dfa2ca093fc241dfc4dde3011f1b79ddacbe4556cc17996eab7",
-          "sha1": "b7cf0544ec6bac63edd355616f36bdfbf1791b59",
-          "md5": "e2a2c2e391571c5482dde0261e770277"
+          "size": 142273,
+          "sha512": "db3f1be23f4df481668d91ded13d135a731f053228b53e3c3b2950f9e54316548733a49d193059f40625d8cbd47457e50d6d530e9ea4486346f53f88bc306257",
+          "sha256": "567531a6b16eae67e91750ab4db70281a1b888f8983d66f6b03c96febcae1c04",
+          "sha1": "2c95e906ecee708526b0a8a818944d19600416e1",
+          "md5": "0617dd6530d8a51e35e41d8643e81a00"
         }
       ]
     }

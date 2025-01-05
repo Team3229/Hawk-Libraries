@@ -13,7 +13,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Configuration for an individual swerve module. <br></br>
+ * Configuration for an individual swerve module. <br>
  * This class encapsulates all the necessary parameters to configure a swerve module,
  * including gear ratios, motor IDs, encoder offsets, and PID constants for driving
  * and turning.
@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 public class SwerveModuleConfig {
 
     /**
-     * Diameter of the swerve module wheel, in meters. <br></br>
+     * Diameter of the swerve module wheel, in meters. <br>
      * <b>Default</b>: 0.25 meters (25 cm).
      */
     @Builder.Default
@@ -32,7 +32,7 @@ public class SwerveModuleConfig {
 
     /**
      * Gear ratio for the drive motor, represented as the ratio of motor rotations
-     * to wheel rotations. <br></br>
+     * to wheel rotations. <br>
      * <b>Default</b>: 1.0 (1:1 ratio).
      */
     @Builder.Default
@@ -40,14 +40,14 @@ public class SwerveModuleConfig {
 
     /**
      * Gear ratio for the turning motor, represented as the ratio of motor rotations
-     * to turning mechanism rotations. <br></br>
+     * to turning mechanism rotations. <br>
      * <b>Default</b>: 1.0 (1:1 ratio).
      */
     @Builder.Default
     private double turningGearRatio = 1.0;
 
     /**
-     * Maximum speed of the drive motor, in meters per second. <br></br>
+     * Maximum speed of the drive motor, in meters per second. <br>
      * <b>Default</b>: 3.0 meters/second.
      */
     @Builder.Default
@@ -55,7 +55,7 @@ public class SwerveModuleConfig {
 
     /**
      * Encoder offset for the turning motor, represented as a Rotation2d object.
-     * Used to correct the initial position of the turning mechanism. <br></br>
+     * Used to correct the initial position of the turning mechanism. <br>
      * <b>Default</b>: 0 radians.
      */
     @Builder.Default
