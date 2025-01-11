@@ -11,12 +11,11 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class SwerveDrivetrainConfig extends DrivetrainConfig {
 
-    private double moduleDistance;
-    private PIDConstants translationPID;
-    private PIDConstants rotationPID;
-    private SwerveModuleConfig frontLeftConfig;
-    private SwerveModuleConfig frontRightConfig;
-    private SwerveModuleConfig backLeftConfig;
-    private SwerveModuleConfig backRightConfig;
-
+  private double moduleDistance;
+  private PIDConstants translationPID;
+  private PIDConstants rotationPID;
+  private SwerveModuleConfig frontLeftConfig;
+  private SwerveModuleConfig frontRightConfig;
+  private SwerveModuleConfig backLeftConfig;
+  private SwerveModuleConfig backRightConfig;
 }

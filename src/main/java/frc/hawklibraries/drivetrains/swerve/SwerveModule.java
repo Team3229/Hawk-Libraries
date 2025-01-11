@@ -1,118 +1,125 @@
 /**
- * Class representing a swerve module, consisting of a drive motor, turning motor,
- * and encoder for positional feedback. This implementation provides methods for
- * initializing and configuring the module, as well as for setting desired states.
+ * Class representing a swerve module, consisting of a drive motor, turning motor, and encoder for
+ * positional feedback. This implementation provides methods for initializing and configuring the
+ * module, as well as for setting desired states.
  */
 package frc.hawklibraries.drivetrains.swerve;
 
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import frc.hawklibraries.vendorRewrites.ctre.CANcoder;
-import frc.hawklibraries.vendorRewrites.rev.CANSparkMax;
-import frc.hawklibraries.vendorRewrites.rev.CANSparkMax.SetpointType;
-import frc.hawklibraries.vendorRewrites.wpilib.PIDController;
 
 /**
- * A class for managing an individual swerve module in a drivetrain.
- * This includes controlling the drive and turning motors and providing feedback for optimization.
+ * A class for managing an individual swerve module in a drivetrain. This includes controlling the
+ * drive and turning motors and providing feedback for optimization.
  */
 public class SwerveModule {
 
-    /** Configuration object containing module parameters. */
-    SwerveModuleConfig config;
+  /** Configuration object containing module parameters. */
+  SwerveModuleConfig config;
 
-    /** Motor for driving the wheel. */
-    CANSparkMax m_driveMotor;
+  /** Motor for driving the wheel. */
+  SparkMax m_driveMotor;
 
-    /** Motor for controlling the turning angle. */
-    CANSparkMax m_turningMotor;
+  /** Motor for controlling the turning angle. */
+  SparkMax m_turningMotor;
 
-    /** Encoder for measuring the turning angle. */
-    CANcoder m_turningEncoder;
+  SparkMaxConfig m_driveMotorConfig;
 
-    /** PID controller for the drive motor. */
-    PIDController m_drivePIDController;
+  SparkMaxConfig m_turningMotorConfig;
 
-    /** PID controller for the turning motor. */
-    PIDController m_turningPIDController;
-    
-    /**
-     * Constructs a new SwerveModule instance.
-     *
-     * @param config Configuration object with parameters such as motor IDs, PID constants, and gear ratios.
-     */
-    public SwerveModule(SwerveModuleConfig config) {
+  /** Encoder for measuring the turning angle. */
+  CANcoder m_turningEncoder;
 
-        this.config = config;
+  /** PID controller for the drive motor. */
+  SparkClosedLoopController m_drivePIDController;
 
-        // Initialize motors and encoder with IDs from configuration
-        m_driveMotor = new CANSparkMax(this.config.getDriveID(), MotorType.kBrushless);
-        m_turningMotor = new CANSparkMax(this.config.getTurningID(), MotorType.kBrushless);
-        m_turningEncoder = new CANcoder(this.config.getTurningEncoderID());
-        m_drivePIDController = new PIDController(this.config.getDrivePID());
-        m_turningPIDController = new PIDController(this.config.getTurningPID());
+  /** PID controller for the turning motor. */
+  SparkClosedLoopController m_turningPIDController;
 
-        // Reset motors to factory defaults
-        m_driveMotor.restoreFactoryDefaults();
-        m_turningMotor.restoreFactoryDefaults();
+  /**
+   * Constructs a new SwerveModule instance.
+   *
+   * @param config Configuration object with parameters such as motor IDs, PID constants, and gear
+   *     ratios.
+   */
+  public SwerveModule(SwerveModuleConfig config) {
 
-        // Set motor idle modes and configure position/velocity conversion factors
-        m_driveMotor.setIdleMode(IdleMode.kCoast);
-        m_turningMotor.setIdleMode(IdleMode.kCoast);
-        m_driveMotor.setPositionConversionFactor(Math.PI * config.getWheelDiameter() / config.getDriveGearRatio());
-        m_driveMotor.setVelocityConversionFactor(Math.PI * config.getWheelDiameter() / 60 / config.getDriveGearRatio());
-        m_driveMotor.setPosition(0);
-        m_turningMotor.setPositionConversionFactor(2 * Math.PI / config.getDriveGearRatio());
-        m_turningMotor.setInverted(true);
+    this.config = config;
 
-        // Configure PID controllers
-        m_turningPIDController.enableContinuousInput(-Math.PI, Math.PI);
-        m_drivePIDController.applyToSparkMax(m_driveMotor, SetpointType.kVelocity);
-        m_turningPIDController.applyToSparkMax(m_turningMotor, SetpointType.kPosition);
+    // Initialize motors and encoder with IDs from configuration
+    m_driveMotor = new SparkMax(this.config.getDriveID(), MotorType.kBrushless);
+    m_turningMotor = new SparkMax(this.config.getTurningID(), MotorType.kBrushless);
+    m_turningEncoder = new CANcoder(this.config.getTurningEncoderID());
+    m_drivePIDController = m_driveMotor.getClosedLoopController();
+    m_turningPIDController = m_turningMotor.getClosedLoopController();
 
-        // Apply encoder offset
-        m_turningEncoder.setOffset(this.config.getEncoderOffset());
+    // Set motor idle modes and configure position/velocity conversion factors
+    m_driveMotorConfig.idleMode(IdleMode.kCoast);
+    m_driveMotorConfig
+        .encoder
+        .positionConversionFactor(Math.PI * config.getWheelDiameter() / config.getDriveGearRatio())
+        .velocityConversionFactor(
+            Math.PI * config.getWheelDiameter() / 60 / config.getDriveGearRatio());
 
-        // Seed motor position based on encoder feedback
-        seedSparkMax();
-    }
+    m_turningMotorConfig.idleMode(IdleMode.kCoast).inverted(true);
+    m_turningMotorConfig.encoder.positionConversionFactor(2 * Math.PI / config.getDriveGearRatio());
+    m_turningMotorConfig
+        .closedLoop
+        .positionWrappingInputRange(-Math.PI, Math.PI)
+        .positionWrappingEnabled(true);
 
-    /**
-     * Retrieves the current position of the swerve module.
-     *
-     * @return A SwerveModulePosition object containing the module's position.
-     */
-    public SwerveModulePosition getModulePosition() {
-        return new SwerveModulePosition();
-    }
+    // Apply encoder offset
+    m_turningEncoder
+        .getConfigurator()
+        .setPosition(
+            m_turningEncoder.getPosition().getValueAsDouble()
+                + this.config.getEncoderOffset().getRotations());
 
-    /**
-     * Sets the desired state for the swerve module.
-     *
-     * @param desiredState The desired state, including speed and angle.
-     */
-    public void setDesiredState(SwerveModuleState desiredState) {
-        Rotation2d currentRotation = new Rotation2d(m_turningMotor.getPosition());
+    // Seed motor position based on encoder feedback
+    seedSparkMax();
+  }
 
-        // Optimize the desired state to minimize unnecessary rotation
-        SwerveModuleState optimizedState = SwerveModuleState.optimize(desiredState, currentRotation);
+  /**
+   * Retrieves the current position of the swerve module.
+   *
+   * @return A SwerveModulePosition object containing the module's position.
+   */
+  public SwerveModulePosition getModulePosition() {
+    return new SwerveModulePosition();
+  }
 
-        // Adjust speed for angle error
-        optimizedState.speedMetersPerSecond *= optimizedState.angle.minus(currentRotation).getCos();
+  /**
+   * Sets the desired state for the swerve module.
+   *
+   * @param desiredState The desired state, including speed and angle.
+   */
+  public void setDesiredState(SwerveModuleState desiredState) {
+    Rotation2d currentRotation = new Rotation2d(m_turningMotor.getEncoder().getPosition());
 
-        // Apply speed and angle to respective controllers
-        m_drivePIDController.setSetpoint(optimizedState.speedMetersPerSecond);
-        m_turningPIDController.setSetpoint(optimizedState.angle.getRadians());
-    }
+    // Optimize the desired state to minimize unnecessary rotation
 
-    /**
-     * Aligns the turning motor's position with the encoder's measured position.
-     */
-    private void seedSparkMax() {
-        m_turningMotor.setPosition(m_turningEncoder.getPosition().getRadians());
-    }
+    desiredState.optimize(currentRotation);
+
+    // Adjust speed for angle error
+    desiredState.speedMetersPerSecond *= desiredState.angle.minus(currentRotation).getCos();
+
+    // Apply speed and angle to respective controllers
+    m_drivePIDController.setReference(desiredState.speedMetersPerSecond, ControlType.kVelocity);
+    m_turningPIDController.setReference(desiredState.angle.getRadians(), ControlType.kPosition);
+  }
+
+  /** Aligns the turning motor's position with the encoder's measured position. */
+  private void seedSparkMax() {
+    m_turningMotor
+        .getEncoder()
+        .setPosition(m_turningEncoder.getPosition().getValueAsDouble() * 2 * Math.PI);
+  }
 }
