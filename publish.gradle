@@ -46,7 +46,7 @@ ext.addTaskToCopyAllOutputs = { task ->
     copyAllOutputs.from task.archiveFile
 }
 
-def artifactGroupId = 'frc'
+def artifactGroupId = 'frc.hawklibraries'
 def baseArtifactId = 'HawkLibraries'
 def zipBaseName = "_GROUP_hawklib_ID_${baseArtifactId}-cpp_CLS"
 def javaBaseName = "_GROUP_hawklib_ID_${baseArtifactId}-java_CLS"
