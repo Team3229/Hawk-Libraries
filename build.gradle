@@ -8,6 +8,7 @@ plugins {
     id 'edu.wpi.first.GradleVsCode' version '2.1.0'
     id "edu.wpi.first.GradleRIO" version "2025.1.1" // Version should be defined here.
     id "com.diffplug.spotless" version "6.11.0"
+    id 'maven-publish'
 }
 
 ext.wpilibVersion = "2025.1.1" // and again here, thanks gradle....
@@ -134,6 +135,24 @@ spotlessMisc.dependsOn javadoc
 build.dependsOn spotlessApply
 
 apply from: 'publish.gradle'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+}
 
 wrapper {
     gradleVersion '8.11'
