@@ -3,6 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>frc.hawklibraries</groupId>
-  <artifactId>HawkLibraries-java</artifactId>
-  <version>0.25.1</version>
+  <artifactId>hawklibraries-java</artifactId>
+  <version>0.25.2</version>
 </project>

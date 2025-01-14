@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Alliance</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Utility class for determining the alliance color of the robot.
+ This class provides methods to get the current alliance color and to create triggers based on alliance presence.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -121,10 +123,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html" title="class or interface in edu.wpi.first.wpilibj2.command.button" class="external-link">Trigger</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#alliancePresentTrigger()" class="member-name-link">alliancePresentTrigger</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a trigger that activates when the alliance is present.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Alliance.AllianceColor.html" title="enum class in frc.hawklibraries.utilities">Alliance.AllianceColor</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getAlliance()" class="member-name-link">getAlliance</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Gets the current alliance color of the robot.</div>
+</div>
 </div>
 </div>
 </div>
@@ -160,12 +166,22 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getAlliance()">
 <h3>getAlliance</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Alliance.AllianceColor.html" title="enum class in frc.hawklibraries.utilities">Alliance.AllianceColor</a></span>&nbsp;<span class="element-name">getAlliance</span>()</div>
+<div class="block">Gets the current alliance color of the robot.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Current alliance color.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="alliancePresentTrigger()">
 <h3>alliancePresentTrigger</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/Trigger.html" title="class or interface in edu.wpi.first.wpilibj2.command.button" class="external-link">Trigger</a></span>&nbsp;<span class="element-name">alliancePresentTrigger</span>()</div>
+<div class="block">Creates a trigger that activates when the alliance is present.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Trigger that activates when the alliance is present.</dd>
+</dl>
 </section>
 </li>
 </ul>

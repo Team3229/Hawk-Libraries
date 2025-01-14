@@ -4,7 +4,7 @@ ext.licenseFile = files("$rootDir/LICENSE.txt")
 
 // def pubVersion = System.getenv("releaseVersion") ?: "test"
 
-def pubVersion = "0.25.1"
+def pubVersion = "0.25.2"
 
 def releasesRepoUrl = "repos/"
 
@@ -47,7 +47,7 @@ ext.addTaskToCopyAllOutputs = { task ->
 }
 
 def artifactGroupId = 'frc.hawklibraries'
-def baseArtifactId = 'HawkLibraries'
+def baseArtifactId = 'hawklibraries'
 def zipBaseName = "_GROUP_hawklib_ID_${baseArtifactId}-cpp_CLS"
 def javaBaseName = "_GROUP_hawklib_ID_${baseArtifactId}-java_CLS"
 
@@ -144,7 +144,7 @@ publishing {
 
 model {
     publishing {
-        def taskList = createComponentZipTasks($.components, ['HawkLibraries'], zipBaseName, Zip, project, includeStandardZipFormat)
+        def taskList = createComponentZipTasks($.components, ['hawklibraries'], zipBaseName, Zip, project, includeStandardZipFormat)
 
         publications {
             java(MavenPublication) {

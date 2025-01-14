@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">PIDConstants</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Represents PID (Proportional, Integral, Derivative) constants used for tuning PID controllers.
+ This class also includes feedforward (kFF) and output range limits.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -89,26 +91,36 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double)" class="member-name-link">PIDConstants</a><wbr>(double&nbsp;kP)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructs PIDConstants with only the proportional constant.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double,double)" class="member-name-link">PIDConstants</a><wbr>(double&nbsp;kP,
  double&nbsp;kI)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs PIDConstants with proportional and integral constants.</div>
+</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,double)" class="member-name-link">PIDConstants</a><wbr>(double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructs PIDConstants with proportional, integral, and derivative constants.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double,double,double,double)" class="member-name-link">PIDConstants</a><wbr>(double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD,
  double&nbsp;kFF)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs PIDConstants with proportional, integral, derivative, and feedforward constants.</div>
+</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,double,double,double,double)" class="member-name-link">PIDConstants</a><wbr>(double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD,
  double&nbsp;kFF,
  double&nbsp;kOutputMin,
  double&nbsp;kOutputMax)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructs PIDConstants with all constants and output range limits.</div>
+</div>
 </div>
 </section>
 </li>
@@ -125,25 +137,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double[]</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAsArray()" class="member-name-link">getAsArray</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getkD()" class="member-name-link">getkD</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getkFF()" class="member-name-link">getkFF</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getkI()" class="member-name-link">getkI</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getkOutputMax()" class="member-name-link">getkOutputMax</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getkOutputMin()" class="member-name-link">getkOutputMin</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getkP()" class="member-name-link">getkP</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the PID constants as an array.</div>
+</div>
 </div>
 </div>
 </div>
@@ -165,6 +161,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(double)">
 <h3>PIDConstants</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PIDConstants</span><wbr><span class="parameters">(double&nbsp;kP)</span></div>
+<div class="block">Constructs PIDConstants with only the proportional constant.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>kP</code> - Proportional constant.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -172,6 +173,12 @@ loadScripts(document, 'script');</script>
 <h3>PIDConstants</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PIDConstants</span><wbr><span class="parameters">(double&nbsp;kP,
  double&nbsp;kI)</span></div>
+<div class="block">Constructs PIDConstants with proportional and integral constants.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>kP</code> - Proportional constant.</dd>
+<dd><code>kI</code> - Integral constant.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -180,6 +187,13 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PIDConstants</span><wbr><span class="parameters">(double&nbsp;kP,
  double&nbsp;kI,
  double&nbsp;kD)</span></div>
+<div class="block">Constructs PIDConstants with proportional, integral, and derivative constants.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>kP</code> - Proportional constant.</dd>
+<dd><code>kI</code> - Integral constant.</dd>
+<dd><code>kD</code> - Derivative constant.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -189,6 +203,14 @@ loadScripts(document, 'script');</script>
  double&nbsp;kI,
  double&nbsp;kD,
  double&nbsp;kFF)</span></div>
+<div class="block">Constructs PIDConstants with proportional, integral, derivative, and feedforward constants.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>kP</code> - Proportional constant.</dd>
+<dd><code>kI</code> - Integral constant.</dd>
+<dd><code>kD</code> - Derivative constant.</dd>
+<dd><code>kFF</code> - Feedforward constant.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -200,6 +222,16 @@ loadScripts(document, 'script');</script>
  double&nbsp;kFF,
  double&nbsp;kOutputMin,
  double&nbsp;kOutputMax)</span></div>
+<div class="block">Constructs PIDConstants with all constants and output range limits.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>kP</code> - Proportional constant.</dd>
+<dd><code>kI</code> - Integral constant.</dd>
+<dd><code>kD</code> - Derivative constant.</dd>
+<dd><code>kFF</code> - Feedforward constant.</dd>
+<dd><code>kOutputMin</code> - Minimum output value.</dd>
+<dd><code>kOutputMax</code> - Maximum output value.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -211,45 +243,14 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getkP()">
-<h3>getkP</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getkP</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getkI()">
-<h3>getkI</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getkI</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getkD()">
-<h3>getkD</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getkD</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getkFF()">
-<h3>getkFF</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getkFF</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getkOutputMin()">
-<h3>getkOutputMin</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getkOutputMin</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getkOutputMax()">
-<h3>getkOutputMax</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getkOutputMax</span>()</div>
-</section>
-</li>
-<li>
 <section class="detail" id="getAsArray()">
 <h3>getAsArray</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double[]</span>&nbsp;<span class="element-name">getAsArray</span>()</div>
+<div class="block">Gets the PID constants as an array.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Array of PID constants [kP, kI, kD, kFF].</dd>
+</dl>
 </section>
 </li>
 </ul>

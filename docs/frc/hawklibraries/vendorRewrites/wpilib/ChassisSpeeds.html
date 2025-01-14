@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ChassisSpeeds</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Represents the speeds of a robot chassis in meters per second and radians per second.
+ This class provides methods to convert between field-relative and robot-relative speeds.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -110,13 +112,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">ChassisSpeeds</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Default constructor for ChassisSpeeds.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(edu.wpi.first.math.kinematics.ChassisSpeeds)" class="member-name-link">ChassisSpeeds</a><wbr>(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/ChassisSpeeds.html" title="class or interface in edu.wpi.first.math.kinematics" class="external-link">ChassisSpeeds</a>&nbsp;speeds)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs a ChassisSpeeds object from an existing WPILib ChassisSpeeds object.</div>
+</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Double,java.lang.Double,java.lang.Double)" class="member-name-link">ChassisSpeeds</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;vxMetersPerSecond,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;vyMetersPerSecond,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;omegaRadiansPerSecond)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructs a ChassisSpeeds object with specified speeds.</div>
+</div>
 </div>
 </section>
 </li>
@@ -134,14 +142,20 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#discretize(frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds,double)" class="member-name-link">discretize</a><wbr>(<a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;continuousSpeeds,
  double&nbsp;dtSeconds)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Discretizes continuous speeds for a given time step.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#fromFieldRelativeSpeeds(frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds,edu.wpi.first.math.geometry.Rotation2d)" class="member-name-link">fromFieldRelativeSpeeds</a><wbr>(<a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;fieldRelativeSpeeds,
  <a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Rotation2d</a>&nbsp;robotAngle)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Converts field-relative speeds to robot-relative speeds.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/ChassisSpeeds.html" title="class or interface in edu.wpi.first.math.kinematics" class="external-link">ChassisSpeeds</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChassisSpeeds()" class="member-name-link">getChassisSpeeds</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Converts this object to a WPILib ChassisSpeeds object.</div>
+</div>
 </div>
 </div>
 </div>
@@ -189,12 +203,18 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;()">
 <h3>ChassisSpeeds</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ChassisSpeeds</span>()</div>
+<div class="block">Default constructor for ChassisSpeeds.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(edu.wpi.first.math.kinematics.ChassisSpeeds)">
 <h3>ChassisSpeeds</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ChassisSpeeds</span><wbr><span class="parameters">(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/ChassisSpeeds.html" title="class or interface in edu.wpi.first.math.kinematics" class="external-link">ChassisSpeeds</a>&nbsp;speeds)</span></div>
+<div class="block">Constructs a ChassisSpeeds object from an existing WPILib ChassisSpeeds object.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>speeds</code> - WPILib ChassisSpeeds object.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -203,6 +223,13 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ChassisSpeeds</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;vxMetersPerSecond,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;vyMetersPerSecond,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;omegaRadiansPerSecond)</span></div>
+<div class="block">Constructs a ChassisSpeeds object with specified speeds.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>vxMetersPerSecond</code> - Speed in the x direction (forward) in meters per second.</dd>
+<dd><code>vyMetersPerSecond</code> - Speed in the y direction (sideways) in meters per second.</dd>
+<dd><code>omegaRadiansPerSecond</code> - Angular speed in radians per second.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -218,12 +245,25 @@ loadScripts(document, 'script');</script>
 <h3>fromFieldRelativeSpeeds</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a></span>&nbsp;<span class="element-name">fromFieldRelativeSpeeds</span><wbr><span class="parameters">(<a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;fieldRelativeSpeeds,
  <a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Rotation2d</a>&nbsp;robotAngle)</span></div>
+<div class="block">Converts field-relative speeds to robot-relative speeds.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>fieldRelativeSpeeds</code> - Field-relative speeds.</dd>
+<dd><code>robotAngle</code> - Current angle of the robot.</dd>
+<dt>Returns:</dt>
+<dd>Robot-relative speeds.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getChassisSpeeds()">
 <h3>getChassisSpeeds</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/kinematics/ChassisSpeeds.html" title="class or interface in edu.wpi.first.math.kinematics" class="external-link">ChassisSpeeds</a></span>&nbsp;<span class="element-name">getChassisSpeeds</span>()</div>
+<div class="block">Converts this object to a WPILib ChassisSpeeds object.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>WPILib ChassisSpeeds object.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -231,6 +271,14 @@ loadScripts(document, 'script');</script>
 <h3>discretize</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a></span>&nbsp;<span class="element-name">discretize</span><wbr><span class="parameters">(<a href="ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;continuousSpeeds,
  double&nbsp;dtSeconds)</span></div>
+<div class="block">Discretizes continuous speeds for a given time step.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>continuousSpeeds</code> - Continuous speeds.</dd>
+<dd><code>dtSeconds</code> - Time step in seconds.</dd>
+<dt>Returns:</dt>
+<dd>Discretized speeds.</dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -11,6 +11,8 @@ plugins {
     id 'maven-publish'
 }
 
+group='frc.hawklibraries'
+
 ext.wpilibVersion = "2025.1.1" // and again here, thanks gradle....
 
 repositories {
