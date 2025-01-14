@@ -4,7 +4,7 @@ ext.licenseFile = files("$rootDir/LICENSE.txt")
 
 // def pubVersion = System.getenv("releaseVersion") ?: "test"
 
-def pubVersion = "0.25.2"
+def pubVersion = "0.25.3"
 
 def releasesRepoUrl = "repos/"
 
