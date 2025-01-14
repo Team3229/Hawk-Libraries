@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -133,7 +134,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 useOverrides ? (applyOverrides(speeds)) : (speeds), gyro.getRotation2d())
             : speeds;
 
-    var swerveModuleStates =
+    SwerveModuleState[] swerveModuleStates =
         kinematics.toSwerveModuleStates(
             ChassisSpeeds.discretize(this.robotCurrentSpeeds, 0.02).getChassisSpeeds());
 
@@ -164,6 +165,15 @@ public class SwerveDrivetrain extends SubsystemBase {
     return out;
   }
 
+  /**
+   * Creates a command to drive the robot to a specified pose.
+   *
+   * @param xPoseMeters X-coordinate of the target pose in meters.
+   * @param yPoseMeters Y-coordinate of the target pose in meters.
+   * @param theta Rotation of the target pose.
+   * @param constraints Path constraints for the autonomous path.
+   * @return Command to drive the robot to the specified pose.
+   */
   public Command driveToPose(
       Double xPoseMeters, Double yPoseMeters, Rotation2d theta, PathConstraints constraints) {
     return AutoBuilder.pathfindToPoseFlipped(
@@ -186,6 +196,12 @@ public class SwerveDrivetrain extends SubsystemBase {
                 }));
   }
 
+  /**
+   * Applies driving overrides to the given chassis speeds.
+   *
+   * @param speeds Original chassis speeds.
+   * @return Chassis speeds with overrides applied.
+   */
   private ChassisSpeeds applyOverrides(ChassisSpeeds speeds) {
     return new ChassisSpeeds(
         autoOverrides.vxMetersPerSecond == 0
@@ -219,10 +235,20 @@ public class SwerveDrivetrain extends SubsystemBase {
     super.initSendable(builder);
   }
 
+  /**
+   * Gets the Field2d object for visualizing odometry.
+   *
+   * @return Field2d object for odometry visualization.
+   */
   public Field2d getOdometryField() {
     return this.odometryField;
   }
 
+  /**
+   * Sets the robot's odometry position.
+   *
+   * @param position New odometry position.
+   */
   public void setOdometryPosition(Pose2d position) {
     this.odometry.resetPosition(
         gyro.getRotation2d(),
@@ -235,10 +261,21 @@ public class SwerveDrivetrain extends SubsystemBase {
         position);
   }
 
+  /**
+   * Adds a vision measurement to the odometry.
+   *
+   * @param position Vision-based position measurement.
+   * @param timestampSeconds Timestamp of the vision measurement.
+   */
   public void addVisionMeasurement(Pose2d position, double timestampSeconds) {
     this.odometry.addVisionMeasurement(position, timestampSeconds);
   }
 
+  /**
+   * Gets the selected autonomous command from the dashboard.
+   *
+   * @return Selected autonomous command.
+   */
   public Command getAutonomousCommand() {
 
     return autoDropdown.getSelected();
