@@ -85,4 +85,6 @@ public class SwerveModuleConfig {
    * Maximum output for the turning motor, typically used to limit the range of the PID controller.
    */
   private double turningOutputMax;
+
+  private boolean invert;
 }

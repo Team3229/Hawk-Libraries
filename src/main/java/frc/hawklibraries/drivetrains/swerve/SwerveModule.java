@@ -7,6 +7,8 @@ package frc.hawklibraries.drivetrains.swerve;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
@@ -62,26 +64,44 @@ public class SwerveModule {
     m_turningPIDController = m_turningMotor.getClosedLoopController();
 
     // Set motor idle modes and configure position/velocity conversion factors
-    m_driveMotorConfig.idleMode(IdleMode.kCoast);
+    m_driveMotorConfig = new SparkMaxConfig();
+    m_driveMotorConfig.idleMode(IdleMode.kCoast)
+    .inverted(this.config.isInvert());
     m_driveMotorConfig
         .encoder
         .positionConversionFactor(Math.PI * config.getWheelDiameter() / config.getDriveGearRatio())
         .velocityConversionFactor(
             Math.PI * config.getWheelDiameter() / 60 / config.getDriveGearRatio());
+    m_driveMotorConfig
+        .closedLoop
+        .pidf(
+            config.getDrivePID().getKP(),
+            config.getDrivePID().getKI(),
+            config.getDrivePID().getKD(),
+            config.getDrivePID().getKFF());
 
+    m_turningMotorConfig = new SparkMaxConfig();
     m_turningMotorConfig.idleMode(IdleMode.kCoast).inverted(true);
-    m_turningMotorConfig.encoder.positionConversionFactor(2 * Math.PI / config.getDriveGearRatio());
+    m_turningMotorConfig.encoder.positionConversionFactor(2 * Math.PI / config.getTurningGearRatio());
     m_turningMotorConfig
         .closedLoop
         .positionWrappingInputRange(-Math.PI, Math.PI)
-        .positionWrappingEnabled(true);
+        .positionWrappingEnabled(true)
+        .pidf(
+            config.getTurningPID().getKP(),
+            config.getTurningPID().getKI(),
+            config.getTurningPID().getKD(),
+            config.getTurningPID().getKFF());
+
+    m_driveMotor.configure(m_driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_turningMotor.configure(m_turningMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // Apply encoder offset
-    m_turningEncoder
-        .getConfigurator()
-        .setPosition(
-            m_turningEncoder.getPosition().getValueAsDouble()
-                + this.config.getEncoderOffset().getRotations());
+    // m_turningEncoder
+    //     .getConfigurator()
+    //     .setPosition(
+    //         m_turningEncoder.getPosition().getValueAsDouble()
+    //             + this.config.getEncoderOffset().getRotations());
 
     // Seed motor position based on encoder feedback
     seedSparkMax();
@@ -120,6 +140,6 @@ public class SwerveModule {
   private void seedSparkMax() {
     m_turningMotor
         .getEncoder()
-        .setPosition(m_turningEncoder.getPosition().getValueAsDouble() * 2 * Math.PI);
+        .setPosition(m_turningEncoder.getAbsolutePosition().getValueAsDouble() * 2 * Math.PI);
   }
 }

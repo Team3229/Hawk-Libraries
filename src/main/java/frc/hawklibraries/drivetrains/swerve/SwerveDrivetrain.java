@@ -68,6 +68,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveDrivetrainConfig config, Supplier<ChassisSpeeds> defaultDrivingSpeeds) {
     this.config = config;
 
+    this.odometryField = new Field2d();
+
     // Initialize swerve modules
     this.frontLeft = new SwerveModule(this.config.getFrontLeftConfig());
     this.frontRight = new SwerveModule(this.config.getFrontRightConfig());
@@ -114,8 +116,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     // Initialize robot speed tracking and autonomous commands
     robotCurrentSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
-    autoDropdown = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Autonomous Selector", autoDropdown);
+    // autoDropdown = AutoBuilder.buildAutoChooser();
+    // SmartDashboard.putData("Autonomous Selector", autoDropdown);
 
     this.setName("Swerve Drivetrain");
   }
