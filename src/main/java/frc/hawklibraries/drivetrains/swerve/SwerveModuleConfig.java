@@ -86,5 +86,9 @@ public class SwerveModuleConfig {
    */
   private double turningOutputMax;
 
-  private boolean invert;
+  /**
+   * Inverts the direction of the drive motor. <br>
+   * <b>Default</b>: false.
+   */
+  private boolean invertDriveMotor;
 }

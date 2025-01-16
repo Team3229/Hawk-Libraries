@@ -8,8 +8,19 @@ import edu.wpi.first.math.geometry.Rotation2d;
  */
 public class ChassisSpeeds {
 
+  /**
+   * The velocity in the x direction (forward).
+   */
   public Double vxMetersPerSecond;
+
+  /**
+   * The velocity in the y direction (sideways).
+   */
   public Double vyMetersPerSecond;
+
+  /**
+   * The angular velocity around the z axis (rotation).
+   */
   public Double omegaRadiansPerSecond;
 
   /**

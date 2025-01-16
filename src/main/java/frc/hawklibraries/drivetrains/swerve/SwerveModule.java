@@ -66,7 +66,7 @@ public class SwerveModule {
     // Set motor idle modes and configure position/velocity conversion factors
     m_driveMotorConfig = new SparkMaxConfig();
     m_driveMotorConfig.idleMode(IdleMode.kCoast)
-    .inverted(this.config.isInvert());
+    .inverted(this.config.isInvertDriveMotor());
     m_driveMotorConfig
         .encoder
         .positionConversionFactor(Math.PI * config.getWheelDiameter() / config.getDriveGearRatio())

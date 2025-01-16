@@ -10,9 +10,21 @@ import java.util.NoSuchElementException;
  */
 public class Alliance {
 
+  /**
+   * Represents the color of an alliance in a competition.
+   */
   public static enum AllianceColor {
+    /**
+     * Represents the red alliance.
+     */
     Red,
+    /**
+     * Represents the blue alliance.
+     */
     Blue,
+    /**
+     * Represents a null or undefined alliance.
+     */
     Null
   }
 
