@@ -65,22 +65,24 @@ public class SwerveModule {
 
     // Set motor idle modes and configure position/velocity conversion factors
     m_driveMotorConfig = new SparkMaxConfig();
-    m_driveMotorConfig.idleMode(IdleMode.kCoast).inverted(this.config.isInvertDriveMotor());
+    m_driveMotorConfig.idleMode(IdleMode.kCoast)
+    .inverted(this.config.isInvertDriveMotor());
     m_driveMotorConfig
         .encoder
         .positionConversionFactor(Math.PI * config.getWheelDiameter() / config.getDriveGearRatio())
         .velocityConversionFactor(
             Math.PI * config.getWheelDiameter() / 60 / config.getDriveGearRatio());
-    m_driveMotorConfig.closedLoop.pidf(
-        config.getDrivePID().getKP(),
-        config.getDrivePID().getKI(),
-        config.getDrivePID().getKD(),
-        config.getDrivePID().getKFF());
+    m_driveMotorConfig
+        .closedLoop
+        .pidf(
+            config.getDrivePID().getKP(),
+            config.getDrivePID().getKI(),
+            config.getDrivePID().getKD(),
+            config.getDrivePID().getKFF());
 
     m_turningMotorConfig = new SparkMaxConfig();
     m_turningMotorConfig.idleMode(IdleMode.kCoast).inverted(true);
-    m_turningMotorConfig.encoder.positionConversionFactor(
-        2 * Math.PI / config.getTurningGearRatio());
+    m_turningMotorConfig.encoder.positionConversionFactor(2 * Math.PI / config.getTurningGearRatio());
     m_turningMotorConfig
         .closedLoop
         .positionWrappingInputRange(-Math.PI, Math.PI)
@@ -91,10 +93,8 @@ public class SwerveModule {
             config.getTurningPID().getKD(),
             config.getTurningPID().getKFF());
 
-    m_driveMotor.configure(
-        m_driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    m_turningMotor.configure(
-        m_turningMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_driveMotor.configure(m_driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_turningMotor.configure(m_turningMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // Apply encoder offset
     // m_turningEncoder

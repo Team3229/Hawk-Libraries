@@ -3,21 +3,29 @@ package frc.hawklibraries.vendorRewrites.wpilib;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
- * Represents the speeds of a robot chassis in meters per second and radians per second. This class
- * provides methods to convert between field-relative and robot-relative speeds.
+ * Represents the speeds of a robot chassis in meters per second and radians per second.
+ * This class provides methods to convert between field-relative and robot-relative speeds.
  */
 public class ChassisSpeeds {
 
-  /** The velocity in the x direction (forward). */
+  /**
+   * The velocity in the x direction (forward).
+   */
   public Double vxMetersPerSecond;
 
-  /** The velocity in the y direction (sideways). */
+  /**
+   * The velocity in the y direction (sideways).
+   */
   public Double vyMetersPerSecond;
 
-  /** The angular velocity around the z axis (rotation). */
+  /**
+   * The angular velocity around the z axis (rotation).
+   */
   public Double omegaRadiansPerSecond;
 
-  /** Default constructor for ChassisSpeeds. */
+  /**
+   * Default constructor for ChassisSpeeds.
+   */
   public ChassisSpeeds() {}
 
   /**

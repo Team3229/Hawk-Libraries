@@ -5,18 +5,26 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import java.util.NoSuchElementException;
 
 /**
- * Utility class for determining the alliance color of the robot. This class provides methods to get
- * the current alliance color and to create triggers based on alliance presence.
+ * Utility class for determining the alliance color of the robot.
+ * This class provides methods to get the current alliance color and to create triggers based on alliance presence.
  */
 public class Alliance {
 
-  /** Represents the color of an alliance in a competition. */
+  /**
+   * Represents the color of an alliance in a competition.
+   */
   public static enum AllianceColor {
-    /** Represents the red alliance. */
+    /**
+     * Represents the red alliance.
+     */
     Red,
-    /** Represents the blue alliance. */
+    /**
+     * Represents the blue alliance.
+     */
     Blue,
-    /** Represents a null or undefined alliance. */
+    /**
+     * Represents a null or undefined alliance.
+     */
     Null
   }
 

@@ -31,7 +31,9 @@ import frc.hawklibraries.utilities.Alliance.AllianceColor;
 import frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds;
 import java.util.function.Supplier;
 
-/** Represents a swerve drivetrain subsystem. */
+/**
+ * Represents a swerve drivetrain subsystem.
+ */
 public class SwerveDrivetrain extends SubsystemBase {
 
   // Configuration object holding drivetrain-specific settings
