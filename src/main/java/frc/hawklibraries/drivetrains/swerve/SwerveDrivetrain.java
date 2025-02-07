@@ -86,9 +86,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.kinematics =
         new SwerveDriveKinematics(
             new Translation2d(this.config.getModuleDistance(), this.config.getModuleDistance()),
-            new Translation2d(this.config.getModuleDistance(), -this.config.getModuleDistance()),
-            new Translation2d(-this.config.getModuleDistance(), this.config.getModuleDistance()),
-            new Translation2d(-this.config.getModuleDistance(), -this.config.getModuleDistance()));
+            new Translation2d(this.config.getModuleDistance(), this.config.getModuleDistance().times(-1)),
+            new Translation2d(this.config.getModuleDistance().times(-1), this.config.getModuleDistance()),
+            new Translation2d(this.config.getModuleDistance().times(-1), this.config.getModuleDistance().times(-1)));
 
     // Set up odometry for position tracking
     this.odometry =

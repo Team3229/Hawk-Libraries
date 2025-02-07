@@ -5,6 +5,8 @@
  */
 package frc.hawklibraries.drivetrains.swerve;
 
+import static edu.wpi.first.units.Units.Meters;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -69,9 +71,9 @@ public class SwerveModule {
     .inverted(this.config.isInvertDriveMotor());
     m_driveMotorConfig
         .encoder
-        .positionConversionFactor(Math.PI * config.getWheelDiameter() / config.getDriveGearRatio())
+        .positionConversionFactor(Math.PI * config.getWheelDiameter().in(Meters) / config.getDriveGearRatio())
         .velocityConversionFactor(
-            Math.PI * config.getWheelDiameter() / 60 / config.getDriveGearRatio());
+            Math.PI * config.getWheelDiameter().in(Meters) / 60 / config.getDriveGearRatio());
     m_driveMotorConfig
         .closedLoop
         .pidf(

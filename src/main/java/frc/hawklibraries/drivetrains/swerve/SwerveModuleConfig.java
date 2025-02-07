@@ -6,11 +6,16 @@
 package frc.hawklibraries.drivetrains.swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
 import frc.hawklibraries.utilities.PIDConstants;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import static edu.wpi.first.units.Units.Meter;
+import static edu.wpi.first.units.Units.MetersPerSecond;
 
 /**
  * Configuration for an individual swerve module. <br>
@@ -26,7 +31,7 @@ public class SwerveModuleConfig {
    * Diameter of the swerve module wheel, in meters. <br>
    * <b>Default</b>: 0.25 meters (25 cm).
    */
-  @Builder.Default private double wheelDiameter = 0.25;
+  @Builder.Default private Distance wheelDiameter = Meter.of(0.25);
 
   /**
    * Gear ratio for the drive motor, represented as the ratio of motor rotations to wheel rotations.
@@ -46,7 +51,7 @@ public class SwerveModuleConfig {
    * Maximum speed of the drive motor, in meters per second. <br>
    * <b>Default</b>: 3.0 meters/second.
    */
-  @Builder.Default private double maxSpeed = 3.0;
+  @Builder.Default private LinearVelocity maxSpeed = MetersPerSecond.of(3.0);
 
   /**
    * Encoder offset for the turning motor, represented as a Rotation2d object. Used to correct the

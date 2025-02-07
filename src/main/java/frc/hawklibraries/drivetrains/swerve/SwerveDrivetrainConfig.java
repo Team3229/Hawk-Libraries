@@ -1,5 +1,6 @@
 package frc.hawklibraries.drivetrains.swerve;
 
+import edu.wpi.first.units.measure.Distance;
 import frc.hawklibraries.drivetrains.DrivetrainConfig;
 import frc.hawklibraries.utilities.PIDConstants;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class SwerveDrivetrainConfig extends DrivetrainConfig {
   /**
    * The distance between the swerve modules.
    */
-  private double moduleDistance;
+  private Distance moduleDistance;
 
   /**
    * PID constants for translation control.
