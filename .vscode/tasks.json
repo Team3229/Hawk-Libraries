@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Publish and Commit",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/publish.ps1",
+                "-version",
+                "${input:version}",
+                "-commitMessage",
+                "${input:commitMessage}"
+            ],
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "version",
+            "type": "promptString",
+            "description": "Enter the version number"
+        },
+        {
+            "id": "commitMessage",
+            "type": "promptString",
+            "description": "Enter the commit message"
+        }
+    ]
+}
