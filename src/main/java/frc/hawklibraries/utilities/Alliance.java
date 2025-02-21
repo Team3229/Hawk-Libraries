@@ -35,7 +35,7 @@ public class Alliance {
    */
   public static AllianceColor getAlliance() {
     try {
-      return wpiToHawk(DriverStation.getAlliance().get());
+      return convertWpiToHawk(DriverStation.getAlliance().get());
     } catch (NoSuchElementException e) {
       return AllianceColor.Null;
     }
@@ -56,7 +56,7 @@ public class Alliance {
    * @param a WPILib alliance enum.
    * @return Hawk alliance enum.
    */
-  private static AllianceColor wpiToHawk(edu.wpi.first.wpilibj.DriverStation.Alliance a) {
+  private static AllianceColor convertWpiToHawk(edu.wpi.first.wpilibj.DriverStation.Alliance a) {
     if (a == edu.wpi.first.wpilibj.DriverStation.Alliance.Blue) {
       return AllianceColor.Blue;
     } else {

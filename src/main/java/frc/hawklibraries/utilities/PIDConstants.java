@@ -94,4 +94,8 @@ public class PIDConstants {
   public double[] getAsArray() {
     return new double[] {this.kP, this.kI, this.kD, this.kFF};
   }
+
+  public com.pathplanner.lib.config.PIDConstants toPathPlannerPIDConstants() {
+    return new com.pathplanner.lib.config.PIDConstants(this.kP, this.kI, this.kD);
+  }
 }

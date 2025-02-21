@@ -8,21 +8,22 @@
 package frc.hawklibraries.drivetrains.swerve;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathfindingCommand;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -54,21 +55,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   private Field2d odometryField;
   private ChassisSpeeds robotCurrentSpeeds;
 
-  // Autonomous command chooser
-  private SendableChooser<Command> autoDropdown;
-
-  // Driving overrides and speed input source
-  private ChassisSpeeds autoOverrides;
-  private Supplier<ChassisSpeeds> inputSpeeds;
-
   /**
    * Constructs a SwerveDrivetrain subsystem.
    *
    * @param config Configuration object containing drivetrain settings.
-   * @param defaultDrivingSpeeds Supplier for default chassis speeds during teleoperation.
    */
   public SwerveDrivetrain(
-      SwerveDrivetrainConfig config, Supplier<ChassisSpeeds> defaultDrivingSpeeds) {
+      SwerveDrivetrainConfig config) {
     this.config = config;
 
     this.odometryField = new Field2d();
@@ -113,30 +106,71 @@ public class SwerveDrivetrain extends SubsystemBase {
                     gyro.setAngleAdjustment(
                         (Alliance.getAlliance() == AllianceColor.Red) ? 180 : 0)));
 
-    this.inputSpeeds = defaultDrivingSpeeds;
-    setDefaultCommand(driveCommand(inputSpeeds, true));
-
     // Initialize robot speed tracking and autonomous commands
     robotCurrentSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
-    // autoDropdown = AutoBuilder.buildAutoChooser();
-    // SmartDashboard.putData("Autonomous Selector", autoDropdown);
+	setupPathPlanner();
 
     this.setName("Swerve Drivetrain");
   }
+
+  	/**
+	 * Setup AutoBuilder for PathPlanner.
+	 */
+	public void setupPathPlanner() {
+
+		RobotConfig config;
+
+		try {
+			config = RobotConfig.fromGUISettings();
+			
+			// Configure AutoBuilder last
+			AutoBuilder.configure(
+				odometry::getEstimatedPosition,
+				// Robot pose supplier
+				odometry::resetPose,
+				// Method to reset odometry (will be called if your auto has a starting pose)
+				robotCurrentSpeeds::getChassisSpeeds,
+				// ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+				(speedsRobotRelative) -> {
+					drive(new ChassisSpeeds(speedsRobotRelative), false);
+				},
+				new PPHolonomicDriveController(
+						this.config.getTranslationPID().toPathPlannerPIDConstants(),
+						this.config.getRotationPID().toPathPlannerPIDConstants()
+				),
+				config,
+				() -> {
+					var alliance = DriverStation.getAlliance();
+					if (alliance.isPresent()) {
+						return alliance.get() == DriverStation.Alliance.Red;
+					}
+					return false;
+				},
+				this
+			);
+
+		} catch (Exception e) {
+			// Handle exception as needed
+			e.printStackTrace();
+		}
+
+		// Preload PathPlanner Path finding
+		// IF USING CUSTOM PATHFINDER ADD BEFORE THIS LINE
+		PathfindingCommand.warmupCommand().schedule();
+	}
 
   /**
    * Drives the robot with specified chassis speeds.
    *
    * @param speeds Desired chassis speeds.
    * @param fieldRelative Whether to interpret speeds relative to the field.
-   * @param useOverrides Whether to apply driving overrides.
    */
-  public void drive(ChassisSpeeds speeds, boolean fieldRelative, boolean useOverrides) {
+  public void drive(ChassisSpeeds speeds, boolean fieldRelative) {
     this.robotCurrentSpeeds =
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                useOverrides ? (applyOverrides(speeds)) : (speeds), gyro.getRotation2d())
+                (speeds), gyro.getRotation2d())
             : speeds;
 
     SwerveModuleState[] swerveModuleStates =
@@ -163,7 +197,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         new Command() {
           @Override
           public void execute() {
-            drive(speeds.get(), fieldRelative, false);
+            drive(speeds.get(), fieldRelative);
           }
         };
     out.addRequirements(this);
@@ -173,51 +207,15 @@ public class SwerveDrivetrain extends SubsystemBase {
   /**
    * Creates a command to drive the robot to a specified pose.
    *
-   * @param xPoseMeters X-coordinate of the target pose in meters.
-   * @param yPoseMeters Y-coordinate of the target pose in meters.
-   * @param theta Rotation of the target pose.
+   * @param pose Pose to drive the robot to.
    * @param constraints Path constraints for the autonomous path.
    * @return Command to drive the robot to the specified pose.
    */
-  public Command driveToPose(
-      Double xPoseMeters, Double yPoseMeters, Rotation2d theta, PathConstraints constraints) {
+  public Command driveToPose(Pose2d pose, PathConstraints constraints) {
     return AutoBuilder.pathfindToPoseFlipped(
-            new Pose2d(
-                xPoseMeters == null ? odometry.getEstimatedPosition().getX() : xPoseMeters,
-                yPoseMeters == null ? odometry.getEstimatedPosition().getY() : yPoseMeters,
-                theta == null ? odometry.getEstimatedPosition().getRotation() : theta),
-            constraints)
-        .raceWith(
-            Commands.runEnd(
-                () -> {
-                  autoOverrides =
-                      new ChassisSpeeds(
-                          xPoseMeters == null ? inputSpeeds.get().vxMetersPerSecond : null,
-                          yPoseMeters == null ? inputSpeeds.get().vyMetersPerSecond : null,
-                          theta == null ? inputSpeeds.get().omegaRadiansPerSecond : null);
-                },
-                () -> {
-                  autoOverrides = new ChassisSpeeds();
-                }));
-  }
-
-  /**
-   * Applies driving overrides to the given chassis speeds.
-   *
-   * @param speeds Original chassis speeds.
-   * @return Chassis speeds with overrides applied.
-   */
-  private ChassisSpeeds applyOverrides(ChassisSpeeds speeds) {
-    return new ChassisSpeeds(
-        autoOverrides.vxMetersPerSecond == 0
-            ? speeds.vxMetersPerSecond
-            : autoOverrides.vxMetersPerSecond,
-        autoOverrides.vyMetersPerSecond == 0
-            ? speeds.vyMetersPerSecond
-            : autoOverrides.vyMetersPerSecond,
-        autoOverrides.omegaRadiansPerSecond == 0
-            ? speeds.omegaRadiansPerSecond
-            : autoOverrides.omegaRadiansPerSecond);
+		pose,
+		constraints
+	);
   }
 
   @Override
@@ -232,7 +230,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         });
 
     odometryField.setRobotPose(odometry.getEstimatedPosition());
-    SmartDashboard.putData(gyro);
   }
 
   @Override
@@ -274,15 +271,5 @@ public class SwerveDrivetrain extends SubsystemBase {
    */
   public void addVisionMeasurement(Pose2d position, double timestampSeconds) {
     this.odometry.addVisionMeasurement(position, timestampSeconds);
-  }
-
-  /**
-   * Gets the selected autonomous command from the dashboard.
-   *
-   * @return Selected autonomous command.
-   */
-  public Command getAutonomousCommand() {
-
-    return autoDropdown.getSelected();
   }
 }

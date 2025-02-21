@@ -109,8 +109,7 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(frc.hawklibraries.drivetrains.swerve.SwerveDrivetrainConfig,java.util.function.Supplier)" class="member-name-link">SwerveDrivetrain</a><wbr>(<a href="SwerveDrivetrainConfig.html" title="class in frc.hawklibraries.drivetrains.swerve">SwerveDrivetrainConfig</a>&nbsp;config,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Supplier.html" title="class or interface in java.util.function" class="external-link">Supplier</a>&lt;<a href="../../vendorRewrites/wpilib/ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&gt;&nbsp;defaultDrivingSpeeds)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(frc.hawklibraries.drivetrains.swerve.SwerveDrivetrainConfig)" class="member-name-link">SwerveDrivetrain</a><wbr>(<a href="SwerveDrivetrainConfig.html" title="class in frc.hawklibraries.drivetrains.swerve">SwerveDrivetrainConfig</a>&nbsp;config)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Constructs a SwerveDrivetrain subsystem.</div>
 </div>
@@ -135,9 +134,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Adds a vision measurement to the odometry.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#drive(frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds,boolean,boolean)" class="member-name-link">drive</a><wbr>(<a href="../../vendorRewrites/wpilib/ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;speeds,
- boolean&nbsp;fieldRelative,
- boolean&nbsp;useOverrides)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#drive(frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds,boolean)" class="member-name-link">drive</a><wbr>(<a href="../../vendorRewrites/wpilib/ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;speeds,
+ boolean&nbsp;fieldRelative)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Drives the robot with specified chassis speeds.</div>
 </div>
@@ -148,33 +146,31 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a command for driving the robot using specified chassis speeds.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/Command.html" title="class or interface in edu.wpi.first.wpilibj2.command" class="external-link">Command</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#driveToPose(java.lang.Double,java.lang.Double,edu.wpi.first.math.geometry.Rotation2d,com.pathplanner.lib.path.PathConstraints)" class="member-name-link">driveToPose</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;xPoseMeters,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;yPoseMeters,
- <a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Rotation2d</a>&nbsp;theta,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#driveToPose(edu.wpi.first.math.geometry.Pose2d,com.pathplanner.lib.path.PathConstraints)" class="member-name-link">driveToPose</a><wbr>(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Pose2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Pose2d</a>&nbsp;pose,
  com.pathplanner.lib.path.PathConstraints&nbsp;constraints)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates a command to drive the robot to a specified pose.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/Command.html" title="class or interface in edu.wpi.first.wpilibj2.command" class="external-link">Command</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAutonomousCommand()" class="member-name-link">getAutonomousCommand</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj/smartdashboard/Field2d.html" title="class or interface in edu.wpi.first.wpilibj.smartdashboard" class="external-link">Field2d</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getOdometryField()" class="member-name-link">getOdometryField</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the selected autonomous command from the dashboard.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj/smartdashboard/Field2d.html" title="class or interface in edu.wpi.first.wpilibj.smartdashboard" class="external-link">Field2d</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getOdometryField()" class="member-name-link">getOdometryField</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the Field2d object for visualizing odometry.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#initSendable(edu.wpi.first.util.sendable.SendableBuilder)" class="member-name-link">initSendable</a><wbr>(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/util/sendable/SendableBuilder.html" title="class or interface in edu.wpi.first.util.sendable" class="external-link">SendableBuilder</a>&nbsp;builder)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#initSendable(edu.wpi.first.util.sendable.SendableBuilder)" class="member-name-link">initSendable</a><wbr>(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/util/sendable/SendableBuilder.html" title="class or interface in edu.wpi.first.util.sendable" class="external-link">SendableBuilder</a>&nbsp;builder)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setOdometryPosition(edu.wpi.first.math.geometry.Pose2d)" class="member-name-link">setOdometryPosition</a><wbr>(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Pose2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Pose2d</a>&nbsp;position)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setOdometryPosition(edu.wpi.first.math.geometry.Pose2d)" class="member-name-link">setOdometryPosition</a><wbr>(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Pose2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Pose2d</a>&nbsp;position)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the robot's odometry position.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setupPathPlanner()" class="member-name-link">setupPathPlanner</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Setup AutoBuilder for PathPlanner.</div>
 </div>
 </div>
 </div>
@@ -200,15 +196,13 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(frc.hawklibraries.drivetrains.swerve.SwerveDrivetrainConfig,java.util.function.Supplier)">
+<section class="detail" id="&lt;init&gt;(frc.hawklibraries.drivetrains.swerve.SwerveDrivetrainConfig)">
 <h3>SwerveDrivetrain</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SwerveDrivetrain</span><wbr><span class="parameters">(<a href="SwerveDrivetrainConfig.html" title="class in frc.hawklibraries.drivetrains.swerve">SwerveDrivetrainConfig</a>&nbsp;config,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Supplier.html" title="class or interface in java.util.function" class="external-link">Supplier</a>&lt;<a href="../../vendorRewrites/wpilib/ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&gt;&nbsp;defaultDrivingSpeeds)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SwerveDrivetrain</span><wbr><span class="parameters">(<a href="SwerveDrivetrainConfig.html" title="class in frc.hawklibraries.drivetrains.swerve">SwerveDrivetrainConfig</a>&nbsp;config)</span></div>
 <div class="block">Constructs a SwerveDrivetrain subsystem.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>config</code> - Configuration object containing drivetrain settings.</dd>
-<dd><code>defaultDrivingSpeeds</code> - Supplier for default chassis speeds during teleoperation.</dd>
 </dl>
 </section>
 </li>
@@ -221,17 +215,22 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="drive(frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds,boolean,boolean)">
+<section class="detail" id="setupPathPlanner()">
+<h3>setupPathPlanner</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setupPathPlanner</span>()</div>
+<div class="block">Setup AutoBuilder for PathPlanner.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="drive(frc.hawklibraries.vendorRewrites.wpilib.ChassisSpeeds,boolean)">
 <h3>drive</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">drive</span><wbr><span class="parameters">(<a href="../../vendorRewrites/wpilib/ChassisSpeeds.html" title="class in frc.hawklibraries.vendorRewrites.wpilib">ChassisSpeeds</a>&nbsp;speeds,
- boolean&nbsp;fieldRelative,
- boolean&nbsp;useOverrides)</span></div>
+ boolean&nbsp;fieldRelative)</span></div>
 <div class="block">Drives the robot with specified chassis speeds.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>speeds</code> - Desired chassis speeds.</dd>
 <dd><code>fieldRelative</code> - Whether to interpret speeds relative to the field.</dd>
-<dd><code>useOverrides</code> - Whether to apply driving overrides.</dd>
 </dl>
 </section>
 </li>
@@ -251,18 +250,14 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="driveToPose(java.lang.Double,java.lang.Double,edu.wpi.first.math.geometry.Rotation2d,com.pathplanner.lib.path.PathConstraints)">
+<section class="detail" id="driveToPose(edu.wpi.first.math.geometry.Pose2d,com.pathplanner.lib.path.PathConstraints)">
 <h3>driveToPose</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/Command.html" title="class or interface in edu.wpi.first.wpilibj2.command" class="external-link">Command</a></span>&nbsp;<span class="element-name">driveToPose</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;xPoseMeters,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&nbsp;yPoseMeters,
- <a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Rotation2d</a>&nbsp;theta,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/Command.html" title="class or interface in edu.wpi.first.wpilibj2.command" class="external-link">Command</a></span>&nbsp;<span class="element-name">driveToPose</span><wbr><span class="parameters">(<a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Pose2d.html" title="class or interface in edu.wpi.first.math.geometry" class="external-link">Pose2d</a>&nbsp;pose,
  com.pathplanner.lib.path.PathConstraints&nbsp;constraints)</span></div>
 <div class="block">Creates a command to drive the robot to a specified pose.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>xPoseMeters</code> - X-coordinate of the target pose in meters.</dd>
-<dd><code>yPoseMeters</code> - Y-coordinate of the target pose in meters.</dd>
-<dd><code>theta</code> - Rotation of the target pose.</dd>
+<dd><code>pose</code> - Pose to drive the robot to.</dd>
 <dd><code>constraints</code> - Path constraints for the autonomous path.</dd>
 <dt>Returns:</dt>
 <dd>Command to drive the robot to the specified pose.</dd>
@@ -319,17 +314,6 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>position</code> - Vision-based position measurement.</dd>
 <dd><code>timestampSeconds</code> - Timestamp of the vision measurement.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getAutonomousCommand()">
-<h3>getAutonomousCommand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/Command.html" title="class or interface in edu.wpi.first.wpilibj2.command" class="external-link">Command</a></span>&nbsp;<span class="element-name">getAutonomousCommand</span>()</div>
-<div class="block">Gets the selected autonomous command from the dashboard.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>Selected autonomous command.</dd>
 </dl>
 </section>
 </li>
