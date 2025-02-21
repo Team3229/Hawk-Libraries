@@ -23,6 +23,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -54,6 +55,9 @@ public class SwerveDrivetrain extends SubsystemBase {
   // Field visualization and odometry
   private Field2d odometryField;
   private ChassisSpeeds robotCurrentSpeeds;
+
+  // Simulator for swerve drivetrain
+  private SwerveDrivetrainSimulator simulator;
 
   /**
    * Constructs a SwerveDrivetrain subsystem.
@@ -111,7 +115,33 @@ public class SwerveDrivetrain extends SubsystemBase {
 
 	setupPathPlanner();
 
+    // Initialize simulator if running in simulation
+    if (!RobotBase.isReal()) {
+      this.simulator = new SwerveDrivetrainSimulator(kinematics);
+    }
+
     this.setName("Swerve Drivetrain");
+  }
+
+  public Pose2d getRobotPose() {
+    if (RobotBase.isReal()) {
+      return odometry.getEstimatedPosition();
+    } else {
+      return simulator.getPose();
+    }
+  }
+
+  public void resetPose(Pose2d pose) {
+    if (RobotBase.isReal()) {
+      odometry.resetPosition(gyro.getRotation2d(), new SwerveModulePosition[] {
+        this.frontLeft.getModulePosition(),
+        this.frontRight.getModulePosition(),
+        this.backLeft.getModulePosition(),
+        this.backRight.getModulePosition()
+      }, pose);
+    } else {
+      simulator.resetPose(pose);
+    }
   }
 
   	/**
@@ -126,9 +156,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 			
 			// Configure AutoBuilder last
 			AutoBuilder.configure(
-				odometry::getEstimatedPosition,
+				this::getRobotPose,
 				// Robot pose supplier
-				odometry::resetPose,
+				this::resetPose,
 				// Method to reset odometry (will be called if your auto has a starting pose)
 				robotCurrentSpeeds::getChassisSpeeds,
 				// ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
@@ -183,6 +213,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     frontRight.setDesiredState(swerveModuleStates[1]);
     backLeft.setDesiredState(swerveModuleStates[2]);
     backRight.setDesiredState(swerveModuleStates[3]);
+
+    if (!RobotBase.isReal()) {
+      simulator.setModuleStates(swerveModuleStates);
+    }
   }
 
   /**
@@ -229,7 +263,14 @@ public class SwerveDrivetrain extends SubsystemBase {
           this.backRight.getModulePosition()
         });
 
-    odometryField.setRobotPose(odometry.getEstimatedPosition());
+    // Update simulator if running in simulation
+    if (!RobotBase.isReal()) {
+      simulator.update(0.02); // Assuming a 20ms loop time
+      odometryField.setRobotPose(simulator.getPose());
+    } else {
+      odometryField.setRobotPose(odometry.getEstimatedPosition());
+    }
+    
   }
 
   @Override
@@ -252,6 +293,12 @@ public class SwerveDrivetrain extends SubsystemBase {
    * @param position New odometry position.
    */
   public void setOdometryPosition(Pose2d position) {
+
+    if (!RobotBase.isReal()) {
+      simulator.resetPose(position);
+      return;
+    }
+
     this.odometry.resetPosition(
         gyro.getRotation2d(),
         new SwerveModulePosition[] {
@@ -270,6 +317,11 @@ public class SwerveDrivetrain extends SubsystemBase {
    * @param timestampSeconds Timestamp of the vision measurement.
    */
   public void addVisionMeasurement(Pose2d position, double timestampSeconds) {
+
+    if (!RobotBase.isReal()) {
+      return;
+    }
+
     this.odometry.addVisionMeasurement(position, timestampSeconds);
   }
 }
