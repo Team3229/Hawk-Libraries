@@ -13,6 +13,8 @@ public class Zone {
     /*
      * How the zone would be drawn
      * Too lazy to do poly because of stuff
+     * 
+     * Circle is kinda useless
      */
     public static enum DrawType {
         Circle,
