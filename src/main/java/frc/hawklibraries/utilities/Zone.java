@@ -1,10 +1,14 @@
 package frc.hawklibraries.utilities;
 
+import java.awt.Shape;
+
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
 
 public class Zone {
-    private DrawType type;
-    private double[] values;
+    private Shape shapeHolder;
 
     /*
      * How the zone would be drawn
@@ -19,20 +23,32 @@ public class Zone {
     }
 
     /*
-     * Idk what to do with this it has no point
+     * Universal constructors
      */
-    // public Zone() {
-
-    // }
-
     public Zone(double x, double y, double width, double height, DrawType type) {
-        setType(type);
-        values = new double[4];
 
-        values[0] = x;
-        values[1] = y;
-        values[2] = width;
-        values[3] = height;
+        if (type.equals(DrawType.CenterRectangle)) {
+            shapeHolder = new Rectangle2D.Double(x, y, width, height);
+        } else if (type.equals(DrawType.TopLeftRectangle)) {
+            shapeHolder = new Rectangle2D.Double(x + width / 2, y + height / 2, width * 2, height * 2);
+        } else if (type.equals(DrawType.Circle) || type.equals(DrawType.Ellipse)) {
+            shapeHolder = new Ellipse2D.Double(x, y, width, height);
+        }
+    }
+
+    /*
+     * Mimic of the standard contructor but using wpi classes
+     */
+    public Zone(Pose2d pos, double width, double height, DrawType type) {
+        this(pos.getX(), pos.getY(), width, height, type);
+    }
+
+    /*
+     * Mimic of the standard contructor but using wpi classes
+     * Warning!!! This gets rid of angles.
+     */
+    public Zone(Translation2d pos, double width, double height, DrawType type) {
+        this(pos.getX(), pos.getY(), width, height, type);
     }
 
     /*
@@ -50,6 +66,14 @@ public class Zone {
     }
 
     /*
+     * Creates a zone in a circle shape but with a Translation2d
+     * Warning!!! This gets rid of angles.
+     */
+    public Zone(Translation2d pos, double radius) {
+        this(pos.getX(), pos.getY(), radius);
+    }
+
+    /*
      * Creates a zone in a center rectangle shape
      */
     public Zone(double centerX, double centerY, double width, double height) {
@@ -63,15 +87,15 @@ public class Zone {
         this(pos.getX(), pos.getY(), width, height);
     }
 
-    public void setType(DrawType type) {
-        this.type = type;
+    /*
+     * Creates a zone in a center rectangle shape but with a Translation2d
+     * Warning!!! This gets rid of angles.
+     */
+    public Zone(Translation2d pos, double width, double height) {
+        this(pos.getX(), pos.getY(), width, height);
     }
 
-    public DrawType getType() {
-        return type;
-    }
-
-    public double[] getValues() {
-        return values;
+    public Shape getShape() {
+        return shapeHolder;
     }
 }
