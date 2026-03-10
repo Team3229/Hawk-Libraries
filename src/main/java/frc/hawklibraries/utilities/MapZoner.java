@@ -3,21 +3,27 @@ package frc.hawklibraries.utilities;
 import java.util.HashMap;
 
 public class MapZoner {
-    private HashMap<String, Boolean> zoneMap;
+    private HashMap<String, Zone> zoneMap;
 
     /*
      * Standard initialization with no preset values
      * Please set values later using <put stuff here>
      */
     public MapZoner() {
-        zoneMap = new HashMap<String, Boolean>();
+        zoneMap = new HashMap<>();
     }
 
-    /*
-     * Bit funky don't use
-     * Allows a input of arrays that should contain the following format, [top left x, top left y, bottom right x, bottom right y]
-     */
-    public MapZoner(double[][] presetMap) {
+    public void registerZone(Zone inputZone, String name) {
+        zoneMap.put(name, inputZone);
+    }
+
+    public boolean check(String zoneName, double botX, double botY) {
+        
+
+        return false;
+    }
+
+    private void updateZone(double botX, double botY) {
 
     }
 }
