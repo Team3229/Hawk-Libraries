@@ -1,8 +1,10 @@
 package frc.hawklibraries.utilities;
 
 import java.awt.Shape;
+import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Area;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -35,6 +37,8 @@ public class Zone {
 
     /**
      * Universal constructor
+     * 
+     * Excludes polygons
      */
     public Zone(double x, double y, double width, double height, DrawType type) {
         if (type.equals(DrawType.CenterRectangle)) {
@@ -66,6 +70,67 @@ public class Zone {
      */
     public Zone(Translation2d pos, double width, double height, DrawType type) {
         this(pos.getX(), pos.getY(), width, height, type);
+    }
+
+    // Polygon
+
+    /**
+     * Polygon constructor
+     * 
+     * Loses point percision as it goes from double -> int aka round(double)
+     * 
+     * @param points Holds points in the format of [x1, y1, x2, y2, ...]
+     */
+    public Zone(double[] points) {
+        int[] x = new int[points.length / 2];
+        int[] y = new int[points.length / 2];
+        int vertexCount = points.length / 2;
+
+        for (int i = 0; i < vertexCount; i++) {
+            x[i] = (int) Math.round(points[i * 2]);
+            y[i] = (int) Math.round(points[i * 2 + 1]);
+        }
+
+        shapeHolder = new Area(new Polygon(x, y, x.length));
+    }
+
+    /**
+     * Polygon constructor
+     * 
+     * Loses point percision as it goes from double -> int aka round(double)
+     * 
+     * @param points An array of Pose2d
+     */
+    public Zone(Pose2d[] points) {
+        int[] x = new int[points.length / 2];
+        int[] y = new int[points.length / 2];
+
+        for (int i = 0; i < points.length; i++) {
+            x[i] = (int) Math.round(points[i].getX());
+            y[i] = (int) Math.round(points[i].getY());
+        }
+
+        shapeHolder = new Area(new Polygon(x, y, x.length));
+    }
+
+    /**
+     * Polygon constructor
+     * 
+     * Loses point percision as it goes from double -> int aka round(double)
+     * No angles 
+     * 
+     * @param points An array of Translation2d
+     */
+    public Zone(Translation2d[] points) {
+        int[] x = new int[points.length / 2];
+        int[] y = new int[points.length / 2];
+
+        for (int i = 0; i < points.length; i++) {
+            x[i] = (int) Math.round(points[i].getX());
+            y[i] = (int) Math.round(points[i].getY());
+        }
+
+        shapeHolder = new Area(new Polygon(x, y, x.length));
     }
 
     // Circles
