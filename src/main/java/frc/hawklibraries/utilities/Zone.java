@@ -9,7 +9,7 @@ import java.awt.geom.Area;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
-// note: make the VZ/HZ the game board width/height
+// note: make the VZ/HZ the game board width/height?
 
 /**
  * Used to store shape data in a easy-to-learn way 
