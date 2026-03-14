@@ -10,7 +10,7 @@ import java.awt.geom.Ellipse2D;
 public class Zone {
     private Shape shapeHolder;
 
-    /*
+    /**
      * How the zone would be drawn
      * Too lazy to do poly because of stuff
      * 
@@ -21,10 +21,12 @@ public class Zone {
         Ellipse,
         CenterRectangle,
         TopLeftRectangle,
-        Polygon
+        Polygon,
+        VerticalZone,
+        HorizontalZone
     }
 
-    /*
+    /**
      * Universal constructors
      */
     public Zone(double x, double y, double width, double height, DrawType type) {
@@ -38,14 +40,14 @@ public class Zone {
         }
     }
 
-    /*
+    /**
      * Mimic of the standard contructor but using wpi classes
      */
     public Zone(Pose2d pos, double width, double height, DrawType type) {
         this(pos.getX(), pos.getY(), width, height, type);
     }
 
-    /*
+    /**
      * Mimic of the standard contructor but using wpi classes
      * Warning!!! This gets rid of angles.
      */
@@ -53,21 +55,21 @@ public class Zone {
         this(pos.getX(), pos.getY(), width, height, type);
     }
 
-    /*
+    /**
      * Creates a zone in a circle shape
      */
     public Zone(double centerX, double centerY, double radius) {
         this(centerX, centerY, radius, radius, DrawType.Circle);
     }
 
-    /*
+    /**
      * Creates a zone in a circle shape but with a Pose2d
      */
     public Zone(Pose2d pos, double radius) {
         this(pos.getX(), pos.getY(), radius);
     }
 
-    /*
+    /**
      * Creates a zone in a circle shape but with a Translation2d
      * Warning!!! This gets rid of angles.
      */
@@ -75,21 +77,21 @@ public class Zone {
         this(pos.getX(), pos.getY(), radius);
     }
 
-    /*
+    /**
      * Creates a zone in a center rectangle shape
      */
     public Zone(double centerX, double centerY, double width, double height) {
         this(centerX, centerY, width, height, DrawType.CenterRectangle);
     }
 
-    /*
+    /**
      * Creates a zone in a center rectangle shape but with a Pose2d
      */
     public Zone(Pose2d pos, double width, double height) {
         this(pos.getX(), pos.getY(), width, height);
     }
 
-    /*
+    /**
      * Creates a zone in a center rectangle shape but with a Translation2d
      * Warning!!! This gets rid of angles.
      */
