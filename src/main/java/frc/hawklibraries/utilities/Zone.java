@@ -20,8 +20,8 @@ public class Zone {
     private Shape shapeHolder;
 
     /**
-     * How the zone would be drawn
-     * Too lazy to do poly and directional zones because of stuff
+     * How a zone would be drawn
+     * Too lazy to do directional zones because of questionable implementation
      */
     public static enum DrawType {
         Circle,
@@ -77,16 +77,15 @@ public class Zone {
     /**
      * Polygon constructor
      * 
-     * Loses point percision as it goes from double -> int aka round(double)
+     * Loses point percision as it goes from double -> int. aka round(double)
      * 
      * @param points Holds points in the format of [x1, y1, x2, y2, ...]
      */
     public Zone(double[] points) {
         int[] x = new int[points.length / 2];
         int[] y = new int[points.length / 2];
-        int vertexCount = points.length / 2;
 
-        for (int i = 0; i < vertexCount; i++) {
+        for (int i = 0; i < points.length / 2; i++) {
             x[i] = (int) Math.round(points[i * 2]);
             y[i] = (int) Math.round(points[i * 2 + 1]);
         }
@@ -97,7 +96,26 @@ public class Zone {
     /**
      * Polygon constructor
      * 
-     * Loses point percision as it goes from double -> int aka round(double)
+     * Loses point percision as it goes from double -> int. aka round(double)
+     * 
+     * @param points Holds points in the format of [[x1, y1], [x2, y2], ...]
+     */
+    public Zone(double[][] points) {
+        int[] x = new int[points.length];
+        int[] y = new int[points.length];
+
+        for (int i = 0; i < points.length; i++) {
+            x[i] = (int) Math.round(points[i][0]);
+            y[i] = (int) Math.round(points[i][1]);
+        }
+
+        shapeHolder = new Area(new Polygon(x, y, x.length));
+    }
+
+    /**
+     * Polygon constructor
+     * 
+     * Loses point percision as it goes from double -> int. aka round(double)
      * 
      * @param points An array of Pose2d
      */
@@ -116,7 +134,7 @@ public class Zone {
     /**
      * Polygon constructor
      * 
-     * Loses point percision as it goes from double -> int aka round(double)
+     * Loses point percision as it goes from double -> int. aka round(double)
      * No angles 
      * 
      * @param points An array of Translation2d
