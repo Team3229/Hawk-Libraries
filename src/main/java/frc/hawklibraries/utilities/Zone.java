@@ -9,19 +9,16 @@ import java.awt.geom.Area;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
-// note: make the VZ/HZ the game board width/height?
-
 /**
- * Used to store shape data in a easy-to-learn way 
- * Does not support angles
- * Suggestion: use top left ... 
+ * Used to store shape data in a easy-to-learn way. 
+ * Does not support angles. 
+ * Suggestion: use top left DrawTypes. 
  */
 public class Zone {
     private Shape shapeHolder;
 
     /**
-     * How a zone would be drawn
-     * Too lazy to do directional zones because of questionable implementation
+     * How a zone would be drawn. 
      */
     public static enum DrawType {
         Circle,
@@ -30,56 +27,68 @@ public class Zone {
         CenterRectangle,
         TopLeftRectangle,
         TwoPointRectangle,
-        Polygon,
-        VerticalZone,
-        HorizontalZone
+        Polygon
     }
 
     /**
-     * Universal constructor
+     * Universal constructor.
+     * Excludes polygons.
      * 
-     * Excludes polygons
+     * @param x The starting x cord of the shape.
+     * @param y The starting y cord of the shape.
+     * @param x2 The first value (usually but not all the time width).
+     * @param y2 The second value (usually but not all the time height).
+     * @param type The type of shape to draw (view DrawType for the types).
      */
-    public Zone(double x, double y, double width, double height, DrawType type) {
+    public Zone(double x, double y, double x2, double y2, DrawType type) {
         if (type.equals(DrawType.CenterRectangle)) {
             // Width and height are radius style.
-            shapeHolder = new Rectangle2D.Double(x - width / 2, y - height / 2, width / 2, height / 2);
+            shapeHolder = new Rectangle2D.Double(x - x2 / 2, y - y2 / 2, x2 / 2, y2 / 2);
         } else if (type.equals(DrawType.TopLeftRectangle)) {
-            shapeHolder = new Rectangle2D.Double(x, y, width, height);
+            shapeHolder = new Rectangle2D.Double(x, y, x2, y2);
         } else if (type.equals(DrawType.Circle) || type.equals(DrawType.CenterEllipse)) {
             // Width and height are radius style. I hope
-            shapeHolder = new Ellipse2D.Double(x - width / 2, y - height / 2, width / 2, height / 2);
+            shapeHolder = new Ellipse2D.Double(x - x2 / 2, y - y2 / 2, x2 / 2, y2 / 2);
         } else if (type.equals(DrawType.TopLeftEllipse)) {
-            shapeHolder = new Rectangle2D.Double(x, y, width, height);
+            shapeHolder = new Rectangle2D.Double(x, y, x2, y2);
         } else if (type.equals(DrawType.TwoPointRectangle)) {
             // width/height is treated as x2, y2 
-            shapeHolder = new Rectangle2D.Double(x, y, width - x, height - y);
+            shapeHolder = new Rectangle2D.Double(x, y, x2 - x, y2 - y);
         }
     }
 
     /**
-     * Mimic of the standard contructor but using wpi classes
+     * Mimic of the standard contructor but using a {@code Pose2d}.
+     * 
+     * @param pos The starting position of the shape.
+     * @param x2 The first value (usually but not all the time width).
+     * @param y2 The second value (usually but not all the time height).
+     * @param type The type of shape to draw (view DrawType for the types).
      */
-    public Zone(Pose2d pos, double width, double height, DrawType type) {
-        this(pos.getX(), pos.getY(), width, height, type);
+    public Zone(Pose2d pos, double x2, double y2, DrawType type) {
+        this(pos.getX(), pos.getY(), x2, y2, type);
     }
 
     /**
-     * Mimic of the standard contructor but using wpi classes
-     * Warning!!! This gets rid of angles.
+     * Mimic of the standard contructor but using wpi {@code Translation2d}.
+     * 
+     * @param pos The starting position of the shape. Warning!!! This gets rid of angles.
+     * @param x2 The first value (usually but not all the time width).
+     * @param y2 The second value (usually but not all the time height).
+     * @param type The type of shape to draw (view DrawType for the types).
      */
-    public Zone(Translation2d pos, double width, double height, DrawType type) {
-        this(pos.getX(), pos.getY(), width, height, type);
+    public Zone(Translation2d pos, double x2, double y2, DrawType type) {
+        this(pos.getX(), pos.getY(), x2, y2, type);
     }
 
     // Polygon
 
     /**
-     * Polygon constructor
+     * Polygon constructor. 
      * 
-     * Loses point percision as it goes from double -> int. aka round(double)
+     * Loses point percision as it goes from double -> int.
      * 
-     * @param points Holds points in the format of [x1, y1, x2, y2, ...]
+     * @param points Holds points in the format of {@code [x1, y1, x2, y2, ...]}.
      */
     public Zone(double[] points) {
         int[] x = new int[points.length / 2];
@@ -94,11 +103,11 @@ public class Zone {
     }
 
     /**
-     * Polygon constructor
+     * Polygon constructor.
      * 
-     * Loses point percision as it goes from double -> int. aka round(double)
+     * Loses point percision as it goes from double -> int.
      * 
-     * @param points Holds points in the format of [[x1, y1], [x2, y2], ...]
+     * @param points Holds points in the format of {@code [[x1, y1], [x2, y2], ...]}.
      */
     public Zone(double[][] points) {
         int[] x = new int[points.length];
@@ -113,11 +122,11 @@ public class Zone {
     }
 
     /**
-     * Polygon constructor
+     * Polygon constructor.
      * 
-     * Loses point percision as it goes from double -> int. aka round(double)
+     * Loses point percision as it goes from double -> int.
      * 
-     * @param points An array of Pose2d
+     * @param points An array of Pose2d used to map the polygon.
      */
     public Zone(Pose2d[] points) {
         int[] x = new int[points.length / 2];
@@ -132,12 +141,11 @@ public class Zone {
     }
 
     /**
-     * Polygon constructor
+     * Polygon constructor.
      * 
-     * Loses point percision as it goes from double -> int. aka round(double)
-     * No angles 
+     * Loses point percision as it goes from double -> int.
      * 
-     * @param points An array of Translation2d
+     * @param points An array of Translation2d used to map the polygon. Warning!!! Does not use angles.
      */
     public Zone(Translation2d[] points) {
         int[] x = new int[points.length / 2];
@@ -154,22 +162,31 @@ public class Zone {
     // Circles
 
     /**
-     * Creates a zone in a circle shape
+     * Creates a zone in a circle shape.
+     * 
+     * @param x The center x cord of the circle.
+     * @param y The center y cord of the circle.
+     * @param radius The radius of the circle.
      */
-    public Zone(double centerX, double centerY, double radius) {
-        this(centerX, centerY, radius, radius, DrawType.Circle);
+    public Zone(double x, double y, double radius) {
+        this(x, y, radius, radius, DrawType.Circle);
     }
 
     /**
-     * Creates a zone in a circle shape but with a Pose2d
+     * Creates a zone in a circle shape but with a {@code Pose2d}.
+     * 
+     * @param pos The center of the circle.
+     * @param radius The radius of the circle.
      */
     public Zone(Pose2d pos, double radius) {
         this(pos.getX(), pos.getY(), radius);
     }
 
     /**
-     * Creates a zone in a circle shape but with a Translation2d
-     * Warning!!! This gets rid of angles.
+     * Creates a zone in a circle shape but with a {@code Translation2d}.
+     * 
+     * @param pos The center of the circle. Warning!!! This gets rid of angles.
+     * @param radius The radius of the circle.
      */
     public Zone(Translation2d pos, double radius) {
         this(pos.getX(), pos.getY(), radius);
@@ -178,22 +195,34 @@ public class Zone {
     // Top left rec
 
     /**
-     * Creates a zone in a center rectangle shape
+     * Creates a zone in a top left rectangle shape.
+     * 
+     * @param x The x cord of the rectangle.
+     * @param y The y cord of the rectangle.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
      */
     public Zone(double x, double y, double width, double height) {
         this(x, y, width, height, DrawType.TopLeftRectangle);
     }
 
     /**
-     * Creates a zone in a top left rectangle shape but with a Pose2d
+     * Creates a zone in a top left rectangle shape but with a {@code Pose2d}.
+     * 
+     * @param pos The position of the rectangle.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
      */
     public Zone(Pose2d pos, double width, double height) {
         this(pos.getX(), pos.getY(), width, height);
     }
 
     /**
-     * Creates a zone in a top left rectangle shape but with a Translation2d
-     * Warning!!! This gets rid of angles.
+     * Creates a zone in a top left rectangle shape but with a {@code Translation2d}.
+     * 
+     * @param pos The position of the rectangle. Warning!!! This gets rid of angles.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
      */
     public Zone(Translation2d pos, double width, double height) {
         this(pos.getX(), pos.getY(), width, height);
@@ -202,20 +231,20 @@ public class Zone {
     // 2 point rec
 
     /**
-     * Creates a rectangle with the first point being top left and the second being bottom right
+     * Creates a rectangle with the first point being top left and the second being bottom right.
      * 
-     * @param point1 double array with index 0 being x and index 1 being y
-     * @param point2 double array with index 0 being x and index 1 being y
+     * @param point1 An array with the format of {@code [x1, y1]}.
+     * @param point2 An array with the format of {@code [x2, y2]}.
      */
     public Zone(double[] point1, double[] point2) {
         this(point1[0], point1[1], point2[0], point2[1], DrawType.TopLeftRectangle);
     }
 
     /**
-     * Creates a rectangle with the first point being top left and the second being bottom right
+     * Creates a rectangle with the first point being top left and the second being bottom right.
      * 
-     * @param point1 A Pose2d for the top left
-     * @param point2 A Pose2d for the bottom right
+     * @param point1 A Pose2d for the top left.
+     * @param point2 A Pose2d for the bottom right.
      */
     public Zone(Pose2d point1, Pose2d point2) {
         this(
@@ -225,10 +254,10 @@ public class Zone {
     }
 
     /**
-     * Creates a rectangle with the first point being top left and the second being bottom right
+     * Creates a rectangle with the first point being top left and the second being bottom right.
      * 
-     * @param point1 A Translation2d for the top left
-     * @param point2 A Translation2d for the bottom right
+     * @param point1 A Translation2d for the top left.
+     * @param point2 A Translation2d for the bottom right.
      */
     public Zone(Translation2d point1, Translation2d point2) {
         this(
@@ -237,6 +266,9 @@ public class Zone {
         );
     }
 
+    /**
+     * @return The shape of the zone.
+     */
     public Shape getShape() {
         return shapeHolder;
     }
