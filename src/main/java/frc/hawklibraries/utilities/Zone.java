@@ -10,7 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
 /**
- * Used to store shape data in a easy-to-learn way. Used with MapZoner. 
+ * Used to store shape data in a easy-to-learn way. Used best with MapZoner. 
  * Does not support angles. 
  * Suggestion: use top left DrawTypes. 
  */
