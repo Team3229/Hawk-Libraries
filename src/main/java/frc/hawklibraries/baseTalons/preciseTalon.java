@@ -1,8 +1,8 @@
 package frc.hawklibraries.baseTalons;
 
 /**
- * reaches and maintains an angle
+ * motor that intends to reach and maintain an angle
  */
-public class preciseTalon {
+public class PreciseTalon {
     
 }

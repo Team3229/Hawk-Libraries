@@ -1,8 +1,8 @@
 package frc.hawklibraries.baseTalons;
 
-/** 
- * spins a lot
+/**
+ * motor that intends to constantly spin during an interval
  */
-public class perpetualTalon {
+public class PerpetualTalon {
     
 }
