@@ -1,6 +1,7 @@
 package frc.hawklibraries.baseTalons.examples;
 
 import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -20,6 +21,8 @@ public class ExamplePrecise extends SubsystemBase {
         config = new TalonConfig()
         .setPIDVASG(10, 1, 4, 45, 190, 0.0001, 85)
             .setSensorToMechanismRatio(1000)
+            .setGravityModeValue(GravityTypeValue.Arm_Cosine)
+            .setArmVelocity(25000)
             .setCurrentLimit(40) // the default is 40 so it won't be changed
             .setMaxVoltage(12) // the default is 12 so it won't be changed
             .setNeutralModeValue(NeutralModeValue.Coast)
