@@ -14,7 +14,9 @@ public class PIDConstants {
   private double kP;
   private double kI;
   private double kD;
-  private double kFF;
+  private double kV;
+  private double kA;
+  private double kS;
   private double kOutputMin = -1;
   private double kOutputMax = 1;
 
@@ -57,13 +59,15 @@ public class PIDConstants {
    * @param kP Proportional constant.
    * @param kI Integral constant.
    * @param kD Derivative constant.
-   * @param kFF Feedforward constant.
+   * @param kV Velocity feedforward constant.
    */
-  public PIDConstants(double kP, double kI, double kD, double kFF) {
+  public PIDConstants(double kP, double kI, double kD, double kV, double kA, double kS) {
     this.kP = kP;
     this.kI = kI;
     this.kD = kD;
-    this.kFF = kFF;
+    this.kV = kV;
+    this.kA = kA;
+    this.kS = kS;
   }
 
   /**
@@ -77,11 +81,13 @@ public class PIDConstants {
    * @param kOutputMax Maximum output value.
    */
   public PIDConstants(
-      double kP, double kI, double kD, double kFF, double kOutputMin, double kOutputMax) {
+      double kP, double kI, double kD, double kV, double kA, double kS, double kOutputMin, double kOutputMax) {
     this.kP = kP;
     this.kI = kI;
     this.kD = kD;
-    this.kFF = kFF;
+    this.kV = kV;
+    this.kA = kA;
+    this.kS = kS;
     this.kOutputMin = kOutputMin;
     this.kOutputMax = kOutputMax;
   }
@@ -92,6 +98,6 @@ public class PIDConstants {
    * @return Array of PID constants [kP, kI, kD, kFF].
    */
   public double[] getAsArray() {
-    return new double[] {this.kP, this.kI, this.kD, this.kFF};
+    return new double[] {this.kP, this.kI, this.kD, this.kV, this.kA, this.kS};
   }
 }
