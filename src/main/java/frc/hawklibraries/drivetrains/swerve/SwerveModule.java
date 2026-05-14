@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.FeedForwardConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -72,11 +73,16 @@ public class SwerveModule {
             Math.PI * config.getWheelDiameter() / 60 / config.getDriveGearRatio());
     m_driveMotorConfig
         .closedLoop
-        .pidf(
+        .pid(
             config.getDrivePID().getKP(),
             config.getDrivePID().getKI(),
-            config.getDrivePID().getKD(),
-            config.getDrivePID().getKFF());
+            config.getDrivePID().getKD()
+        )
+        .apply(new FeedForwardConfig()
+            .kV(config.getDrivePID().getKV())
+            .kA(config.getDrivePID().getKA())
+            .kS(config.getDrivePID().getKS())
+        );
 
     m_turningMotorConfig = new SparkMaxConfig();
     m_turningMotorConfig.idleMode(IdleMode.kCoast).inverted(true);
@@ -85,11 +91,15 @@ public class SwerveModule {
         .closedLoop
         .positionWrappingInputRange(-Math.PI, Math.PI)
         .positionWrappingEnabled(true)
-        .pidf(
+        .pid(
             config.getTurningPID().getKP(),
             config.getTurningPID().getKI(),
-            config.getTurningPID().getKD(),
-            config.getTurningPID().getKFF());
+            config.getTurningPID().getKD())
+        .apply(new FeedForwardConfig()
+            .kV(config.getTurningPID().getKV())
+            .kA(config.getTurningPID().getKA())
+            .kS(config.getTurningPID().getKS())
+        );
 
     m_driveMotor.configure(m_driveMotorConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
     m_turningMotor.configure(m_turningMotorConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
@@ -130,8 +140,8 @@ public class SwerveModule {
     desiredState.speedMetersPerSecond *= desiredState.angle.minus(currentRotation).getCos();
 
     // Apply speed and angle to respective controllers
-    m_drivePIDController.setReference(desiredState.speedMetersPerSecond, ControlType.kVelocity);
-    m_turningPIDController.setReference(desiredState.angle.getRadians(), ControlType.kPosition);
+    m_drivePIDController.setSetpoint(desiredState.speedMetersPerSecond, ControlType.kVelocity);
+    m_turningPIDController.setSetpoint(desiredState.angle.getRadians(), ControlType.kPosition);
   }
 
   /** Aligns the turning motor's position with the encoder's measured position. */
